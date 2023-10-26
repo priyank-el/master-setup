@@ -1,0 +1,398 @@
+[
+  {
+    "state_id": "1398",
+    "state_name": "Howland Island",
+    "latitude": "0.81132190",
+    "longitude": "-176.61827360"
+  },
+  {
+    "state_id": "1399",
+    "state_name": "Delaware",
+    "latitude": "38.91083250",
+    "longitude": "-75.52766990"
+  },
+  {
+    "state_id": "1400",
+    "state_name": "Alaska",
+    "latitude": "64.20084130",
+    "longitude": "-149.49367330"
+  },
+  {
+    "state_id": "1401",
+    "state_name": "Maryland",
+    "latitude": "39.04575490",
+    "longitude": "-76.64127120"
+  },
+  {
+    "state_id": "1402",
+    "state_name": "Baker Island",
+    "latitude": "0.19362660",
+    "longitude": "-176.47690800"
+  },
+  {
+    "state_id": "1403",
+    "state_name": "Kingman Reef",
+    "latitude": "6.38333300",
+    "longitude": "-162.41666700"
+  },
+  {
+    "state_id": "1404",
+    "state_name": "New Hampshire",
+    "latitude": "43.19385160",
+    "longitude": "-71.57239530"
+  },
+  {
+    "state_id": "1405",
+    "state_name": "Wake Island",
+    "latitude": "19.27961900",
+    "longitude": "166.64993480"
+  },
+  {
+    "state_id": "1406",
+    "state_name": "Kansas",
+    "latitude": "39.01190200",
+    "longitude": "-98.48424650"
+  },
+  {
+    "state_id": "1407",
+    "state_name": "Texas",
+    "latitude": "31.96859880",
+    "longitude": "-99.90181310"
+  },
+  {
+    "state_id": "1408",
+    "state_name": "Nebraska",
+    "latitude": "41.49253740",
+    "longitude": "-99.90181310"
+  },
+  {
+    "state_id": "1409",
+    "state_name": "Vermont",
+    "latitude": "44.55880280",
+    "longitude": "-72.57784150"
+  },
+  {
+    "state_id": "1410",
+    "state_name": "Jarvis Island",
+    "latitude": "-0.37435030",
+    "longitude": "-159.99672060"
+  },
+  {
+    "state_id": "1411",
+    "state_name": "Hawaii",
+    "latitude": "19.89676620",
+    "longitude": "-155.58278180"
+  },
+  {
+    "state_id": "1412",
+    "state_name": "Guam",
+    "latitude": "13.44430400",
+    "longitude": "144.79373100"
+  },
+  {
+    "state_id": "1413",
+    "state_name": "United States Virgin Islands",
+    "latitude": "18.33576500",
+    "longitude": "-64.89633500"
+  },
+  {
+    "state_id": "1414",
+    "state_name": "Utah",
+    "latitude": "39.32098010",
+    "longitude": "-111.09373110"
+  },
+  {
+    "state_id": "1415",
+    "state_name": "Oregon",
+    "latitude": "43.80413340",
+    "longitude": "-120.55420120"
+  },
+  {
+    "state_id": "1416",
+    "state_name": "California",
+    "latitude": "36.77826100",
+    "longitude": "-119.41793240"
+  },
+  {
+    "state_id": "1417",
+    "state_name": "New Jersey",
+    "latitude": "40.05832380",
+    "longitude": "-74.40566120"
+  },
+  {
+    "state_id": "1418",
+    "state_name": "North Dakota",
+    "latitude": "47.55149260",
+    "longitude": "-101.00201190"
+  },
+  {
+    "state_id": "1419",
+    "state_name": "Kentucky",
+    "latitude": "37.83933320",
+    "longitude": "-84.27001790"
+  },
+  {
+    "state_id": "1420",
+    "state_name": "Minnesota",
+    "latitude": "46.72955300",
+    "longitude": "-94.68589980"
+  },
+  {
+    "state_id": "1421",
+    "state_name": "Oklahoma",
+    "latitude": "35.46756020",
+    "longitude": "-97.51642760"
+  },
+  {
+    "state_id": "1422",
+    "state_name": "Pennsylvania",
+    "latitude": "41.20332160",
+    "longitude": "-77.19452470"
+  },
+  {
+    "state_id": "1423",
+    "state_name": "New Mexico",
+    "latitude": "34.51994020",
+    "longitude": "-105.87009010"
+  },
+  {
+    "state_id": "1424",
+    "state_name": "American Samoa",
+    "latitude": "-14.27097200",
+    "longitude": "-170.13221700"
+  },
+  {
+    "state_id": "1425",
+    "state_name": "Illinois",
+    "latitude": "40.63312490",
+    "longitude": "-89.39852830"
+  },
+  {
+    "state_id": "1426",
+    "state_name": "Michigan",
+    "latitude": "44.31484430",
+    "longitude": "-85.60236430"
+  },
+  {
+    "state_id": "1427",
+    "state_name": "Virginia",
+    "latitude": "37.43157340",
+    "longitude": "-78.65689420"
+  },
+  {
+    "state_id": "1428",
+    "state_name": "Johnston Atoll",
+    "latitude": "16.72950350",
+    "longitude": "-169.53364770"
+  },
+  {
+    "state_id": "1429",
+    "state_name": "West Virginia",
+    "latitude": "38.59762620",
+    "longitude": "-80.45490260"
+  },
+  {
+    "state_id": "1430",
+    "state_name": "Mississippi",
+    "latitude": "32.35466790",
+    "longitude": "-89.39852830"
+  },
+  {
+    "state_id": "1431",
+    "state_name": "Northern Mariana Islands",
+    "latitude": "15.09790000",
+    "longitude": "145.67390000"
+  },
+  {
+    "state_id": "1432",
+    "state_name": "United States Minor Outlying Islands",
+    "latitude": "19.28231920",
+    "longitude": "166.64704700"
+  },
+  {
+    "state_id": "1433",
+    "state_name": "Massachusetts",
+    "latitude": "42.40721070",
+    "longitude": "-71.38243740"
+  },
+  {
+    "state_id": "1434",
+    "state_name": "Arizona",
+    "latitude": "34.04892810",
+    "longitude": "-111.09373110"
+  },
+  {
+    "state_id": "1435",
+    "state_name": "Connecticut",
+    "latitude": "41.60322070",
+    "longitude": "-73.08774900"
+  },
+  {
+    "state_id": "1436",
+    "state_name": "Florida",
+    "latitude": "27.66482740",
+    "longitude": "-81.51575350"
+  },
+  {
+    "state_id": "1437",
+    "state_name": "District of Columbia",
+    "latitude": "38.90719230",
+    "longitude": "-77.03687070"
+  },
+  {
+    "state_id": "1438",
+    "state_name": "Midway Atoll",
+    "latitude": "28.20721680",
+    "longitude": "-177.37349260"
+  },
+  {
+    "state_id": "1439",
+    "state_name": "Navassa Island",
+    "latitude": "18.41006890",
+    "longitude": "-75.01146120"
+  },
+  {
+    "state_id": "1440",
+    "state_name": "Indiana",
+    "latitude": "40.26719410",
+    "longitude": "-86.13490190"
+  },
+  {
+    "state_id": "1441",
+    "state_name": "Wisconsin",
+    "latitude": "43.78443970",
+    "longitude": "-88.78786780"
+  },
+  {
+    "state_id": "1442",
+    "state_name": "Wyoming",
+    "latitude": "43.07596780",
+    "longitude": "-107.29028390"
+  },
+  {
+    "state_id": "1443",
+    "state_name": "South Carolina",
+    "latitude": "33.83608100",
+    "longitude": "-81.16372450"
+  },
+  {
+    "state_id": "1444",
+    "state_name": "Arkansas",
+    "latitude": "35.20105000",
+    "longitude": "-91.83183340"
+  },
+  {
+    "state_id": "1445",
+    "state_name": "South Dakota",
+    "latitude": "43.96951480",
+    "longitude": "-99.90181310"
+  },
+  {
+    "state_id": "1446",
+    "state_name": "Montana",
+    "latitude": "46.87968220",
+    "longitude": "-110.36256580"
+  },
+  {
+    "state_id": "1447",
+    "state_name": "North Carolina",
+    "latitude": "35.75957310",
+    "longitude": "-79.01929970"
+  },
+  {
+    "state_id": "1448",
+    "state_name": "Palmyra Atoll",
+    "latitude": "5.88850260",
+    "longitude": "-162.07866560"
+  },
+  {
+    "state_id": "1449",
+    "state_name": "Puerto Rico",
+    "latitude": "18.22083300",
+    "longitude": "-66.59014900"
+  },
+  {
+    "state_id": "1450",
+    "state_name": "Colorado",
+    "latitude": "39.55005070",
+    "longitude": "-105.78206740"
+  },
+  {
+    "state_id": "1451",
+    "state_name": "Missouri",
+    "latitude": "37.96425290",
+    "longitude": "-91.83183340"
+  },
+  {
+    "state_id": "1452",
+    "state_name": "New York",
+    "latitude": "40.71277530",
+    "longitude": "-74.00597280"
+  },
+  {
+    "state_id": "1453",
+    "state_name": "Maine",
+    "latitude": "45.25378300",
+    "longitude": "-69.44546890"
+  },
+  {
+    "state_id": "1454",
+    "state_name": "Tennessee",
+    "latitude": "35.51749130",
+    "longitude": "-86.58044730"
+  },
+  {
+    "state_id": "1455",
+    "state_name": "Georgia",
+    "latitude": "32.16562210",
+    "longitude": "-82.90007510"
+  },
+  {
+    "state_id": "1456",
+    "state_name": "Alabama",
+    "latitude": "32.31823140",
+    "longitude": "-86.90229800"
+  },
+  {
+    "state_id": "1457",
+    "state_name": "Louisiana",
+    "latitude": "30.98429770",
+    "longitude": "-91.96233270"
+  },
+  {
+    "state_id": "1458",
+    "state_name": "Nevada",
+    "latitude": "38.80260970",
+    "longitude": "-116.41938900"
+  },
+  {
+    "state_id": "1459",
+    "state_name": "Iowa",
+    "latitude": "41.87800250",
+    "longitude": "-93.09770200"
+  },
+  {
+    "state_id": "1460",
+    "state_name": "Idaho",
+    "latitude": "44.06820190",
+    "longitude": "-114.74204080"
+  },
+  {
+    "state_id": "1461",
+    "state_name": "Rhode Island",
+    "latitude": "41.58009450",
+    "longitude": "-71.47742910"
+  },
+  {
+    "state_id": "1462",
+    "state_name": "Washington",
+    "latitude": "47.75107410",
+    "longitude": "-120.74013850"
+  },
+  {
+    "state_id": "4851",
+    "state_name": "Ohio",
+    "latitude": "40.41728710",
+    "longitude": "-82.90712300"
+  }
+]

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>Verification Email</title>
+    <style>
+      * {
+        font-family: "Poppins", sans-serif !important;
+        padding: 0px;
+        margin: 0px;
+        box-sizing: border-box;
+        clear: both;
+      }
+
+      body {
+        width: 100%;
+        overflow-x: hidden;
+      }
+
+      .h-100 {
+        height: 100%;
+      }
+
+      .section_gap {
+        padding-top: 60px;
+        padding-bottom: 60px;
+      }
+
+      .section_gap_x {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      h6 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #150e27;
+      }
+      p {
+        font-size: 14px;
+        font-weight: 500;
+        color: #333333;
+      }
+      .text_gray {
+        color: #a3a3a3;
+      }
+      .mb_2 {
+        margin-bottom: 8px !important;
+      }
+      .mb_4 {
+        margin-bottom: 16px !important;
+      }
+      .mb_5 {
+        margin-bottom: 28px !important;
+      }
+      /* #01cc05 */
+      /* #0961b1 */
+      /* #e4e3e5 */
+      .mail_temp_section .temp_wrapper {
+        max-width: 800px;
+        width: 100%;
+        margin: auto;
+        background-color: #ffffff;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        border: 1px solid rgba(100, 100, 111, 0.2);
+        height: 100%;
+      }
+      .mail_temp_section .temp_wrapper .temp_header {
+        height: 220px;
+        width: 100%;
+        background-image: url("https://staging.knowyourtrucker.com/api/uploads/images/letter_header.png");
+        background-position: top left;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .mail_temp_section .temp_wrapper .temp_header img {
+        width: 100%;
+        height: auto;
+      }
+      .mail_temp_section .temp_wrapper .temp_body {
+        padding: 40px 60px;
+      }
+      .main_description .otp_line {
+        width: 100%;
+        text-align: center;
+        padding: 6px 12px;
+      }
+      .main_description .otp_text {
+        width: fit-content;
+        text-align: center;
+        margin: auto;
+        font-weight: 700;
+        font-size: 32px;
+        color: #181e34;
+      }
+      .mail_temp_section .temp_wrapper .temp_footer {
+        background-image: url("https://staging.knowyourtrucker.com/api/uploads/images/email_footer.png");
+        background-repeat: no-repeat;
+        background-position: top left;
+        background-size: 100% 100%;
+        height: 48px;
+        width: 100%;
+      }
+      @media screen and (max-width: 567.99px) {
+        .mail_temp_section .temp_wrapper .temp_body {
+          padding: 40px 15px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section
+      role="modules-container"
+      class="mail_temp_section section_gap section_gap_x h-100"
+    >
+      <div class="temp_wrapper" role="modules-container">
+        <div class="temp_content" role="modules-container">
+          <div class="temp_header" role="modules-container"></div>
+          <div class="temp_body" role="module">
+            <div class="text_content" role="module">
+              <div class="main_description">
+                <p class="mb_4">Dear Valued Customer,</p>
+                <p class="mb_4">
+                  Please utilize this one-time verification code for your
+                  current transaction on our web or mobile app
+                </p>
+                <p class="mb_4">Your Verification Code:</p>
+                <p class="mb_4 otp_line">
+                  <span class="otp_text"><%- otp %></span>
+                </p>
+                <p class="mb_4">
+                  If you did not request this verification code, please
+                  disregard this email. Please do not reply to this email, as it is
+                  not monitored.
+                </p>
+                <p class="mb_4">Thank you for choosing Know Your Trucker.</p>
+                <p>Best regards,</p>
+                <p>Know Your Trucker Team</p>
+              </div>
+            </div>
+          </div>
+          <div class="temp_footer"></div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

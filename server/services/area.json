@@ -1,0 +1,1594 @@
+[
+  {
+    "area_code":"201",
+    "area_name":"Jersey City, NJ"
+  },
+  {
+    "area_code":"202",
+    "area_name":"District of Columbia"
+  },
+  {
+    "area_code":"203",
+    "area_name":"Bridgeport, CT"
+  },
+  {
+    "area_code":"204",
+    "area_name":"Manitoba"
+  },
+  {
+    "area_code":"205",
+    "area_name":"Birmingham, AL"
+  },
+  {
+    "area_code":"206",
+    "area_name":"Seattle, WA"
+  },
+  {
+    "area_code":"207",
+    "area_name":"Portland, ME"
+  },
+  {
+    "area_code":"208",
+    "area_name":"Idaho"
+  },
+  {
+    "area_code":"209",
+    "area_name":"Stockton, CA"
+  },
+  {
+    "area_code":"210",
+    "area_name":"San Antonio, TX"
+  },
+  {
+    "area_code":"212",
+    "area_name":"New York, NY"
+  },
+  {
+    "area_code":"213",
+    "area_name":"Los Angeles, CA"
+  },
+  {
+    "area_code":"214",
+    "area_name":"Dallas, TX"
+  },
+  {
+    "area_code":"215",
+    "area_name":"Philadelphia, PA"
+  },
+  {
+    "area_code":"216",
+    "area_name":"Cleveland, OH"
+  },
+  {
+    "area_code":"217",
+    "area_name":"Springfield, IL"
+  },
+  {
+    "area_code":"218",
+    "area_name":"Duluth, MN"
+  },
+  {
+    "area_code":"219",
+    "area_name":"Hammond, IN"
+  },
+  {
+    "area_code":"220",
+    "area_name":"Newark, OH"
+  },
+  {
+    "area_code":"223",
+    "area_name":"Lancaster, PA"
+  },
+  {
+    "area_code":"224",
+    "area_name":"Elgin, IL"
+  },
+  {
+    "area_code":"225",
+    "area_name":"Baton Rouge, LA"
+  },
+  {
+    "area_code":"226",
+    "area_name":"London, ON"
+  },
+  {
+    "area_code":"228",
+    "area_name":"Gulfport, MS"
+  },
+  {
+    "area_code":"229",
+    "area_name":"Albany, GA"
+  },
+  {
+    "area_code":"231",
+    "area_name":"Muskegon, MI"
+  },
+  {
+    "area_code":"234",
+    "area_name":"Akron, OH"
+  },
+  {
+    "area_code":"236",
+    "area_name":"Vancouver, BC"
+  },
+  {
+    "area_code":"239",
+    "area_name":"Cape Coral, FL"
+  },
+  {
+    "area_code":"240",
+    "area_name":"Germantown, MD"
+  },
+  {
+    "area_code":"248",
+    "area_name":"Troy, MI"
+  },
+  {
+    "area_code":"249",
+    "area_name":"Sudbury, ON"
+  },
+  {
+    "area_code":"250",
+    "area_name":"Kelowna, BC"
+  },
+  {
+    "area_code":"251",
+    "area_name":"Mobile, AL"
+  },
+  {
+    "area_code":"252",
+    "area_name":"Greenville, NC"
+  },
+  {
+    "area_code":"253",
+    "area_name":"Tacoma, WA"
+  },
+  {
+    "area_code":"254",
+    "area_name":"Killeen, TX"
+  },
+  {
+    "area_code":"256",
+    "area_name":"Huntsville, AL"
+  },
+  {
+    "area_code":"260",
+    "area_name":"Fort Wayne, IN"
+  },
+  {
+    "area_code":"262",
+    "area_name":"Kenosha, WI"
+  },
+  {
+    "area_code":"263",
+    "area_name":"Montreal, QC"
+  },
+  {
+    "area_code":"267",
+    "area_name":"Philadelphia, PA"
+  },
+  {
+    "area_code":"269",
+    "area_name":"Kalamazoo, MI"
+  },
+  {
+    "area_code":"270",
+    "area_name":"Bowling Green, KY"
+  },
+  {
+    "area_code":"272",
+    "area_name":"Scranton, PA"
+  },
+  {
+    "area_code":"276",
+    "area_name":"Bristol, VA"
+  },
+  {
+    "area_code":"279",
+    "area_name":"Sacramento, CA"
+  },
+  {
+    "area_code":"281",
+    "area_name":"Houston, TX"
+  },
+  {
+    "area_code":"289",
+    "area_name":"Hamilton, ON"
+  },
+  {
+    "area_code":"301",
+    "area_name":"Germantown, MD"
+  },
+  {
+    "area_code":"302",
+    "area_name":"Delaware"
+  },
+  {
+    "area_code":"303",
+    "area_name":"Denver, CO"
+  },
+  {
+    "area_code":"304",
+    "area_name":"West Virginia"
+  },
+  {
+    "area_code":"305",
+    "area_name":"Miami, FL"
+  },
+  {
+    "area_code":"306",
+    "area_name":"Saskatchewan"
+  },
+  {
+    "area_code":"307",
+    "area_name":"Wyoming"
+  },
+  {
+    "area_code":"308",
+    "area_name":"Grand Island, NE"
+  },
+  {
+    "area_code":"309",
+    "area_name":"Peoria, IL"
+  },
+  {
+    "area_code":"310",
+    "area_name":"Los Angeles, CA"
+  },
+  {
+    "area_code":"312",
+    "area_name":"Chicago, IL"
+  },
+  {
+    "area_code":"313",
+    "area_name":"Detroit, MI"
+  },
+  {
+    "area_code":"314",
+    "area_name":"St. Louis, MO"
+  },
+  {
+    "area_code":"315",
+    "area_name":"Syracuse, NY"
+  },
+  {
+    "area_code":"316",
+    "area_name":"Wichita, KS"
+  },
+  {
+    "area_code":"317",
+    "area_name":"Indianapolis, IN"
+  },
+  {
+    "area_code":"318",
+    "area_name":"Shreveport, LA"
+  },
+  {
+    "area_code":"319",
+    "area_name":"Cedar Rapids, IA"
+  },
+  {
+    "area_code":"320",
+    "area_name":"St. Cloud, MN"
+  },
+  {
+    "area_code":"321",
+    "area_name":"Orlando, FL"
+  },
+  {
+    "area_code":"323",
+    "area_name":"Los Angeles, CA"
+  },
+  {
+    "area_code":"325",
+    "area_name":"Abilene, TX"
+  },
+  {
+    "area_code":"326",
+    "area_name":"Dayton, OH"
+  },
+  {
+    "area_code":"330",
+    "area_name":"Akron, OH"
+  },
+  {
+    "area_code":"331",
+    "area_name":"Aurora, IL"
+  },
+  {
+    "area_code":"332",
+    "area_name":"New York, NY"
+  },
+  {
+    "area_code":"334",
+    "area_name":"Montgomery, AL"
+  },
+  {
+    "area_code":"336",
+    "area_name":"Greensboro, NC"
+  },
+  {
+    "area_code":"337",
+    "area_name":"Lafayette, LA"
+  },
+  {
+    "area_code":"339",
+    "area_name":"Boston, MA"
+  },
+  {
+    "area_code":"340",
+    "area_name":"Virgin Islands"
+  },
+  {
+    "area_code":"341",
+    "area_name":"Oakland, CA"
+  },
+  {
+    "area_code":"343",
+    "area_name":"Ottawa, ON"
+  },
+  {
+    "area_code":"346",
+    "area_name":"Houston, TX"
+  },
+  {
+    "area_code":"347",
+    "area_name":"New York, NY"
+  },
+  {
+    "area_code":"350",
+    "area_name":"Stockton, CA"
+  },
+  {
+    "area_code":"351",
+    "area_name":"Lowell, MA"
+  },
+  {
+    "area_code":"352",
+    "area_name":"Gainesville, FL"
+  },
+  {
+    "area_code":"354",
+    "area_name":"Granby, QC"
+  },
+  {
+    "area_code":"360",
+    "area_name":"Vancouver, WA"
+  },
+  {
+    "area_code":"361",
+    "area_name":"Corpus Christi, TX"
+  },
+  {
+    "area_code":"363",
+    "area_name":"Hempstead, NY"
+  },
+  {
+    "area_code":"364",
+    "area_name":"Bowling Green, KY"
+  },
+  {
+    "area_code":"365",
+    "area_name":"Hamilton, ON"
+  },
+  {
+    "area_code":"367",
+    "area_name":"Quebec, QC"
+  },
+  {
+    "area_code":"368",
+    "area_name":"Calgary, AB"
+  },
+  {
+    "area_code":"380",
+    "area_name":"Columbus, OH"
+  },
+  {
+    "area_code":"385",
+    "area_name":"Salt Lake City, UT"
+  },
+  {
+    "area_code":"386",
+    "area_name":"Palm Coast, FL"
+  },
+  {
+    "area_code":"401",
+    "area_name":"Providence, RI"
+  },
+  {
+    "area_code":"402",
+    "area_name":"Omaha, NE"
+  },
+  {
+    "area_code":"403",
+    "area_name":"Calgary, AB"
+  },
+  {
+    "area_code":"404",
+    "area_name":"Atlanta, GA"
+  },
+  {
+    "area_code":"405",
+    "area_name":"Oklahoma City, OK"
+  },
+  {
+    "area_code":"406",
+    "area_name":"Montana"
+  },
+  {
+    "area_code":"407",
+    "area_name":"Orlando, FL"
+  },
+  {
+    "area_code":"408",
+    "area_name":"San Jose, CA"
+  },
+  {
+    "area_code":"409",
+    "area_name":"Beaumont, TX"
+  },
+  {
+    "area_code":"410",
+    "area_name":"Baltimore, MD"
+  },
+  {
+    "area_code":"412",
+    "area_name":"Pittsburgh, PA"
+  },
+  {
+    "area_code":"413",
+    "area_name":"Springfield, MA"
+  },
+  {
+    "area_code":"414",
+    "area_name":"Milwaukee, WI"
+  },
+  {
+    "area_code":"415",
+    "area_name":"San Francisco, CA"
+  },
+  {
+    "area_code":"416",
+    "area_name":"Toronto, ON"
+  },
+  {
+    "area_code":"417",
+    "area_name":"Springfield, MO"
+  },
+  {
+    "area_code":"418",
+    "area_name":"Quebec, QC"
+  },
+  {
+    "area_code":"419",
+    "area_name":"Toledo, OH"
+  },
+  {
+    "area_code":"423",
+    "area_name":"Chattanooga, TN"
+  },
+  {
+    "area_code":"424",
+    "area_name":"Los Angeles, CA"
+  },
+  {
+    "area_code":"425",
+    "area_name":"Bellevue, WA"
+  },
+  {
+    "area_code":"430",
+    "area_name":"Tyler, TX"
+  },
+  {
+    "area_code":"431",
+    "area_name":"Manitoba"
+  },
+  {
+    "area_code":"432",
+    "area_name":"Midland, TX"
+  },
+  {
+    "area_code":"434",
+    "area_name":"Lynchburg, VA"
+  },
+  {
+    "area_code":"435",
+    "area_name":"St. George, UT"
+  },
+  {
+    "area_code":"437",
+    "area_name":"Toronto, ON"
+  },
+  {
+    "area_code":"438",
+    "area_name":"Montreal, QC"
+  },
+  {
+    "area_code":"440",
+    "area_name":"Parma, OH"
+  },
+  {
+    "area_code":"442",
+    "area_name":"Oceanside, CA"
+  },
+  {
+    "area_code":"443",
+    "area_name":"Baltimore, MD"
+  },
+  {
+    "area_code":"445",
+    "area_name":"Philadelphia, PA"
+  },
+  {
+    "area_code":"447",
+    "area_name":"Springfield, IL"
+  },
+  {
+    "area_code":"448",
+    "area_name":"Tallahassee, FL"
+  },
+  {
+    "area_code":"450",
+    "area_name":"Granby, QC"
+  },
+  {
+    "area_code":"458",
+    "area_name":"Eugene, OR"
+  },
+  {
+    "area_code":"463",
+    "area_name":"Indianapolis, IN"
+  },
+  {
+    "area_code":"464",
+    "area_name":"Cicero, IL"
+  },
+  {
+    "area_code":"468",
+    "area_name":"Sherbrooke, QC"
+  },
+  {
+    "area_code":"469",
+    "area_name":"Dallas, TX"
+  },
+  {
+    "area_code":"470",
+    "area_name":"Atlanta, GA"
+  },
+  {
+    "area_code":"472",
+    "area_name":"Fayetteville, NC"
+  },
+  {
+    "area_code":"474",
+    "area_name":"Saskatchewan"
+  },
+  {
+    "area_code":"475",
+    "area_name":"Bridgeport, CT"
+  },
+  {
+    "area_code":"478",
+    "area_name":"Macon, GA"
+  },
+  {
+    "area_code":"479",
+    "area_name":"Fort Smith, AR"
+  },
+  {
+    "area_code":"480",
+    "area_name":"Mesa, AZ"
+  },
+  {
+    "area_code":"484",
+    "area_name":"Allentown, PA"
+  },
+  {
+    "area_code":"501",
+    "area_name":"Little Rock, AR"
+  },
+  {
+    "area_code":"502",
+    "area_name":"Louisville, KY"
+  },
+  {
+    "area_code":"503",
+    "area_name":"Portland, OR"
+  },
+  {
+    "area_code":"504",
+    "area_name":"New Orleans, LA"
+  },
+  {
+    "area_code":"505",
+    "area_name":"Albuquerque, NM"
+  },
+  {
+    "area_code":"506",
+    "area_name":"New Brunswick"
+  },
+  {
+    "area_code":"507",
+    "area_name":"Rochester, MN"
+  },
+  {
+    "area_code":"508",
+    "area_name":"Worcester, MA"
+  },
+  {
+    "area_code":"509",
+    "area_name":"Spokane, WA"
+  },
+  {
+    "area_code":"510",
+    "area_name":"Oakland, CA"
+  },
+  {
+    "area_code":"512",
+    "area_name":"Austin, TX"
+  },
+  {
+    "area_code":"513",
+    "area_name":"Cincinnati, OH"
+  },
+  {
+    "area_code":"514",
+    "area_name":"Montreal, QC"
+  },
+  {
+    "area_code":"515",
+    "area_name":"Des Moines, IA"
+  },
+  {
+    "area_code":"516",
+    "area_name":"Hempstead, NY"
+  },
+  {
+    "area_code":"517",
+    "area_name":"Lansing, MI"
+  },
+  {
+    "area_code":"518",
+    "area_name":"Albany, NY"
+  },
+  {
+    "area_code":"519",
+    "area_name":"London, ON"
+  },
+  {
+    "area_code":"520",
+    "area_name":"Tucson, AZ"
+  },
+  {
+    "area_code":"530",
+    "area_name":"Redding, CA"
+  },
+  {
+    "area_code":"531",
+    "area_name":"Omaha, NE"
+  },
+  {
+    "area_code":"534",
+    "area_name":"Eau Claire, WI"
+  },
+  {
+    "area_code":"539",
+    "area_name":"Tulsa, OK"
+  },
+  {
+    "area_code":"540",
+    "area_name":"Roanoke, VA"
+  },
+  {
+    "area_code":"541",
+    "area_name":"Eugene, OR"
+  },
+  {
+    "area_code":"548",
+    "area_name":"London, ON"
+  },
+  {
+    "area_code":"551",
+    "area_name":"Jersey City, NJ"
+  },
+  {
+    "area_code":"557",
+    "area_name":"St. Louis, MO"
+  },
+  {
+    "area_code":"559",
+    "area_name":"Fresno, CA"
+  },
+  {
+    "area_code":"561",
+    "area_name":"West Palm Beach, FL"
+  },
+  {
+    "area_code":"562",
+    "area_name":"Long Beach, CA"
+  },
+  {
+    "area_code":"563",
+    "area_name":"Davenport, IA"
+  },
+  {
+    "area_code":"564",
+    "area_name":"Vancouver, WA"
+  },
+  {
+    "area_code":"567",
+    "area_name":"Toledo, OH"
+  },
+  {
+    "area_code":"570",
+    "area_name":"Scranton, PA"
+  },
+  {
+    "area_code":"571",
+    "area_name":"Arlington, VA"
+  },
+  {
+    "area_code":"572",
+    "area_name":"Oklahoma City, OK"
+  },
+  {
+    "area_code":"573",
+    "area_name":"Columbia, MO"
+  },
+  {
+    "area_code":"574",
+    "area_name":"South Bend, IN"
+  },
+  {
+    "area_code":"575",
+    "area_name":"Las Cruces, NM"
+  },
+  {
+    "area_code":"579",
+    "area_name":"Granby, QC"
+  },
+  {
+    "area_code":"580",
+    "area_name":"Lawton, OK"
+  },
+  {
+    "area_code":"581",
+    "area_name":"Quebec, QC"
+  },
+  {
+    "area_code":"582",
+    "area_name":"Erie, PA"
+  },
+  {
+    "area_code":"584",
+    "area_name":"Manitoba"
+  },
+  {
+    "area_code":"585",
+    "area_name":"Rochester, NY"
+  },
+  {
+    "area_code":"586",
+    "area_name":"Warren, MI"
+  },
+  {
+    "area_code":"587",
+    "area_name":"Calgary, AB"
+  },
+  {
+    "area_code":"601",
+    "area_name":"Jackson, MS"
+  },
+  {
+    "area_code":"602",
+    "area_name":"Phoenix, AZ"
+  },
+  {
+    "area_code":"603",
+    "area_name":"New Hampshire"
+  },
+  {
+    "area_code":"604",
+    "area_name":"Vancouver, BC"
+  },
+  {
+    "area_code":"605",
+    "area_name":"South Dakota"
+  },
+  {
+    "area_code":"606",
+    "area_name":"Ashland, KY"
+  },
+  {
+    "area_code":"607",
+    "area_name":"Binghamton, NY"
+  },
+  {
+    "area_code":"608",
+    "area_name":"Madison, WI"
+  },
+  {
+    "area_code":"609",
+    "area_name":"Trenton, NJ"
+  },
+  {
+    "area_code":"610",
+    "area_name":"Allentown, PA"
+  },
+  {
+    "area_code":"612",
+    "area_name":"Minneapolis, MN"
+  },
+  {
+    "area_code":"613",
+    "area_name":"Ottawa, ON"
+  },
+  {
+    "area_code":"614",
+    "area_name":"Columbus, OH"
+  },
+  {
+    "area_code":"615",
+    "area_name":"Nashville, TN"
+  },
+  {
+    "area_code":"616",
+    "area_name":"Grand Rapids, MI"
+  },
+  {
+    "area_code":"617",
+    "area_name":"Boston, MA"
+  },
+  {
+    "area_code":"618",
+    "area_name":"Belleville, IL"
+  },
+  {
+    "area_code":"619",
+    "area_name":"San Diego, CA"
+  },
+  {
+    "area_code":"620",
+    "area_name":"Hutchinson, KS"
+  },
+  {
+    "area_code":"623",
+    "area_name":"Phoenix, AZ"
+  },
+  {
+    "area_code":"626",
+    "area_name":"Pasadena, CA"
+  },
+  {
+    "area_code":"628",
+    "area_name":"San Francisco, CA"
+  },
+  {
+    "area_code":"629",
+    "area_name":"Nashville, TN"
+  },
+  {
+    "area_code":"630",
+    "area_name":"Aurora, IL"
+  },
+  {
+    "area_code":"631",
+    "area_name":"Brentwood, NY"
+  },
+  {
+    "area_code":"636",
+    "area_name":"O'Fallon, MO"
+  },
+  {
+    "area_code":"639",
+    "area_name":"Saskatchewan"
+  },
+  {
+    "area_code":"640",
+    "area_name":"Trenton, NJ"
+  },
+  {
+    "area_code":"641",
+    "area_name":"Mason City, IA"
+  },
+  {
+    "area_code":"646",
+    "area_name":"New York, NY"
+  },
+  {
+    "area_code":"647",
+    "area_name":"Toronto, ON"
+  },
+  {
+    "area_code":"650",
+    "area_name":"San Mateo, CA"
+  },
+  {
+    "area_code":"651",
+    "area_name":"St. Paul, MN"
+  },
+  {
+    "area_code":"656",
+    "area_name":"Tampa, FL"
+  },
+  {
+    "area_code":"657",
+    "area_name":"Anaheim, CA"
+  },
+  {
+    "area_code":"659",
+    "area_name":"Birmingham, AL"
+  },
+  {
+    "area_code":"660",
+    "area_name":"Sedalia, MO"
+  },
+  {
+    "area_code":"661",
+    "area_name":"Bakersfield, CA"
+  },
+  {
+    "area_code":"662",
+    "area_name":"Southaven, MS"
+  },
+  {
+    "area_code":"667",
+    "area_name":"Baltimore, MD"
+  },
+  {
+    "area_code":"669",
+    "area_name":"San Jose, CA"
+  },
+  {
+    "area_code":"670",
+    "area_name":"Northern Mariana Islands"
+  },
+  {
+    "area_code":"671",
+    "area_name":"Guam"
+  },
+  {
+    "area_code":"672",
+    "area_name":"Vancouver, BC"
+  },
+  {
+    "area_code":"678",
+    "area_name":"Atlanta, GA"
+  },
+  {
+    "area_code":"680",
+    "area_name":"Syracuse, NY"
+  },
+  {
+    "area_code":"681",
+    "area_name":"West Virginia"
+  },
+  {
+    "area_code":"682",
+    "area_name":"Fort Worth, TX"
+  },
+  {
+    "area_code":"683",
+    "area_name":"Sudbury, ON"
+  },
+  {
+    "area_code":"684",
+    "area_name":"American Samoa"
+  },
+  {
+    "area_code":"689",
+    "area_name":"Orlando, FL"
+  },
+  {
+    "area_code":"701",
+    "area_name":"North Dakota"
+  },
+  {
+    "area_code":"702",
+    "area_name":"Las Vegas, NV"
+  },
+  {
+    "area_code":"703",
+    "area_name":"Arlington, VA"
+  },
+  {
+    "area_code":"704",
+    "area_name":"Charlotte, NC"
+  },
+  {
+    "area_code":"705",
+    "area_name":"Sudbury, ON"
+  },
+  {
+    "area_code":"706",
+    "area_name":"Augusta, GA"
+  },
+  {
+    "area_code":"707",
+    "area_name":"Santa Rosa, CA"
+  },
+  {
+    "area_code":"708",
+    "area_name":"Cicero, IL"
+  },
+  {
+    "area_code":"709",
+    "area_name":"Newfoundland/Labrador"
+  },
+  {
+    "area_code":"712",
+    "area_name":"Sioux City, IA"
+  },
+  {
+    "area_code":"713",
+    "area_name":"Houston, TX"
+  },
+  {
+    "area_code":"714",
+    "area_name":"Anaheim, CA"
+  },
+  {
+    "area_code":"715",
+    "area_name":"Eau Claire, WI"
+  },
+  {
+    "area_code":"716",
+    "area_name":"Buffalo, NY"
+  },
+  {
+    "area_code":"717",
+    "area_name":"Lancaster, PA"
+  },
+  {
+    "area_code":"718",
+    "area_name":"New York, NY"
+  },
+  {
+    "area_code":"719",
+    "area_name":"Colorado Springs, CO"
+  },
+  {
+    "area_code":"720",
+    "area_name":"Denver, CO"
+  },
+  {
+    "area_code":"724",
+    "area_name":"New Castle, PA"
+  },
+  {
+    "area_code":"725",
+    "area_name":"Las Vegas, NV"
+  },
+  {
+    "area_code":"726",
+    "area_name":"San Antonio, TX"
+  },
+  {
+    "area_code":"727",
+    "area_name":"St. Petersburg, FL"
+  },
+  {
+    "area_code":"731",
+    "area_name":"Jackson, TN"
+  },
+  {
+    "area_code":"732",
+    "area_name":"Toms River, NJ"
+  },
+  {
+    "area_code":"734",
+    "area_name":"Ann Arbor, MI"
+  },
+  {
+    "area_code":"737",
+    "area_name":"Austin, TX"
+  },
+  {
+    "area_code":"740",
+    "area_name":"Newark, OH"
+  },
+  {
+    "area_code":"742",
+    "area_name":"Hamilton, ON"
+  },
+  {
+    "area_code":"743",
+    "area_name":"Greensboro, NC"
+  },
+  {
+    "area_code":"747",
+    "area_name":"Los Angeles, CA"
+  },
+  {
+    "area_code":"753",
+    "area_name":"Ottawa, ON"
+  },
+  {
+    "area_code":"754",
+    "area_name":"Fort Lauderdale, FL"
+  },
+  {
+    "area_code":"757",
+    "area_name":"Virginia Beach, VA"
+  },
+  {
+    "area_code":"760",
+    "area_name":"Oceanside, CA"
+  },
+  {
+    "area_code":"762",
+    "area_name":"Augusta, GA"
+  },
+  {
+    "area_code":"763",
+    "area_name":"Brooklyn Park, MN"
+  },
+  {
+    "area_code":"765",
+    "area_name":"Muncie, IN"
+  },
+  {
+    "area_code":"769",
+    "area_name":"Jackson, MS"
+  },
+  {
+    "area_code":"770",
+    "area_name":"Roswell, GA"
+  },
+  {
+    "area_code":"771",
+    "area_name":"District of Columbia"
+  },
+  {
+    "area_code":"772",
+    "area_name":"Port St. Lucie, FL"
+  },
+  {
+    "area_code":"773",
+    "area_name":"Chicago, IL"
+  },
+  {
+    "area_code":"774",
+    "area_name":"Worcester, MA"
+  },
+  {
+    "area_code":"775",
+    "area_name":"Reno, NV"
+  },
+  {
+    "area_code":"778",
+    "area_name":"Vancouver, BC"
+  },
+  {
+    "area_code":"779",
+    "area_name":"Rockford, IL"
+  },
+  {
+    "area_code":"780",
+    "area_name":"Edmonton, AB"
+  },
+  {
+    "area_code":"781",
+    "area_name":"Boston, MA"
+  },
+  {
+    "area_code":"782",
+    "area_name":"Nova Scotia/PE Island"
+  },
+  {
+    "area_code":"785",
+    "area_name":"Topeka, KS"
+  },
+  {
+    "area_code":"786",
+    "area_name":"Miami, FL"
+  },
+  {
+    "area_code":"787",
+    "area_name":"Puerto Rico"
+  },
+  {
+    "area_code":"801",
+    "area_name":"Salt Lake City, UT"
+  },
+  {
+    "area_code":"802",
+    "area_name":"Vermont"
+  },
+  {
+    "area_code":"803",
+    "area_name":"Columbia, SC"
+  },
+  {
+    "area_code":"804",
+    "area_name":"Richmond, VA"
+  },
+  {
+    "area_code":"805",
+    "area_name":"Oxnard, CA"
+  },
+  {
+    "area_code":"806",
+    "area_name":"Lubbock, TX"
+  },
+  {
+    "area_code":"807",
+    "area_name":"Kenora, ON"
+  },
+  {
+    "area_code":"808",
+    "area_name":"Hawaii"
+  },
+  {
+    "area_code":"810",
+    "area_name":"Flint, MI"
+  },
+  {
+    "area_code":"812",
+    "area_name":"Evansville, IN"
+  },
+  {
+    "area_code":"813",
+    "area_name":"Tampa, FL"
+  },
+  {
+    "area_code":"814",
+    "area_name":"Erie, PA"
+  },
+  {
+    "area_code":"815",
+    "area_name":"Rockford, IL"
+  },
+  {
+    "area_code":"816",
+    "area_name":"Kansas City, MO"
+  },
+  {
+    "area_code":"817",
+    "area_name":"Fort Worth, TX"
+  },
+  {
+    "area_code":"818",
+    "area_name":"Los Angeles, CA"
+  },
+  {
+    "area_code":"819",
+    "area_name":"Sherbrooke, QC"
+  },
+  {
+    "area_code":"820",
+    "area_name":"Oxnard, CA"
+  },
+  {
+    "area_code":"825",
+    "area_name":"Calgary, AB"
+  },
+  {
+    "area_code":"826",
+    "area_name":"Roanoke, VA"
+  },
+  {
+    "area_code":"828",
+    "area_name":"Asheville, NC"
+  },
+  {
+    "area_code":"830",
+    "area_name":"New Braunfels, TX"
+  },
+  {
+    "area_code":"831",
+    "area_name":"Salinas, CA"
+  },
+  {
+    "area_code":"832",
+    "area_name":"Houston, TX"
+  },
+  {
+    "area_code":"835",
+    "area_name":"Allentown, PA"
+  },
+  {
+    "area_code":"838",
+    "area_name":"Albany, NY"
+  },
+  {
+    "area_code":"839",
+    "area_name":"Columbia, SC"
+  },
+  {
+    "area_code":"840",
+    "area_name":"San Bernardino, CA"
+  },
+  {
+    "area_code":"843",
+    "area_name":"Charleston, SC"
+  },
+  {
+    "area_code":"845",
+    "area_name":"New City, NY"
+  },
+  {
+    "area_code":"847",
+    "area_name":"Elgin, IL"
+  },
+  {
+    "area_code":"848",
+    "area_name":"Toms River, NJ"
+  },
+  {
+    "area_code":"850",
+    "area_name":"Tallahassee, FL"
+  },
+  {
+    "area_code":"854",
+    "area_name":"Charleston, SC"
+  },
+  {
+    "area_code":"856",
+    "area_name":"Camden, NJ"
+  },
+  {
+    "area_code":"857",
+    "area_name":"Boston, MA"
+  },
+  {
+    "area_code":"858",
+    "area_name":"San Diego, CA"
+  },
+  {
+    "area_code":"859",
+    "area_name":"Lexington-Fayette, KY"
+  },
+  {
+    "area_code":"860",
+    "area_name":"Hartford, CT"
+  },
+  {
+    "area_code":"862",
+    "area_name":"Newark, NJ"
+  },
+  {
+    "area_code":"863",
+    "area_name":"Lakeland, FL"
+  },
+  {
+    "area_code":"864",
+    "area_name":"Greenville, SC"
+  },
+  {
+    "area_code":"865",
+    "area_name":"Knoxville, TN"
+  },
+  {
+    "area_code":"867",
+    "area_name":"Northern Canada"
+  },
+  {
+    "area_code":"870",
+    "area_name":"Jonesboro, AR"
+  },
+  {
+    "area_code":"872",
+    "area_name":"Chicago, IL"
+  },
+  {
+    "area_code":"873",
+    "area_name":"Sherbrooke, QC"
+  },
+  {
+    "area_code":"878",
+    "area_name":"Pittsburgh, PA"
+  },
+  {
+    "area_code":"901",
+    "area_name":"Memphis, TN"
+  },
+  {
+    "area_code":"902",
+    "area_name":"Nova Scotia/PE Island"
+  },
+  {
+    "area_code":"903",
+    "area_name":"Tyler, TX"
+  },
+  {
+    "area_code":"904",
+    "area_name":"Jacksonville, FL"
+  },
+  {
+    "area_code":"905",
+    "area_name":"Hamilton, ON"
+  },
+  {
+    "area_code":"906",
+    "area_name":"Marquette, MI"
+  },
+  {
+    "area_code":"907",
+    "area_name":"Alaska"
+  },
+  {
+    "area_code":"908",
+    "area_name":"Elizabeth, NJ"
+  },
+  {
+    "area_code":"909",
+    "area_name":"San Bernardino, CA"
+  },
+  {
+    "area_code":"910",
+    "area_name":"Fayetteville, NC"
+  },
+  {
+    "area_code":"912",
+    "area_name":"Savannah, GA"
+  },
+  {
+    "area_code":"913",
+    "area_name":"Overland Park, KS"
+  },
+  {
+    "area_code":"914",
+    "area_name":"Yonkers, NY"
+  },
+  {
+    "area_code":"915",
+    "area_name":"El Paso, TX"
+  },
+  {
+    "area_code":"916",
+    "area_name":"Sacramento, CA"
+  },
+  {
+    "area_code":"917",
+    "area_name":"New York, NY"
+  },
+  {
+    "area_code":"918",
+    "area_name":"Tulsa, OK"
+  },
+  {
+    "area_code":"919",
+    "area_name":"Raleigh, NC"
+  },
+  {
+    "area_code":"920",
+    "area_name":"Green Bay, WI"
+  },
+  {
+    "area_code":"925",
+    "area_name":"Concord, CA"
+  },
+  {
+    "area_code":"928",
+    "area_name":"Yuma, AZ"
+  },
+  {
+    "area_code":"929",
+    "area_name":"New York, NY"
+  },
+  {
+    "area_code":"930",
+    "area_name":"Evansville, IN"
+  },
+  {
+    "area_code":"931",
+    "area_name":"Clarksville, TN"
+  },
+  {
+    "area_code":"934",
+    "area_name":"Brentwood, NY"
+  },
+  {
+    "area_code":"936",
+    "area_name":"Conroe, TX"
+  },
+  {
+    "area_code":"937",
+    "area_name":"Dayton, OH"
+  },
+  {
+    "area_code":"938",
+    "area_name":"Huntsville, AL"
+  },
+  {
+    "area_code":"939",
+    "area_name":"Puerto Rico"
+  },
+  {
+    "area_code":"940",
+    "area_name":"Denton, TX"
+  },
+  {
+    "area_code":"941",
+    "area_name":"North Port, FL"
+  },
+  {
+    "area_code":"943",
+    "area_name":"Atlanta, GA"
+  },
+  {
+    "area_code":"945",
+    "area_name":"Dallas, TX"
+  },
+  {
+    "area_code":"947",
+    "area_name":"Troy, MI"
+  },
+  {
+    "area_code":"948",
+    "area_name":"Virginia Beach, VA"
+  },
+  {
+    "area_code":"949",
+    "area_name":"Irvine, CA"
+  },
+  {
+    "area_code":"951",
+    "area_name":"Riverside, CA"
+  },
+  {
+    "area_code":"952",
+    "area_name":"Bloomington, MN"
+  },
+  {
+    "area_code":"954",
+    "area_name":"Fort Lauderdale, FL"
+  },
+  {
+    "area_code":"956",
+    "area_name":"Laredo, TX"
+  },
+  {
+    "area_code":"959",
+    "area_name":"Hartford, CT"
+  },
+  {
+    "area_code":"970",
+    "area_name":"Fort Collins, CO"
+  },
+  {
+    "area_code":"971",
+    "area_name":"Portland, OR"
+  },
+  {
+    "area_code":"972",
+    "area_name":"Dallas, TX"
+  },
+  {
+    "area_code":"973",
+    "area_name":"Newark, NJ"
+  },
+  {
+    "area_code":"978",
+    "area_name":"Lowell, MA"
+  },
+  {
+    "area_code":"979",
+    "area_name":"College Station, TX"
+  },
+  {
+    "area_code":"980",
+    "area_name":"Charlotte, NC"
+  },
+  {
+    "area_code":"983",
+    "area_name":"Denver, CO"
+  },
+  {
+    "area_code":"984",
+    "area_name":"Raleigh, NC"
+  },
+  {
+    "area_code":"985",
+    "area_name":"Houma, LA"
+  },
+  {
+    "area_code":"986",
+    "area_name":"Idaho"
+  },
+  {
+    "area_code":"989",
+    "area_name":"Saginaw, MI"
+  }
+]
