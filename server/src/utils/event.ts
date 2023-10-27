@@ -4,7 +4,7 @@ import Mail from "../components/email";
 const eventEmitter = new EventEmitter();
 
 eventEmitter.on('send_email_otp', (data: any) => {
-    Mail.verifyMail(data.username, data.to, data.subject, data.text_body, data.sender, data?.data.otp, data?.data.content, data.host, data.mobile, data.currentDate)
+    Mail.verifyMail(data.username, data.to, data.data.message, data.sender, data?.data.otp,data.currentDate)
 });
 
 // eventEmitter.on('send_verification_email', (data: any) => {

@@ -2,19 +2,14 @@ const nodemailer = require("nodemailer")
 const config = require("config");
 const ejs = require("ejs");
 const path = require("path");
-const transport = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
-    requiredTLS: true,
+const transporter = nodemailer.createTransport({
+    service: "gmail",
     auth: {
         user: config.get("MAIL_USER"),
-        pass: config.get("MAIL_PASSWORD")
-    }
+        pass: config.get("MAIL_PASSWORD"),
+    },
 });
 const https = require('https');
-
-// var request = require('request');
 
 let username = config.BULK_SMS_USERNAME;
 let password = config.BULK_SMS_PASSWORD;
@@ -28,32 +23,34 @@ sgMail.setApiKey(config.SENDGRID_API_KEY);
 // const client = require('twilio')(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN);
 //console.log(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN);
 
-const verifyMail = (username: string, to: string, subject: string, text_body: string, sender: string, otp: any, message: string, host: string, mobile: string, currentDate: any) => {
+const verifyMail = (username: string, to: string, text_body: string, sender: string, otp: any, currentDate: any) => {
     try {
-        const location_file = path.join(__dirname + '/../email/verificationEmail.ejs')
-        const logo = "http://" + host + config.get("LOGO_PATH");//"/uploads/images/logo.svg";
+        const location_file = path.join(__dirname + '/verificationEmail.ejs')
+        // const logo = "http://" + 'priyank' + config.get("LOGO_PATH");//"/uploads/images/logo.svg";
 
-        ejs.renderFile(location_file, { name: username, email: to, otp: otp, logo: logo, subject: subject, mobile: mobile, currentDate: currentDate }, async function (err: any, data: any) {
+        ejs.renderFile(location_file, { name: username, email: to, text_body, otp: otp, currentDate: currentDate }, async function (err: any, data: any) {
             if (err) {
                 console.log(err);
             } else {
 
                 const msg = {
                     to: to,
-                    from: 'Example <no-reply@example.com>',
-                    subject: subject,
+                    from: sender,
                     text: text_body,
                     html: data
                 };
                 (async () => {
                     try {
-                        await sgMail.send(msg);
-                    } catch (error: any) {
-                        console.error(error.message);
-
-                        if (error.response) {
-                            console.error(error.response.body)
-                        }
+                        await transporter.sendMail({
+                            from: config.get("MAIL_USER"), // sender address
+                            to: msg.to, // list of receivers
+                            subject: "otp Verification ✔", // Subject line
+                            text: msg.text, // plain text body
+                            html:msg.html
+                        });
+                    } catch (error) {
+                        console.log(error);
+                        throw "mail not send because of invalid credentials.."
                     }
                 })();
             }

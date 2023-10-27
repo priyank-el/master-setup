@@ -7,6 +7,7 @@ const API_KEY_ENC = config.get("API_KEY_ENC")
 const API_ENCRYPT_VI_KEY = config.get("API_ENCRYPT_VI_KEY")
 
 async function encryptedDataResponse(data: any) {
+    console.log("object");
     const cipher = crypto.createCipheriv("aes-256-cbc", API_KEY_ENC, API_ENCRYPT_VI_KEY);
     const message = JSON.stringify(data);
     let encryptedData = cipher.update(message, "utf-8", "base64");
@@ -23,11 +24,7 @@ async function encryptedDataResponse(data: any) {
 }
 
 async function EncryptData(req: Request, res: Response, data: any) {
-    if (req.headers.env && req.headers.env === "test") {
-        return data;
-    } else {
-        return await encryptedDataResponse(data);
-    }
+    return await encryptedDataResponse(data);
 }
 
 async function encryptedDataRequest(req: Request, res: Response, next: any) {
