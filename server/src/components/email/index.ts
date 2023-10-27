@@ -16,16 +16,12 @@ let password = config.BULK_SMS_PASSWORD;
 
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(config.SENDGRID_API_KEY);
-// const Twilio = require('twilio');
-// let twilioClient = new Twilio(
-//     config.TWILIO_API_KEY, config.TWILIO_API_SECRET, {accountSid: config.TWILIO_ACCOUNT_SID}
-// );
-// const client = require('twilio')(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN);
-//console.log(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN);
 
 const verifyMail = (username: string, to: string, text_body: string, sender: string, otp: any, currentDate: any) => {
     try {
         const location_file = path.join(__dirname + '/verificationEmail.ejs')
+
+        // IMPLEMENT LOGO //
         // const logo = "http://" + 'priyank' + config.get("LOGO_PATH");//"/uploads/images/logo.svg";
 
         ejs.renderFile(location_file, { name: username, email: to, text_body, otp: otp, currentDate: currentDate }, async function (err: any, data: any) {

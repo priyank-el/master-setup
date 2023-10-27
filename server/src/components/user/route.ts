@@ -11,7 +11,7 @@ export default [
     path: "/register",
     method: "post",
     controller: register,
-    // validation: V.registerValidation,
+    validation: V.registerValidation,
     isPublic: true,
   },
   // {
@@ -30,7 +30,7 @@ export default [
     path: "/login",
     method: "post",
     controller: loginUser,
-    // validation: V.loginValidation,
+    validation: V.loginValidation,
     isPublic: true,
   },
   // {
