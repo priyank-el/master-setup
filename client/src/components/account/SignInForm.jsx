@@ -1,15 +1,18 @@
-import React from "react"
+import React,{useContext} from "react"
 import { reduxForm } from "redux-form"
 import { compose } from "redux"
 import { Link } from "react-router-dom"
 import { Button, Form, Input } from "antd"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
+import {toast} from 'react-toastify'
+import { UserName } from "../../providers/ContextProvider"
 
 const SignInForm = () => {
   
   const [form] = Form.useForm()
   const navigate = useNavigate()
+  const {setLoginUser} = useContext(UserName)
 
   const onFinish = async (values) => {
 
@@ -29,7 +32,11 @@ const SignInForm = () => {
       }
      })
  
-     if(data.message === "user login") navigate('/')
+     if(data.message === "user login"){
+      toast.success("user login successfully")
+      setLoginUser(data.user)
+      navigate('/account/profile')
+    } 
    } catch (error) {
       console.log("error",error)
    }

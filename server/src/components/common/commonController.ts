@@ -4,6 +4,8 @@ import commonUtils, { fileFilter, commonFileStorage, fileFilterPdf, fileStorageP
 const multer = require("multer");
 
 const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.file);
+    
     const { type } = req.params;
     let destination = "./uploads/images";
     if (type == "category") {
@@ -56,15 +58,13 @@ const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
         fileFilter: fileFilter,
     }).single("image");
 
-
-
-    image_(req, res, async (err: any) => {
-        // console.log(err);
+    image_(req, res, async (err:any) => {
         if (err) return commonUtils.sendError(req, res, { message: err.message }, 409);
         if (!req.file) return commonUtils.sendError(req, res, { message: AppStrings.IMAGE_NOT_FOUND }, 409);
-        const image_name = req.file.filename;
-        return commonUtils.sendSuccess(req, res, {
-            file_name: image_name,
+        // const image_name = req.file.filename;
+        const originam_image_name = req.file.originalname
+        commonUtils.sendSuccess(req, res, {
+            file_name: originam_image_name
         }, 200);
     });
 }

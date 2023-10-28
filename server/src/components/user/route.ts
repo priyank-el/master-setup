@@ -1,10 +1,13 @@
+import commonUtils from "../../utils/commonUtils";
+import commonController from "../common/commonController";
 import {
   register,
-  loginUser
+  loginUser,
+  forgotUserPassword,
+  resetPassword,
+  updateUserProfile
 } from "./userController";
-import commonController from "./../common/commonController";
 import V from "./validation";
-import Middlewares from "../../middlewares/validations";
 
 export default [
   {
@@ -33,20 +36,21 @@ export default [
     validation: V.loginValidation,
     isPublic: true,
   },
-  // {
-  //   path: "/forgetPassword",
-  //   method: "post",
-  //   controller: UserController.forgetPassword,
-  //   validation: V.forgetPwdValidation,
-  //   isPublic: true,
-  // },
-  // {
-  //   path: "/resetPassword",
-  //   method: "post",
-  //   controller: UserController.resetPassword,
-  //   validation: V.resetPwdValidation,
-  //   authMiddleware: Middlewares.verifyAuthToken,
-  // },
+  {
+    path: "/forgetPassword",
+    method: "post",
+    controller: forgotUserPassword,
+    // validation: V.forgetPwdValidation,
+    isPublic: true,
+  },
+  {
+    path: "/reset-password",
+    method: "put",
+    controller: resetPassword,
+    // validation: V.resetPwdValidation,
+    // authMiddleware: Middlewares.verifyAuthToken,
+    isPublic: true
+  },
   // {
   //   path: "/changePassword",
   //   method: "post",
@@ -60,13 +64,13 @@ export default [
   //   controller: UserController.getProfile,
   //   isPublic: false,
   // },
-  // {
-  //   path: "/updateProfile",
-  //   method: "post",
-  //   controller: UserController.updateProfile,
-  //   validation: V.updateProfile,
-  //   isPublic: false,
-  // },
+  {
+    path: "/update-profile",
+    method: "post",
+    controller: updateUserProfile,
+    // validation: V.updateProfile,
+    isPublic: true
+  },
   // {
   //   path: "/logout",
   //   method: "patch",
@@ -79,11 +83,11 @@ export default [
   //   controller: UserController.refreshToken,
   //   authMiddleware: Middlewares.verifyRefreshToken,
   // },
-  // {
-  //   path: "/web/uploadImage/:type",
-  //   method: "post",
-  //   controller: commonController.uploadImage,
-  //   isPublic: true,
-  //   // isEncrypt: false
-  // },
+  {
+    path: "/web/uploadImage/:type",
+    method: "post",
+    controller: commonController.uploadImage,
+    isPublic: true,
+    // isEncrypt: false
+  },
 ];

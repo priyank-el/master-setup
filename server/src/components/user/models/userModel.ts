@@ -8,16 +8,35 @@ const userSchema = new mongoose.Schema(
       require: true,
       default: null,
     },
+    firstName: {
+      type: String,
+      require: true,
+      default: null,
+    },
+    lastName: {
+      type: String,
+      require: true,
+      default: null,
+    },
+    mobile:{
+      type: String,
+      require: true,
+      default: null
+    },
     email: {
       type: String,
       require: true,
       lowercase: true,
       trim: true,
     },
+    image:{
+      type: String,
+      default: null
+    },
     password: {
       type: String,
       require: true,
-      default: null,
+      default: null
     },
     otp:{
       type: String,
