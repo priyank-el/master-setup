@@ -3,8 +3,9 @@ import { AppConstants } from "../../../utils/appConstants";
 import { UserType } from "../../../utils/enum";
 const userSchema = new mongoose.Schema(
   {
-    mainUserId: {
-      type: mongoose.Types.ObjectId,
+    username: {
+      type: String,
+      require: true,
       default: null,
     },
     firstName: {
@@ -17,20 +18,10 @@ const userSchema = new mongoose.Schema(
       require: true,
       default: null,
     },
-    companyName: {
+    mobile:{
       type: String,
       require: true,
-      default: null,
-    },
-    mcNumber: {
-      type: String,
-      require: true,
-      default: null,
-    },
-    dotNumber: {
-      type: String,
-      require: true,
-      default: null,
+      default: null
     },
     email: {
       type: String,
@@ -38,24 +29,19 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
-    mobile: {
+    image:{
       type: String,
-      require: true,
-    },
-    alternativeMobile: {
-      type: String,
-      require: false,
-      default: "",
-    },
-    mobileData: {
-      type: Object,
-      require: false,
-      default: null,
+      default: null
     },
     password: {
       type: String,
       require: true,
-      default: null,
+      default: null
+    },
+    otp:{
+      type: String,
+      trim: true,
+      default:null
     },
     isApprove: {
       type: Number,
@@ -63,12 +49,6 @@ const userSchema = new mongoose.Schema(
       default: 0,
       comment: "0 is Not Approve 1 is Approve 2 is Rejected",
     },
-    // isSubUser: {
-    //   type: Number,
-    //   required: false,
-    //   default: 0,
-    //   comment: "0 is No 1 is Yes",
-    // },
     isVerified: {
       type: Number,
       required: false,
@@ -81,33 +61,15 @@ const userSchema = new mongoose.Schema(
       default: 1,
       comment: "0 is inactive 1 active",
     },
-    ext: {
-      type: String,
-      require: false,
-      default: null,
-    },
     type: {
       type: Number,
       required: false,
       enum: UserType,
       default: UserType.BROKER,
-    },
-    makeAdminOtp: {
-      type: Number,
-      require: false,
-      default: null,
-    },
-    makeAdmin: {
-      type: Boolean,
-      require: false,
-      default: false,
-    },
-    pushToken: {
-      type: String,
-      require: true,
-      default: null,
-    },
+      comment:"1 is BROKER"
+    }
   },
   { timestamps: true }
 );
-module.exports = mongoose.model(AppConstants.MODEL_USER, userSchema);
+const User = mongoose.model(AppConstants.MODEL_USER, userSchema);
+export default User

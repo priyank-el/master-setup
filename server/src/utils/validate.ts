@@ -194,7 +194,7 @@ Validator.registerAsync('check_email', function (value: any, attribute: any, req
     });
 });
 
-Validator.registerAsync('check_email_only', function (value: any, attribute: any, req: Request, passes: any) {
+Validator.registerAsync('check_email_only', async function (value: any, attribute: any, req: Request, passes: any) {
     let email = value.toString();
     if (!attribute) throw new Error('Specify Requirements i.e fieldName: exist:table,column,usertype');
 
@@ -203,15 +203,16 @@ Validator.registerAsync('check_email_only', function (value: any, attribute: any
     if (attArr.length !== 2) throw new Error(`Invalid format for validation rule on ${attribute}`);
     const { 0: table, 1: column } = attArr;
     let msg = `${column} already in use`;
-    mongoose.model(table).findOne({ [column]: email }).then((result: any) => {
-        if (result) {
-            passes(false, msg);
-        } else {
-            passes();
+    try {
+        const isUser = await mongoose.model(table).findOne({ [column]: email })
+      
+        if (!isUser) {
+          return passes()
         }
-    }).catch((err: any) => {
-        passes(false, err);
-    });
+        await passes(false, msg)
+    } catch (error) {
+        console.log("error")
+    }
 });
 
 Validator.registerAsync('mobile_lenght', function (value: any, attribute: any, req: Request, passes: any) {

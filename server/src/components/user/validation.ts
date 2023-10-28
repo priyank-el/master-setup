@@ -5,17 +5,10 @@ import { AppStrings } from "../../utils/appStrings";
 async function registerValidation(req: Request, res: Response, next: NextFunction) {
 
     let validationRule: any = {
-        "firstName": "required|regex:/[A-Za-z]/|string|max:25",
-        "lastName": "required|regex:/[A-Za-z]/|string|max:25",
-        "companyName": "required|min:3|max:255",
-        "mcNumber": "required|exist_mcNumber:User,mcNumber",
-        // "email": "required|string|email|max:255|check_email_only:User,email",
-        "ext": "max:25",
-        "email": "required|string|email|max:255",
-        "mobile": "required|required|string|min:8|max:15",
-        "password": "required|min:6|max:50|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/",
-        "confirmPassword": "required|min:6|max:50|same:password",
-        "type": "required",
+        "username": "required|regex:/[A-Za-z]/|string|max:25",
+        "email": "required|string|max:255|check_email_only:User,email",
+        // "email": "required|string|email|max:255",
+        "password": "required|min:6|max:50"
     }
     if (req.body.type == 2) {
         validationRule.dotNumber = "required"

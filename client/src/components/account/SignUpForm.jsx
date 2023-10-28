@@ -1,116 +1,73 @@
-import { Field, reduxForm } from "redux-form";
+import { reduxForm } from "redux-form";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
-import renderFormGroupField from "../../helpers/renderFormGroupField";
-import renderFormField from "../../helpers/renderFormField";
-import {
-  required,
-  maxLength20,
-  minLength8,
-  maxLengthMobileNo,
-  minLengthMobileNo,
-  digit,
-  name,
-} from "../../helpers/validation";
-import { ReactComponent as IconPhone } from "bootstrap-icons/icons/phone.svg";
-import { ReactComponent as IconShieldLock } from "bootstrap-icons/icons/shield-lock.svg";
+import {Button, Form, Input} from 'antd'
+import axios from 'axios'
+import { useNavigate } from "react-router-dom"
 
-const SignUpForm = (props) => {
-  const { handleSubmit, submitting, onSubmit, submitFailed } = props;
+const SignUpForm = () => {
+
+  const [form] = Form.useForm()
+  const navigate = useNavigate()
+
+  const onFinish = async (values) => {
+    const {
+        username,
+        email,
+        password
+    } = values
+
+    try {
+        debugger
+        const {data} = await axios.post('http://localhost:3003/user/register',{
+            username,
+            email,
+            password
+        },{
+            headers:{
+                "env":"test"
+            }
+        })
+    
+        if(data.message === 'user created') navigate('/')
+    } catch (error) {
+        console.log("error",error);
+    }
+  } 
+
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className={`needs-validation ${submitFailed ? "was-validated" : ""}`}
-      noValidate
-    >
-      <div className="row mb-3">
-        <div className="col-md-6">
-          <Field
-            name="firstName"
-            type="text"
-            label="First Name"
-            component={renderFormField}
-            placeholder="First Name"
-            validate={[required, name]}
-            required={true}
-          />
+    <>
+    <div className='h-screen w-screen flex items-center justify-center'>
+        <div className='border px-16 py-20 rounded-lg shadow-lg shadow-gray-500' style={{padding:"25px 25px"}}>
+            <Form
+                form={form}
+                onFinish={onFinish}
+                style={{ maxWidth: 600,minWidth:300 }}
+                layout='vertical'
+                
+            >
+                <Form.Item name="username" label="Username" rules={[{ required: true }]}>
+                    <Input />
+                </Form.Item>
+                <Form.Item name="email" label="Email" rules={[{ required: true }]}>
+                    <Input />
+                </Form.Item>
+                <Form.Item name="password" label="Password" rules={[{ required: true }]}>
+                    <Input.Password />
+                </Form.Item>
+                <Form.Item>
+                    <Button htmlType="submit">
+                        Sign Up
+                    </Button>
+                </Form.Item>
+            </Form>
+            <div className='rounded-lg my-2'>
+                <Link to="/account/signin" className='text-sm underline'>already have account?</Link>
+            </div>
         </div>
-        <div className="col-md-6">
-          <Field
-            name="lastName"
-            type="text"
-            label="Last Name"
-            component={renderFormField}
-            placeholder="Last Name"
-            validate={[required, name]}
-            required={true}
-          />
-        </div>
-      </div>
-      <Field
-        name="mobileNo"
-        type="number"
-        label="Mobile no"
-        component={renderFormGroupField}
-        placeholder="Mobile no without country code"
-        icon={IconPhone}
-        validate={[required, maxLengthMobileNo, minLengthMobileNo, digit]}
-        required={true}
-        max="999999999999999"
-        min="9999"
-        className="mb-3"
-      />
-      <Field
-        name="password"
-        type="password"
-        label="Your password"
-        component={renderFormGroupField}
-        placeholder="******"
-        icon={IconShieldLock}
-        validate={[required, maxLength20, minLength8]}
-        required={true}
-        maxLength="20"
-        minLength="8"
-        className="mb-3"
-      />
-      <div className="d-grid">
-        <button
-          type="submit"
-          className="btn btn-primary mb-3"
-          disabled={submitting}
-        >
-          Create
-        </button>
-      </div>
-      <Link className="float-start" to="/account/signin" title="Sign In">
-        Sing In
-      </Link>
-      <Link
-        className="float-end"
-        to="/account/forgotpassword"
-        title="Forgot Password"
-      >
-        Forgot password?
-      </Link>
-      <div className="clearfix"></div>
-      <hr></hr>
-      <div className="row">
-        <div className="col- text-center">
-          <p className="text-muted small">Or you can join with</p>
-        </div>
-        <div className="col- text-center">
-          <Link to="/" className="btn btn-light text-white bg-twitter me-3">
-            <i className="bi bi-twitter-x" />
-          </Link>
-          <Link to="/" className="btn btn-light text-white me-3 bg-facebook">
-            <i className="bi bi-facebook mx-1" />
-          </Link>
-          <Link to="/" className="btn btn-light text-white me-3 bg-google">
-            <i className="bi bi-google mx-1" />
-          </Link>
-        </div>
-      </div>
-    </form>
+
+    </div>
+</>
   );
 };
 

@@ -4,13 +4,14 @@ import encryptedData from "../middlewares/secure/encryptData";
 import { FileFilterCallback } from 'multer'
 import decryptedData from "../middlewares/secure/decryptData";
 import verifyToken from "../middlewares/validations";
-const config = require("config");
+import otpGenerator from 'otp-generator';
 const AreaCode = require("../components/location/models/areaModel");
 
 type DestinationCallback = (error: Error | null, destination: string) => void
 type FileNameCallback = (error: Error | null, filename: string) => void
 import moment = require("moment");
 import multer = require("multer");
+const config = require("config");
 
 const path = require('path')
 const os = require('os')
@@ -125,7 +126,6 @@ const uploadImage = (req: Request, res: Response, next: NextFunction) => {
 const routeArray = (array_: any, prefix: any, isAdmin: Boolean = false) => {
     // path: "", method: "post", controller: "",validation: ""(can be array of validation),
     // isEncrypt: boolean (default true), isPublic: boolean (default false)
-
     array_.forEach((route: any) => {
         const method = route.method as "get" | "post" | "put" | "delete" | "patch";
         const path = route.path;
@@ -230,8 +230,12 @@ async function generateRandomString(length: number) {
 
 
 function generateOtpCode() {
-    return 1111;
-    // return Number((Math.random() * (9999 - 1000) + 1000).toFixed());
+    const otp: string = otpGenerator.generate(4, {
+        upperCaseAlphabets: false,
+        specialChars: false,
+        lowerCaseAlphabets: false,
+    })
+    return otp
 }
 
 async function getAreaCodesStateCity(code: any) {

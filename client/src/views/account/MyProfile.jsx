@@ -2,11 +2,7 @@ import { lazy, Component } from "react";
 const ProfileForm = lazy(() => import("../../components/account/ProfileForm"));
 const ChangePasswordForm = lazy(() =>
   import("../../components/account/ChangePasswordForm")
-);
-const SettingForm = lazy(() => import("../../components/account/SettingForm"));
-const CardListForm = lazy(() =>
-  import("../../components/account/CardListForm")
-);
+)
 
 class MyProfileView extends Component {
   state = { imagePreview: "", isDeleting: false };
@@ -38,8 +34,9 @@ class MyProfileView extends Component {
   };
   render() {
     return (
-      <div className="container-fluid my-3">
+      <div className="container-fluid my-3 justify-center">
         <div className="row">
+          <div  className="col-md-4"></div>
           <div className="col-md-4">
             <ProfileForm
               onSubmit={this.onSubmitProfile}
@@ -47,13 +44,15 @@ class MyProfileView extends Component {
               imagePreview={this.state.imagePreview}
             />
           </div>
-          <div className="col-md-8">
+          <div  className="col-md-4"></div>
+
+          {/* <div className="col-md-8">
             <ChangePasswordForm onSubmit={this.onSubmitChangePassword} />
             <br></br>
             <SettingForm />
             <br></br>
             <CardListForm />
-          </div>
+          </div> */}
         </div>
       </div>
     );

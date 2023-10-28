@@ -1,91 +1,84 @@
-import React from "react";
-import { Field, reduxForm } from "redux-form";
-import { compose } from "redux";
-import { Link } from "react-router-dom";
-import renderFormGroupField from "../../helpers/renderFormGroupField";
-import {
-  required,
-  maxLength20,
-  minLength8,
-  maxLengthMobileNo,
-  minLengthMobileNo,
-  digit,
-} from "../../helpers/validation";
-import { ReactComponent as IconPhone } from "bootstrap-icons/icons/phone.svg";
-import { ReactComponent as IconShieldLock } from "bootstrap-icons/icons/shield-lock.svg";
+import React,{useContext} from "react"
+import { reduxForm } from "redux-form"
+import { compose } from "redux"
+import { Link } from "react-router-dom"
+import { Button, Form, Input } from "antd"
+import { useNavigate } from "react-router-dom"
+import axios from "axios"
+import {toast} from 'react-toastify'
+import { UserName } from "../../providers/ContextProvider"
 
-const SignInForm = (props) => {
-  const { handleSubmit, submitting, onSubmit, submitFailed } = props;
+const SignInForm = () => {
+  
+  const [form] = Form.useForm()
+  const navigate = useNavigate()
+  const {setLoginUser} = useContext(UserName)
+
+  const onFinish = async (values) => {
+
+    const {
+      email,
+      password
+    }  = values
+
+   try {
+    debugger
+     const {data} = await axios.post('http://localhost:3003/user/login',{
+       email,
+       password
+     },{
+      headers:{
+        "env":"test"
+      }
+     })
+ 
+     if(data.message === "user login"){
+      toast.success("user login successfully")
+      setLoginUser(data.user)
+      navigate('/account/profile')
+    } 
+   } catch (error) {
+      console.log("error",error)
+   }
+  }
+
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className={`needs-validation ${submitFailed ? "was-validated" : ""}`}
-      noValidate
-    >
-      <Field
-        name="mobileNo"
-        type="number"
-        label="Mobile no"
-        component={renderFormGroupField}
-        placeholder="Mobile no without country code"
-        icon={IconPhone}
-        validate={[required, maxLengthMobileNo, minLengthMobileNo, digit]}
-        required={true}
-        max="999999999999999"
-        min="9999"
-        className="mb-3"
-      />
-      <Field
-        name="password"
-        type="password"
-        label="Your password"
-        component={renderFormGroupField}
-        placeholder="******"
-        icon={IconShieldLock}
-        validate={[required, maxLength20, minLength8]}
-        required={true}
-        maxLength="20"
-        minLength="8"
-        className="mb-3"
-      />
-      <div className="d-grid">
-        <button
-          type="submit"
-          className="btn btn-primary mb-3"
-          disabled={submitting}
+    <div className="h-screen w-screen flex items-center justify-center">
+      <div className="border px-16 py-20 rounded-lg shadow-lg shadow-gray-500" style={{padding:"25px"}}>
+        <h1 className="text-3xl mb-9 ms-3 font-extrabold">Signin form </h1>
+        <Form form={form}
+          onFinish={onFinish}
+          style={{ maxWidth: 600, minWidth: 300 }}
+          layout='vertical'
         >
-          Log In
-        </button>
-      </div>
-      <Link className="float-start" to="/account/signup" title="Sign Up">
-        Create your account
-      </Link>
-      <Link
-        className="float-end"
-        to="/account/forgotpassword"
-        title="Forgot Password"
-      >
-        Forgot password?
-      </Link>
-      <div className="clearfix"></div>
-      <hr></hr>
-      <div className="row">
-        <div className="col- text-center">
-          <p className="text-muted small">Or you can join with</p>
+          <Form.Item name="email" label="Email" rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            label="Password"
+            rules={[{ required: true }]}
+          >
+            <Input.Password />
+          </Form.Item>
+          <Form.Item>
+            <Button htmlType="submit">sign in</Button>
+          </Form.Item>
+        </Form>
+        <div className="rounded-lg my-2">
+          <Link to="/account/forgotpassword" 
+            className="text-sm flex justify-center font-extrabold text-blue-600 cursor-pointer">
+            forgot password!
+          </Link>
         </div>
-        <div className="col- text-center">
-          <Link to="/" className="btn btn-light text-white bg-twitter me-3">
-            <i className="bi bi-twitter-x" />
-          </Link>
-          <Link to="/" className="btn btn-light text-white me-3 bg-facebook">
-            <i className="bi bi-facebook mx-1" />
-          </Link>
-          <Link to="/" className="btn btn-light text-white me-3 bg-google">
-            <i className="bi bi-google mx-1" />
+        <div className="rounded-lg my-2">
+          <Link to="/account/signup" 
+            className="text-sm underline flex justify-center">
+            create account first!
           </Link>
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 
