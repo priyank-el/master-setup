@@ -7,9 +7,11 @@ import TopMenu from "./components/TopMenu"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import "./App.min.css"
+
 const HomeView = lazy(() => import("./views/Home"))
 const SignInView = lazy(() => import("./views/account/SignIn"))
 const SignUpView = lazy(() => import("./views/account/SignUp"))
+const OtpVerification = lazy(() => import("./views/account/OtpVerification"))
 const ForgotPasswordView = lazy(() => import("./views/account/ForgotPassword"))
 const UpdatNewPassword = lazy(() => import("./views/account/UpdateNewPassword"))
 const OrdersView = lazy(() => import("./views/account/Orders"))
@@ -54,6 +56,11 @@ function App() {
               exact
               path="/account/update-password"
               element={<UpdatNewPassword/>}
+            />
+            <Route
+              exact
+              path="/account/otp-verification"
+              element={<OtpVerification />}
             />
             
             <Route exact path="/account/profile" element={<MyProfileView/>} />
