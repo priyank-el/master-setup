@@ -29,7 +29,14 @@ const SignUpForm = () => {
             }
         })
     
-        if(data.message === 'user created') navigate('/')
+        if(data.message === 'user created'){
+            navigate('/otp-verification',{
+                state:{
+                    email:email
+                }
+            })
+        }
+         
     } catch (error) {
         console.log("error",error);
     }
@@ -62,7 +69,7 @@ const SignUpForm = () => {
                 </Form.Item>
             </Form>
             <div className='rounded-lg my-2'>
-                <Link to="/account/signin" className='text-sm underline'>already have account?</Link>
+                <Link to="/" className='text-sm underline'>already have account?</Link>
             </div>
         </div>
 

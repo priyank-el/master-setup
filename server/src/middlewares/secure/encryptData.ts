@@ -7,7 +7,7 @@ const API_KEY_ENC = config.get("API_KEY_ENC")
 const API_ENCRYPT_VI_KEY = config.get("API_ENCRYPT_VI_KEY")
 
 async function encryptedDataResponse(data: any) {
-    console.log("object");
+
     const cipher = crypto.createCipheriv("aes-256-cbc", API_KEY_ENC, API_ENCRYPT_VI_KEY);
     const message = JSON.stringify(data);
     let encryptedData = cipher.update(message, "utf-8", "base64");

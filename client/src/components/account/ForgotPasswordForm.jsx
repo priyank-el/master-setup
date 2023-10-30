@@ -32,7 +32,7 @@ const ForgotPasswordForm = () => {
     if (data.message === 'otp verified') {
       toast.success("otp verified")
       setTimeout(() => {
-        navigate("/account/update-password", {
+        navigate("/update-password", {
           state: {
             id: email
           }
@@ -68,7 +68,7 @@ const ForgotPasswordForm = () => {
         </Form>
 
         <div className="rounded-lg my-2">
-          <Link to="/account/signin"
+          <Link to="/"
             className="text-sm underline flex justify-center">
             Login Page
           </Link>

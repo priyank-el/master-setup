@@ -1,11 +1,15 @@
+const config = require("config")
+
 import { Request, Response } from "express"
 import commonUtils from "../../utils/commonUtils"
 import { AppStrings } from "../../utils/appStrings"
 import User from "./models/userModel"
 import * as bcrypt from 'bcrypt'
-const config = require("config")
+import * as Jwt from 'jsonwebtoken'
 import eventEmitter from '../../utils/event'
 import mongoose from "mongoose"
+import fs from 'fs'
+import path from "path"
 
 export const register = async (req: Request, res: Response) => {
   try {
@@ -44,11 +48,18 @@ export const loginUser = async (req: Request, res: Response) => {
   try {
     const user = await User.findOne({ email })
 
+    if (!user) throw "register first"
+    if (user.isVerified === 0) throw "verify otp first"
+
     const isPassword = await bcrypt.compare(password, user.password)
     if (!isPassword) throw "password miss match"
-    commonUtils.sendSuccess(req, res, { message: "user login",user }, 200)
+
+    const payload = { user }
+    const token = await Jwt.sign(payload, config.get("JWT_ACCESS_SECRET"), { expiresIn: config.get("JWT_ACCESS_TIME") })
+
+    commonUtils.sendSuccess(req, res, { message: "user login", token }, 200)
   } catch (error) {
-    commonUtils.sendError(req, res, error, 400)
+    commonUtils.sendError(req, res, { error }, 400)
   }
 }
 
@@ -64,7 +75,6 @@ export const forgotUserPassword = async (req: Request, res: Response) => {
       let otp = commonUtils.generateOtpCode()
       await sendVerifyEmail(isUser.username, email, `otp is ${otp}`, otp, currentDate)
       await User.findOneAndUpdate({ email }, {
-        isVerified: 0,
         otp
       })
       commonUtils.sendSuccess(req, res, { message: "otp sended" }, 200)
@@ -86,35 +96,98 @@ export const resetPassword = async (req: Request, res: Response) => {
 
     const hasedPassword = await bcrypt.hash(password, 10)
     await User.findOneAndUpdate({ email }, {
-        password: hasedPassword
+      password: hasedPassword
     })
     const message = { message: "password updated" }
-    commonUtils.sendSuccess(req,res,message,200)
-} catch (error) {
-    commonUtils.sendError(req,res,error,401)
-}
+    commonUtils.sendSuccess(req, res, message, 200)
+  } catch (error) {
+    commonUtils.sendError(req, res, error, 401)
+  }
 }
 
-export const updateUserProfile = async (req:Request,res:Response) => {
+export const updateUserProfile = async (req: Request, res: Response) => {
+  const {
+    username, email, firstName, lastName, mobile, image
+  } = req.body
+  const userId: any = req.query.userId;
+
+  const user = await User.findById(userId)
+        if (user?.image) {
+            const image = user.image;
+            // console.log(path.join(__dirname,'../../../uploads/user/'));
+            fs.unlink(path.join(__dirname,`../../../uploads/user/${image}`), (e) => {
+                if (e) {
+                    console.log(e);
+                } else {
+                    console.log("file deleted success..");
+                }
+            })  
+        }
+
+  try {
+    await User.findByIdAndUpdate(new mongoose.Types.ObjectId(userId), {
+      username,
+      email,
+      firstName,
+      lastName,
+      mobile,
+      image
+    })
+
+    commonUtils.sendSuccess(req, res, { message: "user profile updated" }, 200)
+  } catch (error) {
+    commonUtils.sendError(req, res, error, 401)
+  }
+}
+
+export const verifyOtp = async (req: Request, res: Response) => {
+  try {
     const {
-      username,email,firstName,lastName,mobile,image
+      otp, email
     } = req.body
-    const userId:any = req.query.userId
-    console.log(req.body);
-    try {
-      await User.findByIdAndUpdate(new mongoose.Types.ObjectId(userId),{
-        username,
-        email,
-        firstName,
-        lastName,
-        mobile,
-        image
-      })
-  
-      commonUtils.sendSuccess(req,res,{message:"user profile updated"},200)
-    } catch (error) {
-      commonUtils.sendError(req,res,error,401)
-    }
+
+    const isUser = await User.findOne({ email })
+
+    if (isUser.otp !== otp) throw "otp miss match"
+    await User.findOneAndUpdate({ email }, {
+      isVerified: 1
+    })
+    commonUtils.sendSuccess(req, res, { message: "otp verified" }, 200)
+  } catch (error: any) {
+    console.log(error)
+    commonUtils.sendError(req, res, error, 401)
+  }
+
+}
+
+export const resendOtp = async (req: Request, res: Response) => {
+  const email = req.body.email;
+  try {
+
+    const user = await User.findOne({ email })
+    if (!user) throw "user not found please do register first"
+    const currentDate = new Date().toLocaleDateString();
+
+    let otp = commonUtils.generateOtpCode();
+    await sendVerifyEmail(user.username, email, `otp is ${otp}`, otp, currentDate)
+
+    commonUtils.sendSuccess(req, res, { message: "otp sended" }, 200)
+  } catch (error) {
+    console.log(error)
+    commonUtils.sendError(req, res, { error }, 401)
+  }
+}
+
+export const getProfile = async (req: Request, res: Response) => {
+  const userData = req.app.locals.user.user
+  try {
+    const user = await User.findById(userData._id)
+
+    if (!user) throw "user not found"
+    commonUtils.sendSuccess(req, res, user, 200)
+  } catch (error) {
+    commonUtils.sendError(req, res, { error }, 400)
+  }
 }
 
 const sendVerifyEmail = async (
