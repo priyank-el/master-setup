@@ -3,8 +3,10 @@ import { AppStrings } from "../../utils/appStrings";
 import commonUtils from "../../utils/commonUtils";
 import redisClient from "../../utils/redisHelper";
 import Auth from "../../auth";
+import * as Jwt from 'jsonwebtoken'
 import { JwtPayload, TokenExpiredError, VerifyErrors } from "jsonwebtoken";
 import { AdminTokenPayload, UserTokenPayload, UserTokenRole } from "../../auth/models";
+import User from "../../components/user/models/userModel";
 
 const config = require("config")
 const jwt = require('jsonwebtoken')
@@ -76,17 +78,17 @@ async function verifyRefreshToken(req: Request, res: Response, next: Function) {
 }
 
 async function verifyAuthToken(req: any, res: Response, next: Function) {
-    let tokens = req.headers?.authorization?.split(' ') ?? []
+    let tokens = req.headers?.authorization
+    console.log(tokens);
+    // if (tokens.length < 1) {
+    //     return commonUtils.sendError(req, res, { message: AppStrings.INVALID_TOKEN }, 401);
+    // }
+    // const token = tokens[1]
 
-    if (tokens.length <= 1) {
-        return commonUtils.sendError(req, res, { message: AppStrings.INVALID_TOKEN }, 401);
-    }
-    const token = tokens[1]
-
-    return _verifyJwtToken(token, [UserTokenRole.registerToken, UserTokenRole.resetPasswordToken, UserTokenRole.loginToken])
+    return _verifyJwtToken(tokens, [UserTokenRole.registerToken, UserTokenRole.resetPasswordToken, UserTokenRole.loginToken])
         .then(async payload => {
             let data = await Auth.getDataUsingPayload(payload.sub)
-            if (data?.accessToken.toString() == token.toString()) {
+            if (data?.accessToken.toString() == tokens.toString()) {
                 return { payload: payload.sub, data: data }
             }
             throw AppStrings.INVALID_SESSION;
@@ -123,9 +125,24 @@ async function verifyAdminAccessToken(req: Request, res: Response, next: Functio
         })
 }
 
+async function JwtAuth (req: Request, res: Response, next: Function){
+    const decodedToken = req.headers.authorization
+try {
+    
+        if(!decodedToken) throw "token required"
+        
+        const user = await Jwt.verify(decodedToken,config.get("JWT_ACCESS_SECRET"))
+        req.app.locals.user = user
+        next()
+} catch (error) {
+        commonUtils.sendError(req,res,{error},401)
+}
+}   
+
 export default {
     verifyAccessToken,
     verifyRefreshToken,
     verifyAuthToken,
     verifyAdminAccessToken,
+    JwtAuth
 }

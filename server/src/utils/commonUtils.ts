@@ -132,7 +132,7 @@ const routeArray = (array_: any, prefix: any, isAdmin: Boolean = false) => {
         const controller = route.controller;
         const validation = route.validation;
         let middlewares = [];
-        const isEncrypt = route.isEncrypt === undefined ? true : route.isEncrypt;
+        const isEncrypt = route.isEncrypt === undefined ? false : route.isEncrypt;
         const isPublic = route.isPublic === undefined ? false : route.isPublic;
         if (isEncrypt) {
             middlewares.push(decryptedData.DecryptedData);

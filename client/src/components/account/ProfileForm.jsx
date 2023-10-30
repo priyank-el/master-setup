@@ -1,48 +1,50 @@
-import React, { useContext, useState } from "react";
-import { reduxForm } from "redux-form";
+import React, { useState } from "react"
+import { reduxForm } from "redux-form"
 import { compose } from "redux"
-import { Form, Input, Button } from "antd";
-import { useNavigate } from "react-router-dom";
-import { UserName } from '../../providers/ContextProvider'
-import axios from "axios";
-import { toast } from "react-toastify";
+import { Form, Input, Button } from "antd"
+import { useLocation, useNavigate } from "react-router-dom"
+import axios from "axios"
+import { toast } from "react-toastify"
 
 const ProfileForm = () => {
 
   const [form] = Form.useForm()
   const navigate = useNavigate()
-  const { loginUser } = useContext(UserName)
   const [selectedFile, setSelectedFile] = useState(null);
   const formDataObject = new FormData()
 
+  const location = useLocation()
+  const user = location.state.user
+
   const formData = {
-    username: loginUser.username,
-    email: loginUser.email,
-    firstname: loginUser.firstName,
-    lastname: loginUser.lastName,
-    mobile: loginUser.mobile
+    username: user.username,
+    email: user.email,
+    firstname: user.firstName,
+    lastname: user.lastName,
+    mobile: user.mobile
   }
   const onFinish = async (values) => {
 
     formDataObject.append('image', selectedFile)
 
     try {
+      let image;
       if (selectedFile) {
         debugger
      
         const res = await axios.post(`http://localhost:3003/user/web/uploadImage/user`, formDataObject, { headers: { "env": "test","Content-Type":"multipart/form-data" } })
         console.log(res.data);
+        image = res.data.file_name
       }
       
-      const filename = selectedFile.name
       debugger
-      const { data } = await axios.post(`http://localhost:3003/user/update-profile?userId=${loginUser._id}`, {
+      const { data } = await axios.post(`http://localhost:3003/user/update-profile?userId=${user._id}`, {
         username: values.username,
         email: values.email,
         firstName: values.firstname,
         lastName: values.lastname,
         mobile: values.mobile,
-        image:filename?filename:null
+        image
       }, {
         headers: {
           "env": "test"
@@ -50,8 +52,8 @@ const ProfileForm = () => {
       })
 
       if (data.message === 'user profile updated') {
-        toast.success("user updated successfully")
-        navigate('/')
+        toast.success("user profile updated successfully")
+        navigate('/home')
       }
     } catch (error) {
       console.log(error)
@@ -105,7 +107,7 @@ const ProfileForm = () => {
           </Button>
           <Button
             htmlType="button"
-            onClick={(e) => navigate("/home/profile")}
+            onClick={(e) => navigate("/user-profile")}
             className='ms-5'
           >
             cancel

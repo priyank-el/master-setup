@@ -64,6 +64,7 @@ app.use(bodyParser.json({ limit: '50mb' }))
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
 
 app.use('/uploads', express.static(path.join(__dirname, '../uploads/')))
+// app.use('/src/uploads',express.static(path.join(__dirname,'uploads/')))
 
 app.use(morgan('dev', { skip: (req: any, res: any) => process.env.NODE_ENV === 'production' }));
 app.set('eventEmitter', eventEmitter)

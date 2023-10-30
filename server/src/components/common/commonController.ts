@@ -61,10 +61,10 @@ const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
     image_(req, res, async (err:any) => {
         if (err) return commonUtils.sendError(req, res, { message: err.message }, 409);
         if (!req.file) return commonUtils.sendError(req, res, { message: AppStrings.IMAGE_NOT_FOUND }, 409);
-        // const image_name = req.file.filename;
-        const originam_image_name = req.file.originalname
+        const image_name = req.file.filename;
+        // const originam_image_name = req.file.originalname
         commonUtils.sendSuccess(req, res, {
-            file_name: originam_image_name
+            file_name: image_name
         }, 200);
     });
 }

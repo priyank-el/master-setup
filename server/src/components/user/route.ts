@@ -1,13 +1,16 @@
-import commonUtils from "../../utils/commonUtils";
 import commonController from "../common/commonController";
 import {
   register,
   loginUser,
   forgotUserPassword,
   resetPassword,
-  updateUserProfile
+  updateUserProfile,
+  verifyOtp,
+  resendOtp,
+  getProfile
 } from "./userController";
 import V from "./validation";
+import Middlewares from '../../middlewares/validations'
 
 export default [
   {
@@ -17,18 +20,20 @@ export default [
     validation: V.registerValidation,
     isPublic: true,
   },
-  // {
-  //   path: "/otp/verify",
-  //   method: "post",
-  //   controller: UserController.verifyOtp,
-  //   authMiddleware: Middlewares.verifyAuthToken,
-  // },
-  // {
-  //   path: "/otp/resend",
-  //   method: "get",
-  //   controller: UserController.resendOtp,
-  //   authMiddleware: Middlewares.verifyAuthToken,
-  // },
+  {
+    path: "/otp-verification",
+    method: "post",
+    controller: verifyOtp,
+    isPublic: true
+    // authMiddleware: Middlewares.verifyAuthToken,
+  },
+  {
+    path: "resend-otp",
+    method: "post",
+    isPublic: true,
+    controller: resendOtp,
+    // authMiddleware: Middlewares.verifyAuthToken,
+  },
   {
     path: "/login",
     method: "post",
@@ -58,12 +63,14 @@ export default [
   //   validation: V.changePwdValidation,
   //   isPublic: false,
   // },
-  // {
-  //   path: "/profile",
-  //   method: "get",
-  //   controller: UserController.getProfile,
-  //   isPublic: false,
-  // },
+  {
+    path: "/user-profile",
+    method: "get",
+    controller: getProfile,
+    isPublic: false,
+    isEncrypt:false,
+    authMiddleware: Middlewares.JwtAuth,
+  },
   {
     path: "/update-profile",
     method: "post",

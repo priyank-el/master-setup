@@ -29,7 +29,18 @@ const SignUpForm = () => {
             }
         })
     
+<<<<<<< HEAD
         if(data.message === 'user created') navigate('/account/otp-verification')
+=======
+        if(data.message === 'user created'){
+            navigate('/otp-verification',{
+                state:{
+                    email:email
+                }
+            })
+        }
+         
+>>>>>>> 30-oct-2023-client-side-development
     } catch (error) {
         console.log("error",error);
     }
@@ -62,7 +73,7 @@ const SignUpForm = () => {
                 </Form.Item>
             </Form>
             <div className='rounded-lg my-2'>
-                <Link to="/account/signin" className='text-sm underline'>already have account?</Link>
+                <Link to="/" className='text-sm underline'>already have account?</Link>
             </div>
         </div>
 

@@ -56,7 +56,7 @@ const UpdatePasswordForm = () => {
                 <Form.Item name="password" label="password" rules={[{ required: true }]}>
                     <Input.Password />
                 </Form.Item>
-                <Form.Item name="currentPassword" label="Current password" rules={[{ required: true }]}>
+                <Form.Item name="currentPassword" label="Confirm password" rules={[{ required: true }]}>
                     <Input.Password />
                 </Form.Item>
 
@@ -65,7 +65,7 @@ const UpdatePasswordForm = () => {
                 </Form.Item>
             </Form>
             <div className="rounded-lg my-2">
-                <Link to="/login"
+                <Link to="/"
                     className="text-sm underline flex justify-center">
                     Login Page
                 </Link>
