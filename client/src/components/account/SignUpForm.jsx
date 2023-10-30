@@ -29,7 +29,7 @@ const SignUpForm = () => {
             }
         })
     
-        if(data.message === 'user created') navigate('/')
+        if(data.message === 'user created') navigate('/account/otp-verification')
     } catch (error) {
         console.log("error",error);
     }
