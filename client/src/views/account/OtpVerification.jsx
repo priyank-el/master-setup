@@ -1,32 +1,32 @@
-<<<<<<< HEAD
-function OtpVerification() {
-  const resendOtpHandler = () => {}
+// // <<<<<<< HEAD
+// function OtpVerification() {
+//   const resendOtpHandler = () => {}
 
-  const onfinish = () => {}
+//   const onfinish = () => {}
 
-  return (
-    <>
-      <div className="d-flex justify-content-center">
-        <div style={{ height: "500px", width: "400px" }}>
-          <label for="exampleInputEmail1">Otp </label>
-          <input
-            type="text"
-            class="form-control"
-            id="otpInput"
-            placeholder="Enter otp"
-          />
+//   return (
+//     <>
+//       <div className="d-flex justify-content-center">
+//         <div style={{ height: "500px", width: "400px" }}>
+//           <label for="exampleInputEmail1">Otp </label>
+//           <input
+//             type="text"
+//             class="form-control"
+//             id="otpInput"
+//             placeholder="Enter otp"
+//           />
 
-          <button type="submit" class="btn btn-primary">
-            Verify
-          </button>
-        </div>
-      </div>
-    </>
-  )
-}
+//           <button type="submit" class="btn btn-primary">
+//             Verify
+//           </button>
+//         </div>
+//       </div>
+//     </>
+//   )
+// }
 
-export default OtpVerification
-=======
+// export default OtpVerification
+// =======
 import axios from "axios"
 import { useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
@@ -101,4 +101,4 @@ function OtpVerification(){
 }
 
 export default OtpVerification
->>>>>>> 30-oct-2023-client-side-development
+// >>>>>>> 30-oct-2023-client-side-development

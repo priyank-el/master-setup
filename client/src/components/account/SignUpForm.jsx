@@ -29,9 +29,9 @@ const SignUpForm = () => {
             }
         })
     
-<<<<<<< HEAD
+// <<<<<<< HEAD
         if(data.message === 'user created') navigate('/account/otp-verification')
-=======
+// =======
         if(data.message === 'user created'){
             navigate('/otp-verification',{
                 state:{
@@ -40,7 +40,7 @@ const SignUpForm = () => {
             })
         }
          
->>>>>>> 30-oct-2023-client-side-development
+// >>>>>>> 30-oct-2023-client-side-development
     } catch (error) {
         console.log("error",error);
     }
