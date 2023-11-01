@@ -63,4 +63,5 @@ adminSchema.index({
   location: "2dsphere",
 });
 
-module.exports = mongoose.model(AppConstants.MODEL_ADMIN, adminSchema);
+const Admin = mongoose.model(AppConstants.MODEL_ADMIN, adminSchema)
+export default Admin;

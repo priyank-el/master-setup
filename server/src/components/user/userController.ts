@@ -190,6 +190,17 @@ export const getProfile = async (req: Request, res: Response) => {
   }
 }
 
+export const getAllUsers = async (req: Request, res: Response) => {
+  try {
+    console.log("come here");
+    const users = await User.find()
+    commonUtils.sendSuccess(req,res,users,200)
+  } catch (error) {
+    console.log(error);
+    commonUtils.sendError(req,res,error,401)
+  }
+}
+
 const sendVerifyEmail = async (
   username: string,
   to: any,
