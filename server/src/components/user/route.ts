@@ -7,7 +7,8 @@ import {
   updateUserProfile,
   verifyOtp,
   resendOtp,
-  getProfile
+  getProfile,
+  getAllUsers
 } from "./userController";
 import V from "./validation";
 import Middlewares from '../../middlewares/validations'
@@ -94,7 +95,14 @@ export default [
     path: "/web/uploadImage/:type",
     method: "post",
     controller: commonController.uploadImage,
-    isPublic: true,
+    isPublic: false,
     // isEncrypt: false
   },
+  {
+    path:'/users',
+    method:'get',
+    controller:getAllUsers,
+    isPublic:true,
+    // isEncrypt: false
+  }
 ];
