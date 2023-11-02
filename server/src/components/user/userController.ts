@@ -201,7 +201,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 }
 
-const sendVerifyEmail = async (
+export const sendVerifyEmail = async (
   username: string,
   to: any,
   content: string,

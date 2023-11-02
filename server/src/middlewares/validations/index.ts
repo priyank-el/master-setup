@@ -7,6 +7,7 @@ import * as Jwt from 'jsonwebtoken'
 import { JwtPayload, TokenExpiredError, VerifyErrors } from "jsonwebtoken";
 import { AdminTokenPayload, UserTokenPayload, UserTokenRole } from "../../auth/models";
 import User from "../../components/user/models/userModel";
+import Admin from "../../components/admin/models/adminModel";
 
 const config = require("config")
 const jwt = require('jsonwebtoken')
@@ -125,24 +126,40 @@ async function verifyAdminAccessToken(req: Request, res: Response, next: Functio
         })
 }
 
-async function JwtAuth (req: Request, res: Response, next: Function){
+async function JwtAuth(req: Request, res: Response, next: Function) {
     const decodedToken = req.headers.authorization
-try {
-    
-        if(!decodedToken) throw "token required"
-        
-        const user = await Jwt.verify(decodedToken,config.get("JWT_ACCESS_SECRET"))
+    try {
+
+        if (!decodedToken) throw "token required"
+
+        const user = await Jwt.verify(decodedToken, config.get("JWT_ACCESS_SECRET"))
         req.app.locals.user = user
         next()
-} catch (error) {
-        commonUtils.sendError(req,res,{error},401)
+    } catch (error) {
+        commonUtils.sendError(req, res, { error }, 401)
+    }
 }
-}   
+async function AdminJwtAuth(req: Request, res: Response, next: Function) {
+    const decodedToken = req.headers.authorization
+    try {
+
+        if (!decodedToken) throw "token required"
+
+        const user:any = await Jwt.verify(decodedToken, config.get("JWT_ACCESS_SECRET"))
+        const admin = await Admin.findById(user.id)
+        req.app.locals.user = admin
+
+        next()
+    } catch (error) {
+        commonUtils.sendError(req, res, { error }, 401)
+    }
+}
 
 export default {
     verifyAccessToken,
     verifyRefreshToken,
     verifyAuthToken,
     verifyAdminAccessToken,
-    JwtAuth
+    JwtAuth,
+    AdminJwtAuth,
 }

@@ -1,13 +1,15 @@
 import { AppStrings } from "../../utils/appStrings";
 import { NextFunction, Request, Response } from "express";
+import fs from 'fs'
 import commonUtils, { fileFilter, commonFileStorage, fileFilterPdf, fileStoragePdf } from "../../utils/commonUtils";
 const multer = require("multer");
 
 const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.file);
+    console.log("function called -> ");
+    console.log(req.file)
     
     const { type } = req.params;
-    let destination = "./uploads/images";
+    let destination = "./uploads/images"
     if (type == "category") {
         destination = "./uploads/category"
     } else if (type == "user") {
@@ -53,6 +55,7 @@ const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
     } else if (type == "tickets") {
         destination = "./uploads/tickets"
     }
+
     const image_ = multer({
         storage: commonFileStorage(destination),
         fileFilter: fileFilter,

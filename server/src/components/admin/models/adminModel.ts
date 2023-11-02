@@ -23,9 +23,16 @@ const adminSchema = new mongoose.Schema(
       type: String,
       require: false,
     },
+    address: {
+      type: String,
+      require: false,
+    },
     password: {
       type: String,
       require: false,
+    },
+    otp:{
+      type:String
     },
     status: {
       type: Number,

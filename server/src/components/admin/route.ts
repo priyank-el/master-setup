@@ -1,4 +1,6 @@
+import commonController from "../common/commonController";
 import adminController from "./adminController";
+import Middlewares from '../../middlewares/validations/index'
 
 export default [
   {
@@ -14,6 +16,26 @@ export default [
     controller: adminController.login,
     isPublic: true,
   },
+  {
+    path: "/forgot-password",
+    method: "post",
+    controller: adminController.forgotPassword,
+    isPublic: true,
+  },
+  {
+    path: "/reset-password",
+    method: "put",
+    controller: adminController.resetAdminPassword,
+    isPublic: true,
+  },
+  {
+    path: "/update-profile",
+    method: "put",
+    controller: adminController.updateAdminProfile,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic: false,
+  },
+
   // {
   //   path: "/logout",
   //   method: "patch",
@@ -32,11 +54,20 @@ export default [
   //   controller: adminController.updateProfile,
   //   validation: V.profileValidation,
   // },
-  // {
-  //   path: "/profile",
-  //   method: "get",
-  //   controller: adminController.getProfile,
-  // },
+  {
+    path: "/profile",
+    method: "get",
+    controller: adminController.getProfile,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic:false
+  },
+  {
+    path: "/update-pass",
+    method: "put",
+    controller: adminController.updatePassword,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic:false
+  },
   // {
   //   path: "/changePassword",
   //   method: "post",
@@ -71,5 +102,13 @@ export default [
   //   controller: adminController.allUserList,
   //   isPublic: true,
   // },
+  {
+    path: "/web/uploadImage/:type",
+    method: "post",
+    controller: commonController.uploadImage,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic: false,
+    // isEncrypt: false
+  },
 ];
     

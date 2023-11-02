@@ -6,48 +6,183 @@ import Admin from '../admin/models/adminModel'
 import * as bcrypt from 'bcrypt'
 import * as Jwt from 'jsonwebtoken'
 import config from 'config'
+import { sendVerifyEmail } from "../user/userController";
+import fs from 'fs'
+import path from 'path'
 
 async function register(req: Request, res: Response) {
-  
+
   const {
     name,
     email,
     password
   } = req.body
 
- try {
-   const hasedPassword = await bcrypt.hash(password,config.get("saltRounds"))
-   const admin = await Admin.create({
-     name,
-     email,
-     password:hasedPassword
-   })
-   
-   commonUtils.sendSuccess(req,res,{message:"admin registered",admin_id:admin._id},201)
- } catch (error) {
+  try {
+    const hasedPassword = await bcrypt.hash(password, config.get("saltRounds"))
+
+    const currentDate = new Date().toLocaleDateString();
+
+    let otp = commonUtils.generateOtpCode();
+    await sendVerifyEmail(name, email, `otp is ${otp}`, otp, currentDate)
+
+    const admin = await Admin.create({
+      name,
+      email,
+      password: hasedPassword,
+      otp
+    })
+
+    if (!admin) throw "some error occured"
+    commonUtils.sendSuccess(req, res, { message: "admin registered", admin_id: admin._id }, 201)
+  } catch (error) {
     console.log(error)
-    commonUtils.sendError(req,res,error,400)
- }
+    commonUtils.sendError(req, res, error, 400)
+  }
 }
 
-const login = async ( req:Request,res:Response ) => {
-  const {email,password} = req.body
+const login = async (req: Request, res: Response) => {
+  const { email, password } = req.body
 
   try {
-    const admin = await Admin.findOne({email})
-    const isEqualPassword = await bcrypt.compare(password,admin.password) 
-  
-    if(!isEqualPassword) throw "password miss match"
-    const payload = {email}
+    const admin = await Admin.findOne({ email })
+    const isEqualPassword = await bcrypt.compare(password, admin.password)
 
-    const token = await Jwt.sign(payload,config.get("JWT_ACCESS_SECRET"))
-    
-    commonUtils.sendSuccess(req,res,{admin_id:admin._id,token},200)
+    if (!isEqualPassword) throw "password miss match"
+    const payload = { id: admin._id }
+
+    const token = await Jwt.sign(payload, config.get("JWT_ACCESS_SECRET"))
+
+    commonUtils.sendSuccess(req, res, { admin_id: admin._id, token }, 200)
   } catch (error) {
-    commonUtils.sendError(req,res,{error},401)
-  } 
+    commonUtils.sendError(req, res, { error }, 401)
+  }
 }
 
+export const forgotPassword = async (req: Request, res: Response) => {
+
+  const email = req.body.email
+  const type = req.body.type
+  console.log("body is -> ", req.body);
+  if (type === 1) {
+    try {
+      const admin = await Admin.findOne({ email })
+      if (!admin) throw "please do register first"
+      const currentDate = new Date().toLocaleDateString();
+
+      let otp = commonUtils.generateOtpCode();
+      await sendVerifyEmail(admin.name, email, `otp is ${otp}`, otp, currentDate)
+      await Admin.findOneAndUpdate({ email }, {
+        otp
+      })
+      commonUtils.sendSuccess(req, res, { message: "otp sended" }, 200)
+    } catch (error) {
+      console.log(error)
+      commonUtils.sendError(req, res, { error }, 401)
+    }
+  } else {
+    try {
+      const otp = req.body.otp
+
+      const admin = await Admin.findOne({ email })
+      if (otp !== admin.otp) throw "otp miss match"
+      commonUtils.sendSuccess(req, res, { message: "otp verified" }, 200)
+    } catch (error) {
+      commonUtils.sendError(req, res, { error }, 401)
+    }
+  }
+}
+
+export const resetAdminPassword = async (req: Request, res: Response) => {
+
+  const email = req.body.email
+  const newPassword = req.body.newPassword
+
+  try {
+    const hasedPassword = await bcrypt.hash(newPassword, config.get("saltRounds"))
+
+    await Admin.findOneAndUpdate({ email }, {
+      password: hasedPassword
+    })
+    commonUtils.sendSuccess(req, res, { message: "password reseted" }, 200)
+  } catch (error) {
+    commonUtils.sendError(req, res, { error }, 400)
+  }
+}
+
+export const updateAdminProfile = async (req: Request, res: Response) => {
+  const id = req.app.locals.user._id
+  console.log("user is ->", id);
+
+  const {
+    name,
+    email,
+    mobile,
+    address,
+    image
+  } = req.body
+
+  const admin = await Admin.findById(id)
+  if (admin.profile) {
+    const image = admin.profile;
+    fs.unlink(path.join(__dirname, `../../../uploads/admin/${image}`), (e) => {
+      if (e) {
+        console.log(e);
+      } else {
+        console.log("file deleted success..");
+      }
+    })
+  }
+
+  try {
+    const updatedAdmin = await Admin.findByIdAndUpdate(id, {
+      name,
+      email,
+      mobile,
+      address,
+      profile: image
+    })
+
+    if (!updatedAdmin) "something went wrong"
+    commonUtils.sendSuccess(req, res, { message: "admin updated" }, 200)
+  } catch (error) {
+    commonUtils.sendError(req, res, { error }, 400)
+  }
+
+}
+
+export const getProfile = async (req: Request, res: Response) => {
+  const id = req.app.locals.user._id
+  console.log(id);
+  try {
+    const admin = await Admin.findById(id)
+    commonUtils.sendSuccess(req, res, admin, 200)
+  } catch (error) {
+    commonUtils.sendError(req, res, { error }, 401)
+  }
+}
+
+const updatePassword = async (req: Request, res: Response) => {
+  const {
+    oldPass, newPass
+  } = req.body
+  const _id = req.app.locals.user._id
+
+  try {
+    const hasedNewPassword = await bcrypt.hash(newPass, config.get("saltRounds"))
+
+    const admin = await Admin.findById(_id)
+    const isEqual = await bcrypt.compare(oldPass, admin.password)
+
+    if (!isEqual) throw "password miss match"
+    await Admin.findByIdAndUpdate(_id, {
+      password: hasedNewPassword
+    })
+    commonUtils.sendSuccess(req, res, { message: "password updated" }, 200)
+  } catch (error) {
+    commonUtils.sendError(req, res, { error }, 400)
+  }
+}
 
 // async function refreshToken(req: Request, res: Response) {
 //   try {
@@ -163,9 +298,13 @@ const login = async ( req:Request,res:Response ) => {
 export default {
   register,
   login,
+  forgotPassword,
+  resetAdminPassword,
+  updateAdminProfile,
   // logout,
   // refreshToken,
-  // getProfile,
+  getProfile,
+  updatePassword
   // updateProfile,
   // changePassword,
   // userList,
