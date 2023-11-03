@@ -1,7 +1,7 @@
 import { AppStrings } from "../../utils/appStrings";
 import { NextFunction, Request, Response } from "express";
-import fs from 'fs'
 import commonUtils, { fileFilter, commonFileStorage, fileFilterPdf, fileStoragePdf } from "../../utils/commonUtils";
+import {createDirectoryIfNotExists} from "../../helpers/commonHelper";
 const multer = require("multer");
 
 const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
@@ -55,6 +55,8 @@ const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
     } else if (type == "tickets") {
         destination = "./uploads/tickets"
     }
+
+    createDirectoryIfNotExists(destination)
 
     const image_ = multer({
         storage: commonFileStorage(destination),
