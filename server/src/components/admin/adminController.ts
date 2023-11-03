@@ -36,7 +36,6 @@ async function register(req: Request, res: Response) {
     if (!admin) throw "some error occured"
     commonUtils.sendSuccess(req, res, { message: "admin registered", admin_id: admin._id }, 201)
   } catch (error) {
-    console.log(error)
     commonUtils.sendError(req, res, error, 400)
   }
 }
@@ -46,6 +45,7 @@ const login = async (req: Request, res: Response) => {
 
   try {
     const admin = await Admin.findOne({ email })
+    if(!admin) throw "Email not found plsese do register first"
     const isEqualPassword = await bcrypt.compare(password, admin.password)
 
     if (!isEqualPassword) throw "password miss match"
@@ -122,16 +122,21 @@ export const updateAdminProfile = async (req: Request, res: Response) => {
     image
   } = req.body
 
-  const admin = await Admin.findById(id)
-  if (admin.profile) {
-    const image = admin.profile;
-    fs.unlink(path.join(__dirname, `../../../uploads/admin/${image}`), (e) => {
-      if (e) {
-        console.log(e);
-      } else {
-        console.log("file deleted success..");
-      }
-    })
+  console.log("image is ->", image);
+  if (image === (null || undefined)) {
+    console.log(image);
+  } else {
+    const admin = await Admin.findById(id)
+    if (admin.profile) {
+      const image = admin.profile;
+      fs.unlink(path.join(__dirname, `../../../uploads/admin/${image}`), (e) => {
+        if (e) {
+          console.log(e);
+        } else {
+          console.log("file deleted success..");
+        }
+      })
+    }
   }
 
   try {
