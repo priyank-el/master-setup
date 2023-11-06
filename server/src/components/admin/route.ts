@@ -68,6 +68,58 @@ export default [
     authMiddleware:Middlewares.AdminJwtAuth,
     isPublic:false
   },
+  // CATEGORY :-
+  {
+    path: "/add-category",
+    method: "post",
+    controller: adminController.createCategory,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic:false
+  },
+  {
+    path: "/update-category",
+    method: "put",
+    controller: adminController.updateCategory,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic:false
+  },
+  {
+    path: "/delete-category",
+    method: "post",
+    controller: adminController.deleteCategory,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic:false
+  },
+  {
+    path: "/all-categories",
+    method: "get",
+    controller: adminController.getAllCategories,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic:false,
+  },
+  // BRAND :-
+  {
+    path: "/add-brand",
+    method: "post",
+    controller: adminController.createBrand,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic:false
+  },
+  {
+    path: "/all-brands",
+    method: "get",
+    controller: adminController.getAllBrands,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic:false
+  },
+  {
+    path: "/delete-brand",
+    method: "post",
+    controller: adminController.deleteBrand,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic:false
+  },
+
   // {
   //   path: "/changePassword",
   //   method: "post",

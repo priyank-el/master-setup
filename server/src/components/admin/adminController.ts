@@ -9,6 +9,8 @@ import config from 'config'
 import { sendVerifyEmail } from "../user/userController";
 import fs from 'fs'
 import path from 'path'
+import Category from "./models/categoryModel";
+import Brand from "./models/brandModel";
 
 async function register(req: Request, res: Response) {
 
@@ -300,16 +302,146 @@ const updatePassword = async (req: Request, res: Response) => {
 //   return commonUtils.sendSuccess(req, res, user);
 // };
 
+const createCategory = async (req: Request, res: Response) => {
+  const name = req.body.name
+
+  try {
+    const category = await Category.create({
+      categoryName:name
+    })
+  
+    if(!category){
+      throw 'category not created'
+    }
+    commonUtils.sendSuccess(req,res,{message:'category created'},201)
+  } catch (error) {
+    commonUtils.sendError(req,res,error,401)
+  }
+}
+
+const getAllCategories = async (req: Request, res: Response) => {
+  try {
+    const categories = await Category.find()
+    if(categories.length === 0){
+      throw 'no category found'
+    }
+    commonUtils.sendSuccess(req,res,categories,200)
+  } catch (error) {
+    commonUtils.sendError(req,res,error,401)
+  }
+}
+
+const updateCategory = async (req: Request, res: Response) => {
+  const {id,name} = req.body
+  try {
+    const category = await Category.findByIdAndUpdate(id,{
+      categoryName:name
+    })
+    if(!category){
+      throw 'category not updated'
+    }
+    commonUtils.sendSuccess(req,res,{message:'category updated'},200)
+  } catch (error) {
+    commonUtils.sendError(req,res,error,401)
+  }
+}
+
+const deleteCategory = async (req: Request, res: Response) => {
+  const _id = req.body.id
+  try {
+    const category = await Category.findByIdAndDelete(_id)
+    if(!category){
+      throw 'category not deleted'
+    }
+    commonUtils.sendSuccess(req,res,{message:'category deleted.'},200)
+  } catch (error) {
+    commonUtils.sendError(req,res,error,401)
+  }
+}
+
+// BRAND SIDE:-
+const createBrand = async (req: Request, res: Response) => {
+  const { category_id,brandName} = req.body
+
+  try {
+    const brand = await Brand.create({
+      category_Id:category_id,
+      brandName
+    })
+  
+    if(!brand){
+      throw 'brand not created.'
+    }
+    commonUtils.sendSuccess(req,res,{message:'brand created.'},201)
+  } catch (error) {
+    commonUtils.sendError(req,res,{error},401)
+  }
+}
+
+const getAllBrands = async (req: Request, res: Response) => {
+  try {
+    const brands = await Brand.aggregate([
+      {
+        $lookup:{
+          from:'categories',
+          localField:'category_Id',
+          foreignField:'_id',
+          as:'category'
+        }
+      },
+      {
+        $unwind:"$category"
+      },
+      {
+        $project:{
+          '_id':1,
+          'brandName':1,
+          'status':1,
+          'category.categoryName':1
+        }
+      }
+    ])
+    if(brands.length === 0){
+      throw "brands not found"
+    }
+    commonUtils.sendSuccess(req,res,brands,200)
+  } catch (error) {
+    commonUtils.sendError(req,res,{error},401)
+  }
+
+}
+
+const deleteBrand = async (req: Request, res: Response) => {
+  const _id = req.body.id
+  try {
+    const brand = await Brand.findByIdAndDelete(_id)
+    if(!brand){
+      throw 'brand not deleted'
+    }
+    commonUtils.sendSuccess(req,res,{message:'brand deleted successfully.'},200)
+  } catch (error) {
+    commonUtils.sendError(req,res,{error},401)
+  }
+}
+
 export default {
   register,
   login,
   forgotPassword,
   resetAdminPassword,
   updateAdminProfile,
+  getProfile,
+  updatePassword,
+  createCategory,
+  getAllCategories,
+  updateCategory,
+  deleteCategory,
+
+  createBrand,
+  getAllBrands,
+  deleteBrand,
   // logout,
   // refreshToken,
-  getProfile,
-  updatePassword
   // updateProfile,
   // changePassword,
   // userList,

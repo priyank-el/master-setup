@@ -57,6 +57,11 @@ app.use(function (req: Request, res: Response, next: NextFunction) {
     next();
 });
 
+// app.use((req: Request, res: Response, next: NextFunction)=>{
+//     console.log("enter here ->");
+//     console.log("auth is -> ",req.headers.authorization);
+// })
+
 app.use(cors(corsOptions))
 app.use(cookieParser());
 

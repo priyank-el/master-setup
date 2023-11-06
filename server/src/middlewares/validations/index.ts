@@ -141,6 +141,7 @@ async function JwtAuth(req: Request, res: Response, next: Function) {
 }
 async function AdminJwtAuth(req: Request, res: Response, next: Function) {
     const decodedToken = req.headers.authorization
+    // console.log("token is -> ",decodedToken);
     try {
 
         if (!decodedToken) throw "token required"

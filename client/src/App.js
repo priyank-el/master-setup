@@ -16,7 +16,6 @@ const SignInView = lazy(() => import("./views/account/SignIn"))
 const SignUpView = lazy(() => import("./views/account/SignUp"))
 const OtpVerification = lazy(() => import("./views/account/OtpVerification"))
 const ForgotPasswordView = lazy(() => import("./views/account/ForgotPassword"))
-// =======
 
 // >>>>>>> 30-oct-2023-client-side-development
 const UpdatNewPassword = lazy(() => import("./views/account/UpdateNewPassword"))

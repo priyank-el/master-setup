@@ -126,7 +126,7 @@ const uploadImage = (req: Request, res: Response, next: NextFunction) => {
 const routeArray = (array_: any, prefix: any, isAdmin: Boolean = false) => {
     // path: "", method: "post", controller: "",validation: ""(can be array of validation),
     // isEncrypt: boolean (default true), isPublic: boolean (default false)
-    console.log("comin inside");
+    // console.log("comin inside");
     isAdmin = false
     array_.forEach((route: any) => {
         const method = route.method as "get" | "post" | "put" | "delete" | "patch";
