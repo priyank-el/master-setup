@@ -1,19 +1,21 @@
 import { AppStrings } from "../../utils/appStrings";
 import { NextFunction, Request, Response } from "express";
 import commonUtils, { fileFilter, commonFileStorage, fileFilterPdf, fileStoragePdf } from "../../utils/commonUtils";
-import {createDirectoryIfNotExists} from "../../helpers/commonHelper";
+import { createDirectoryIfNotExists } from "../../helpers/commonHelper";
 const multer = require("multer");
 
 const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
     console.log("function called -> ");
     console.log(req.file)
-    
+
     const { type } = req.params;
     let destination = "./uploads/images"
     if (type == "category") {
         destination = "./uploads/category"
     } else if (type == "user") {
         destination = "./uploads/user"
+    } else if (type == "product") {
+        destination = "./uploads/product"
     } else if (type == "mainCategory") {
         destination = "./uploads/mainCategory"
     } else if (type == "subCategory") {
@@ -63,7 +65,7 @@ const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
         fileFilter: fileFilter,
     }).single("image");
 
-    image_(req, res, async (err:any) => {
+    image_(req, res, async (err: any) => {
         if (err) return commonUtils.sendError(req, res, { message: err.message }, 409);
         if (!req.file) return commonUtils.sendError(req, res, { message: AppStrings.IMAGE_NOT_FOUND }, 409);
         const image_name = req.file.filename;

@@ -11,6 +11,8 @@ import fs from 'fs'
 import path from 'path'
 import Category from "./models/categoryModel";
 import Brand from "./models/brandModel";
+import mongoose from "mongoose";
+import Product from "./models/productModel";
 
 async function register(req: Request, res: Response) {
 
@@ -47,7 +49,7 @@ const login = async (req: Request, res: Response) => {
 
   try {
     const admin = await Admin.findOne({ email })
-    if(!admin) throw "Email not found plsese do register first"
+    if (!admin) throw "Email not found plsese do register first"
     const isEqualPassword = await bcrypt.compare(password, admin.password)
 
     if (!isEqualPassword) throw "password miss match"
@@ -307,42 +309,42 @@ const createCategory = async (req: Request, res: Response) => {
 
   try {
     const category = await Category.create({
-      categoryName:name
+      categoryName: name
     })
-  
-    if(!category){
+
+    if (!category) {
       throw 'category not created'
     }
-    commonUtils.sendSuccess(req,res,{message:'category created'},201)
+    commonUtils.sendSuccess(req, res, { message: 'category created' }, 201)
   } catch (error) {
-    commonUtils.sendError(req,res,error,401)
+    commonUtils.sendError(req, res, error, 401)
   }
 }
 
 const getAllCategories = async (req: Request, res: Response) => {
   try {
     const categories = await Category.find()
-    if(categories.length === 0){
+    if (categories.length === 0) {
       throw 'no category found'
     }
-    commonUtils.sendSuccess(req,res,categories,200)
+    commonUtils.sendSuccess(req, res, categories, 200)
   } catch (error) {
-    commonUtils.sendError(req,res,error,401)
+    commonUtils.sendError(req, res, error, 401)
   }
 }
 
 const updateCategory = async (req: Request, res: Response) => {
-  const {id,name} = req.body
+  const { id, name } = req.body
   try {
-    const category = await Category.findByIdAndUpdate(id,{
-      categoryName:name
+    const category = await Category.findByIdAndUpdate(id, {
+      categoryName: name
     })
-    if(!category){
+    if (!category) {
       throw 'category not updated'
     }
-    commonUtils.sendSuccess(req,res,{message:'category updated'},200)
+    commonUtils.sendSuccess(req, res, { message: 'category updated' }, 200)
   } catch (error) {
-    commonUtils.sendError(req,res,error,401)
+    commonUtils.sendError(req, res, error, 401)
   }
 }
 
@@ -350,31 +352,31 @@ const deleteCategory = async (req: Request, res: Response) => {
   const _id = req.body.id
   try {
     const category = await Category.findByIdAndDelete(_id)
-    if(!category){
+    if (!category) {
       throw 'category not deleted'
     }
-    commonUtils.sendSuccess(req,res,{message:'category deleted.'},200)
+    commonUtils.sendSuccess(req, res, { message: 'category deleted.' }, 200)
   } catch (error) {
-    commonUtils.sendError(req,res,error,401)
+    commonUtils.sendError(req, res, error, 401)
   }
 }
 
 // BRAND SIDE:-
 const createBrand = async (req: Request, res: Response) => {
-  const { category_id,brandName} = req.body
+  const { category_id, brandName } = req.body
 
   try {
     const brand = await Brand.create({
-      category_Id:category_id,
+      category_Id: category_id,
       brandName
     })
-  
-    if(!brand){
+
+    if (!brand) {
       throw 'brand not created.'
     }
-    commonUtils.sendSuccess(req,res,{message:'brand created.'},201)
+    commonUtils.sendSuccess(req, res, { message: 'brand created.' }, 201)
   } catch (error) {
-    commonUtils.sendError(req,res,{error},401)
+    commonUtils.sendError(req, res, { error }, 401)
   }
 }
 
@@ -382,45 +384,167 @@ const getAllBrands = async (req: Request, res: Response) => {
   try {
     const brands = await Brand.aggregate([
       {
-        $lookup:{
-          from:'categories',
-          localField:'category_Id',
-          foreignField:'_id',
-          as:'category'
+        $lookup: {
+          from: 'categories',
+          localField: 'category_Id',
+          foreignField: '_id',
+          as: 'category'
         }
       },
       {
-        $unwind:"$category"
+        $unwind: "$category"
       },
       {
-        $project:{
-          '_id':1,
-          'brandName':1,
-          'status':1,
-          'category.categoryName':1
+        $project: {
+          '_id': 1,
+          'brandName': 1,
+          'status': 1,
+          'category.categoryName': 1,
+          'category._id': 1
         }
       }
     ])
-    if(brands.length === 0){
+    if (brands.length === 0) {
       throw "brands not found"
     }
-    commonUtils.sendSuccess(req,res,brands,200)
+    commonUtils.sendSuccess(req, res, brands, 200)
+  } catch (error) {
+    commonUtils.sendError(req, res, { error }, 401)
+  }
+
+}
+
+const updateBrandById = async (req: Request, res: Response) => {
+  const {
+    _id,
+    brandName,
+    category_Id
+  } = req.body
+  const brandId = new mongoose.Types.ObjectId(_id)
+  try {
+    const brand = await Brand.findByIdAndUpdate(brandId,{
+      brandName,
+      category_Id
+    })
+    if(!brand) throw 'brand not updated'
+    commonUtils.sendSuccess(req,res,{message:'brand update.'},201)
   } catch (error) {
     commonUtils.sendError(req,res,{error},401)
   }
-
 }
 
 const deleteBrand = async (req: Request, res: Response) => {
   const _id = req.body.id
   try {
     const brand = await Brand.findByIdAndDelete(_id)
-    if(!brand){
+    if (!brand) {
       throw 'brand not deleted'
     }
-    commonUtils.sendSuccess(req,res,{message:'brand deleted successfully.'},200)
+    commonUtils.sendSuccess(req, res, { message: 'brand deleted successfully.' }, 200)
   } catch (error) {
-    commonUtils.sendError(req,res,{error},401)
+    commonUtils.sendError(req, res, { error }, 401)
+  }
+}
+
+const fetchBrandsByCategory = async (req: Request, res: Response) => {
+  const category: any = req.query.category
+  const Id = new mongoose.Types.ObjectId(category)
+
+  const searchData = req.query.category
+    ?
+    { $match: { category_Id: Id } }
+    :
+    { $match: {} }
+
+  try {
+    const brands = await Brand.aggregate([
+      searchData
+    ])
+
+    commonUtils.sendSuccess(req, res, brands, 200)
+  } catch (error) {
+    commonUtils.sendError(req, res, { error }, 401)
+  }
+}
+
+// PRODUCTS :-
+const fetchAllProducts = async (req: Request, res: Response) => {
+  try {
+    const products = await Product.aggregate([
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'productCategory',
+          foreignField: '_id',
+          as: 'category'
+        }
+      },
+      {
+        $unwind: '$category'
+      },
+      {
+        $lookup: {
+          from: 'brands',
+          localField: 'productBrand',
+          foreignField: '_id',
+          as: 'brand'
+        }
+      },
+      {
+        $unwind: '$brand'
+      }, {
+        $project: {
+          'productName': 1,
+          'productDescription': 1,
+          'image': 1,
+          'status': 1,
+          'categoryName': '$category.categoryName',
+          'brandName': '$brand.brandName'
+        }
+      }
+    ])
+
+    commonUtils.sendSuccess(req, res, products, 200)
+  } catch (error) {
+    commonUtils.sendError(req, res, error, 401)
+  }
+}
+
+const createProduct = async (req: Request, res: Response) => {
+  const {
+    productName,
+    productDescription,
+    productCategory,
+    productBrand,
+    image
+  } = req.body
+
+  try {
+    const product = await Product.create({
+      productName,
+      productDescription,
+      productCategory,
+      productBrand,
+      image
+    })
+
+    if (!product) throw 'product not created'
+    commonUtils.sendSuccess(req, res, { message: 'product created successfuuly.' }, 201)
+  } catch (error) {
+    commonUtils.sendError(req, res, { error }, 401)
+  }
+
+}
+
+const deleteProductById = async (req: Request, res: Response) => {
+  const _id = req.body._id
+
+  try {
+    const product = await Product.findByIdAndDelete(_id)
+    if (!product) throw 'product not deleted.'
+    commonUtils.sendSuccess(req, res, { message: 'product deleted.' }, 200)
+  } catch (error) {
+    commonUtils.sendError(req, res, { error }, 401)
   }
 }
 
@@ -439,7 +563,13 @@ export default {
 
   createBrand,
   getAllBrands,
+  updateBrandById,
   deleteBrand,
+  fetchBrandsByCategory,
+
+  fetchAllProducts,
+  createProduct,
+  deleteProductById,
   // logout,
   // refreshToken,
   // updateProfile,

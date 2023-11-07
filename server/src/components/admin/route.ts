@@ -113,9 +113,46 @@ export default [
     isPublic:false
   },
   {
+    path: "/update-brand",
+    method: "put",
+    controller: adminController.updateBrandById,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic:false
+  },
+  {
     path: "/delete-brand",
     method: "post",
     controller: adminController.deleteBrand,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic:false
+  },
+  {
+    path: "/fetch-brand-by-category",
+    method: "get",
+    controller: adminController.fetchBrandsByCategory,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic:false
+  },
+
+  // PRODUCTS :-
+  {
+    path: "/all-products",
+    method: "get",
+    controller: adminController.fetchAllProducts,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic:false
+  },
+  {
+    path: "/create-product",
+    method: "post",
+    controller: adminController.createProduct,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic:false
+  },
+  {
+    path: "/delete-product",
+    method: "post",
+    controller: adminController.deleteProductById,
     authMiddleware:Middlewares.AdminJwtAuth,
     isPublic:false
   },
