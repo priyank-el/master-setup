@@ -308,6 +308,10 @@ const createCategory = async (req: Request, res: Response) => {
   const name = req.body.name
 
   try {
+
+    const isExist = await Category.findOne({categoryName:name})
+    if(isExist) throw 'category already exist'
+
     const category = await Category.create({
       categoryName: name
     })
@@ -366,6 +370,13 @@ const createBrand = async (req: Request, res: Response) => {
   const { category_id, brandName } = req.body
 
   try {
+
+    const isExist = await Brand.findOne({
+      brandName
+    })
+
+    if(isExist) throw 'brand already exist.'
+
     const brand = await Brand.create({
       category_Id: category_id,
       brandName
@@ -376,7 +387,7 @@ const createBrand = async (req: Request, res: Response) => {
     }
     commonUtils.sendSuccess(req, res, { message: 'brand created.' }, 201)
   } catch (error) {
-    commonUtils.sendError(req, res, { error }, 401)
+    commonUtils.sendError(req, res, error , 401)
   }
 }
 
