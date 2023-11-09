@@ -84,6 +84,13 @@ export default [
     isPublic:false
   },
   {
+    path: "/update-category-status",
+    method: "post",
+    controller: adminController.updateCategoryStatus,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic:false
+  },
+  {
     path: "/delete-category",
     method: "post",
     controller: adminController.deleteCategory,

@@ -309,8 +309,8 @@ const createCategory = async (req: Request, res: Response) => {
 
   try {
 
-    const isExist = await Category.findOne({categoryName:name})
-    if(isExist) throw 'category already exist'
+    const isExist = await Category.findOne({ categoryName: name })
+    if (isExist) throw 'category already exist'
 
     const category = await Category.create({
       categoryName: name
@@ -327,10 +327,23 @@ const createCategory = async (req: Request, res: Response) => {
 
 const getAllCategories = async (req: Request, res: Response) => {
   try {
-    const categories = await Category.find()
+    const value = req.query.value
+    const serchValue = req.query.value
+      ? {
+        $match: {
+          categoryName: { $regex: value, $options: 'i' }
+        }
+      }
+      : { $match: {} }
+
+    const categories = await Category.aggregate([
+      serchValue
+    ])
+
     if (categories.length === 0) {
       throw 'no category found'
     }
+
     commonUtils.sendSuccess(req, res, categories, 200)
   } catch (error) {
     commonUtils.sendError(req, res, error, 401)
@@ -349,6 +362,20 @@ const updateCategory = async (req: Request, res: Response) => {
     commonUtils.sendSuccess(req, res, { message: 'category updated' }, 200)
   } catch (error) {
     commonUtils.sendError(req, res, error, 401)
+  }
+}
+
+const updateCategoryStatus = async (req: Request, res: Response) => {
+  const { _id, status } = req.body
+  const changedStatus = status === 'active' ? 'block' : 'active'
+  try {
+    const category = await Category.findByIdAndUpdate(_id, {
+      status: changedStatus
+    })
+    if (!category) throw 'category not updated.'
+    commonUtils.sendSuccess(req, res, { message: 'status updated.' }, 200)
+  } catch (error) {
+    commonUtils.sendError(req, res, { error }, 401)
   }
 }
 
@@ -375,7 +402,7 @@ const createBrand = async (req: Request, res: Response) => {
       brandName
     })
 
-    if(isExist) throw 'brand already exist.'
+    if (isExist) throw 'brand already exist.'
 
     const brand = await Brand.create({
       category_Id: category_id,
@@ -387,7 +414,7 @@ const createBrand = async (req: Request, res: Response) => {
     }
     commonUtils.sendSuccess(req, res, { message: 'brand created.' }, 201)
   } catch (error) {
-    commonUtils.sendError(req, res, error , 401)
+    commonUtils.sendError(req, res, error, 401)
   }
 }
 
@@ -433,14 +460,14 @@ const updateBrandById = async (req: Request, res: Response) => {
   } = req.body
   const brandId = new mongoose.Types.ObjectId(_id)
   try {
-    const brand = await Brand.findByIdAndUpdate(brandId,{
+    const brand = await Brand.findByIdAndUpdate(brandId, {
       brandName,
       category_Id
     })
-    if(!brand) throw 'brand not updated'
-    commonUtils.sendSuccess(req,res,{message:'brand update.'},201)
+    if (!brand) throw 'brand not updated'
+    commonUtils.sendSuccess(req, res, { message: 'brand update.' }, 201)
   } catch (error) {
-    commonUtils.sendError(req,res,{error},401)
+    commonUtils.sendError(req, res, { error }, 401)
   }
 }
 
@@ -570,6 +597,7 @@ export default {
   createCategory,
   getAllCategories,
   updateCategory,
+  updateCategoryStatus,
   deleteCategory,
 
   createBrand,

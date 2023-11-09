@@ -8,7 +8,7 @@ const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
     console.log("function called -> ");
     console.log(req.file)
 
-    const { type } = req.params;
+    const { type } = req.params
     let destination = "./uploads/images"
     if (type == "category") {
         destination = "./uploads/category"
