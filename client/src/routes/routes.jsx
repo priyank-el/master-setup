@@ -14,6 +14,7 @@ const Profile = lazy(()=>import("../views/account/Profile"))
 
 const NotFound = lazy(()=>import("../views/NotFound"))
 
+//STATING
 const routes = [
     {
         path: '/',
