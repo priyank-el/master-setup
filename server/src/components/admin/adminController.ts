@@ -340,10 +340,6 @@ const getAllCategories = async (req: Request, res: Response) => {
       serchValue
     ])
 
-    if (categories.length === 0) {
-      throw 'no category found'
-    }
-
     commonUtils.sendSuccess(req, res, categories, 200)
   } catch (error) {
     commonUtils.sendError(req, res, error, 401)
@@ -419,8 +415,17 @@ const createBrand = async (req: Request, res: Response) => {
 }
 
 const getAllBrands = async (req: Request, res: Response) => {
+  const value = req.query.value
+    const serchValue = req.query.value
+      ? {
+        $match: {
+          brandName: { $regex: value, $options: 'i' }
+        }
+      }
+      : { $match: {} }
   try {
     const brands = await Brand.aggregate([
+      serchValue,
       {
         $lookup: {
           from: 'categories',
@@ -442,9 +447,9 @@ const getAllBrands = async (req: Request, res: Response) => {
         }
       }
     ])
-    if (brands.length === 0) {
-      throw "brands not found"
-    }
+    // if (brands.length === 0) {
+    //   throw "brands not found"
+    // }
     commonUtils.sendSuccess(req, res, brands, 200)
   } catch (error) {
     commonUtils.sendError(req, res, { error }, 401)
@@ -466,6 +471,20 @@ const updateBrandById = async (req: Request, res: Response) => {
     })
     if (!brand) throw 'brand not updated'
     commonUtils.sendSuccess(req, res, { message: 'brand update.' }, 201)
+  } catch (error) {
+    commonUtils.sendError(req, res, { error }, 401)
+  }
+}
+
+const updateBrandStatus = async (req: Request, res: Response) => {
+  const { _id, status } = req.body
+  const changedStatus = status === 'active' ? 'block' : 'active'
+  try {
+    const brand = await Brand.findByIdAndUpdate(_id, {
+      status: changedStatus
+    })
+    if (!brand) throw 'brand not updated.'
+    commonUtils.sendSuccess(req, res, { message: 'status updated.' }, 200)
   } catch (error) {
     commonUtils.sendError(req, res, { error }, 401)
   }
@@ -574,6 +593,20 @@ const createProduct = async (req: Request, res: Response) => {
 
 }
 
+const updateProductStatus = async (req: Request, res: Response) => {
+  const { _id, status } = req.body
+  const changedStatus = status === 'active' ? 'block' : 'active'
+  try {
+    const brand = await Product.findByIdAndUpdate(_id, {
+      status: changedStatus
+    })
+    if (!brand) throw 'product not updated.'
+    commonUtils.sendSuccess(req, res, { message: 'status updated.' }, 200)
+  } catch (error) {
+    commonUtils.sendError(req, res, { error }, 401)
+  }
+}
+
 const deleteProductById = async (req: Request, res: Response) => {
   const _id = req.body._id
 
@@ -603,11 +636,13 @@ export default {
   createBrand,
   getAllBrands,
   updateBrandById,
+  updateBrandStatus,
   deleteBrand,
   fetchBrandsByCategory,
 
   fetchAllProducts,
   createProduct,
+  updateProductStatus,
   deleteProductById,
   // logout,
   // refreshToken,

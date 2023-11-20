@@ -134,6 +134,13 @@ export default [
     isPublic:false
   },
   {
+    path: "/update-brand-status",
+    method: "post",
+    controller: adminController.updateBrandStatus,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic:false
+  },
+  {
     path: "/fetch-brand-by-category",
     method: "get",
     controller: adminController.fetchBrandsByCategory,
@@ -153,6 +160,13 @@ export default [
     path: "/create-product",
     method: "post",
     controller: adminController.createProduct,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic:false
+  },
+  {
+    path: "/update-product-status",
+    method: "post",
+    controller: adminController.updateProductStatus,
     authMiddleware:Middlewares.AdminJwtAuth,
     isPublic:false
   },
