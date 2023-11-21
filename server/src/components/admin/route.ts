@@ -164,6 +164,13 @@ export default [
     isPublic:false
   },
   {
+    path: "/update-product",
+    method: "put",
+    controller: adminController.updateProduct,
+    authMiddleware:Middlewares.AdminJwtAuth,
+    isPublic:false
+  },
+  {
     path: "/update-product-status",
     method: "post",
     controller: adminController.updateProductStatus,

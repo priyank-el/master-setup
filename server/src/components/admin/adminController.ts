@@ -526,8 +526,17 @@ const fetchBrandsByCategory = async (req: Request, res: Response) => {
 
 // PRODUCTS :-
 const fetchAllProducts = async (req: Request, res: Response) => {
+  const value = req.query.value
+    const serchValue = req.query.value
+      ? {
+        $match: {
+          productName: { $regex: value, $options: 'i' }
+        }
+      }
+      : { $match: {} }
   try {
     const products = await Product.aggregate([
+      serchValue,
       {
         $lookup: {
           from: 'categories',
@@ -555,8 +564,8 @@ const fetchAllProducts = async (req: Request, res: Response) => {
           'productDescription': 1,
           'image': 1,
           'status': 1,
-          'categoryName': '$category.categoryName',
-          'brandName': '$brand.brandName'
+          'category':'$category',
+          'brand':'$brand'
         }
       }
     ])
@@ -591,6 +600,45 @@ const createProduct = async (req: Request, res: Response) => {
     commonUtils.sendError(req, res, { error }, 401)
   }
 
+}
+
+const updateProduct = async (req: Request, res: Response) => {
+  const {
+    productName,
+    productDescription,
+    productCategory,
+    productBrand,
+    image
+  } = req.body
+  const productId = req.query.id
+
+  const isProduct = await Product.findById(productId)
+
+  if(isProduct.image){
+    const image = isProduct.image;
+    fs.unlink(path.join(__dirname, `../../../uploads/product/${image}`), (e) => {
+      if (e) {
+        console.log(e);
+      } else {
+        console.log("file deleted success..");
+      }
+    })
+  }
+
+  try {
+    const product = await Product.findByIdAndUpdate(productId,{
+      productName,
+      productDescription,
+      productCategory,
+      productBrand,
+      image
+    })
+
+    if (!product) throw 'product not updated'
+    commonUtils.sendSuccess(req, res, { message: 'product updated successfuuly.' }, 201)
+  } catch (error) {
+    commonUtils.sendError(req, res, { error }, 401)
+  }
 }
 
 const updateProductStatus = async (req: Request, res: Response) => {
@@ -642,6 +690,7 @@ export default {
 
   fetchAllProducts,
   createProduct,
+  updateProduct,
   updateProductStatus,
   deleteProductById,
   // logout,
