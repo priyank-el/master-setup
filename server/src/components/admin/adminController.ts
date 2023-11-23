@@ -565,7 +565,8 @@ const fetchAllProducts = async (req: Request, res: Response) => {
           'image': 1,
           'status': 1,
           'category':'$category',
-          'brand':'$brand'
+          'brand':'$brand',
+          'price':1
         }
       }
     ])
@@ -580,6 +581,7 @@ const createProduct = async (req: Request, res: Response) => {
   const {
     productName,
     productDescription,
+    price,
     productCategory,
     productBrand,
     image
@@ -591,6 +593,7 @@ const createProduct = async (req: Request, res: Response) => {
       productDescription,
       productCategory,
       productBrand,
+      price,
       image
     })
 
@@ -608,6 +611,7 @@ const updateProduct = async (req: Request, res: Response) => {
     productDescription,
     productCategory,
     productBrand,
+    price,
     image
   } = req.body
   const productId = req.query.id
@@ -631,6 +635,7 @@ const updateProduct = async (req: Request, res: Response) => {
       productDescription,
       productCategory,
       productBrand,
+      price,
       image
     })
 

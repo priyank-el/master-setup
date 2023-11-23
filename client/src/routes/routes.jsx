@@ -7,6 +7,7 @@ const SignUpView = lazy(()=> import("../views/account/SignUp"))
 const OtpVerification = lazy(()=>import("../views/account/OtpVerification"))
 const UpdatNewPassword = lazy(()=>import("../views/account/UpdateNewPassword")) 
 const MyProfileView = lazy(()=>import("../views/account/MyProfile"))
+const Details = lazy(()=>import("../views/product/List"))
 
 // AUTHENTICATED ROUTES:
 const HomeView = lazy(()=>import( "../views/Home"))
@@ -73,11 +74,18 @@ const routes = [
         auth: true
     },
     {
+        path: '/products',
+        component: Details,
+        exact: true,
+        name: "listing products",
+        auth: true
+    },
+    {
         path: '*',
         component: NotFound,
         exact: true,
         name: "update user profile",
         auth: true
-    },
+    }
 ]
 export default routes

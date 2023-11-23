@@ -8,7 +8,8 @@ import {
   verifyOtp,
   resendOtp,
   getProfile,
-  getAllUsers
+  getAllUsers,
+  allProducts
 } from "./userController";
 import V from "./validation";
 import Middlewares from '../../middlewares/validations'
@@ -79,6 +80,19 @@ export default [
     // validation: V.updateProfile,
     isPublic: true
   },
+
+
+
+
+  {
+    path: "/all-products",
+    method: "get",
+    controller: allProducts,
+    // validation: V.updateProfile,
+    isPublic: true
+  },
+
+
   // {
   //   path: "/logout",
   //   method: "patch",

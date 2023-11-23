@@ -6,21 +6,21 @@ const CardProductList = (props) => {
     <div className="card">
       <div className="row g-0">
         <div className="col-md-3 text-center">
-          <img src={product.img} className="img-fluid" alt="..." />
+          <img src={`http://localhost:3003/uploads/product/${product.image}`} className="img-fluid" alt="..." />
         </div>
         <div className="col-md-6">
           <div className="card-body">
-            <h6 className="card-subtitle me-2 d-inline">
+            <h2 className="card-subtitle me-2 d-inline">
               <Link to={product.link} className="text-decoration-none">
-                {product.name}
+                {product.productName}
               </Link>
-            </h6>
-            {product.isNew && (
+            </h2>
+            {/* {product.isNew && (
               <span className="badge bg-success me-2">New</span>
             )}
-            {product.isHot && <span className="badge bg-danger me-2">Hot</span>}
+            {product.isHot && <span className="badge bg-danger me-2">Hot</span>} */}
 
-            <div>
+            {/* <div>
               {product.star > 0 &&
                 Array.from({ length: 5 }, (_, key) => {
                   if (key <= product.star)
@@ -38,18 +38,19 @@ const CardProductList = (props) => {
                       />
                     );
                 })}
-            </div>
-            {product.description &&
-              product.description.includes("|") === false && (
-                <p className="small mt-2">{product.description}</p>
+            </div> */}
+            {product.productDescription &&
+              product.productDescription.includes("|") === false && (
+                <p className="small mt-2">{product.productDescription}</p>
               )}
-            {product.description && product.description.includes("|") && (
+            {product.productDescription && product.productDescription.includes("|") && (
               <ul className="mt-2">
-                {product.description.split("|").map((desc, idx) => (
+                {product.productDescription.split("|").map((desc, idx) => (
                   <li key={idx}>{desc}</li>
                 ))}
               </ul>
             )}
+            {/* <p></p> */}
           </div>
         </div>
         <div className="col-md-3">
@@ -58,17 +59,8 @@ const CardProductList = (props) => {
               <span className="fw-bold h5">${product.price}</span>
               {product.originPrice > 0 && (
                 <del className="small text-muted ms-2">
-                  ${product.originPrice}
+                  ${product.price}
                 </del>
-              )}
-              {(product.discountPercentage > 0 ||
-                product.discountPrice > 0) && (
-                <span className={`rounded p-1 bg-warning ms-2 small`}>
-                  -
-                  {product.discountPercentage > 0
-                    ? product.discountPercentage + "%"
-                    : "$" + product.discountPrice}
-                </span>
               )}
             </div>
             {product.isFreeShipping && (
