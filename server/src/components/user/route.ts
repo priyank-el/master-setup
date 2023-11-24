@@ -78,10 +78,9 @@ export default [
     method: "post",
     controller: updateUserProfile,
     // validation: V.updateProfile,
+    authMiddleware: Middlewares.JwtAuth,
     isPublic: true
   },
-
-
 
 
   {

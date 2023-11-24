@@ -97,6 +97,7 @@ const ProfileForm = () => {
                 onChange={changeHandler}
                 className="relative m-0 block w-8/12 min-w-0 flex-auto rounded border border-solid"
                 type="file"
+                name="image"
                 id="formFile" />
             </div>
           </Form.Item>
