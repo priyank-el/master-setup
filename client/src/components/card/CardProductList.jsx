@@ -23,15 +23,13 @@ const CardProductList = (props) => {
             <div>
               {product.ratings > 0 &&
                 Array.from({ length: 5 }, (_, key) => {
-                  if (key+1 <= product.ratings)
-                  {
+                  if (key + 1 <= product.ratings)
                     return (
                       <i
                         className="bi bi-star-fill text-warning me-1"
                         key={key}
                       />
                     );
-                  }
                   else
                     return (
                       <i
@@ -52,7 +50,6 @@ const CardProductList = (props) => {
                 ))}
               </ul>
             )}
-            {/* <p></p> */}
           </div>
         </div>
         <div className="col-md-3">

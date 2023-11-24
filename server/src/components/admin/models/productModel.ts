@@ -51,6 +51,18 @@ const productSchema = new mongoose.Schema({
         default:3,
         required:true,
         comment:'5- Outstanding, 4- Exceeds Expectations, 3- Meets Expectations, 2- Needs Improvement, 1- Unacceptable'
+    },
+    numberOfProducts:{
+        type:String,
+        default:'null',
+        required:true,
+    },
+    isInStock:{
+        type:Boolean,
+        enum:[0,1],
+        default:0,
+        require:true,
+        comment:'0- Out of stock, 1- In stock'
     }
 })
 
