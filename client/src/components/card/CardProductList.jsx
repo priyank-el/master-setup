@@ -20,16 +20,18 @@ const CardProductList = (props) => {
             )}
             {product.isHot && <span className="badge bg-danger me-2">Hot</span>} */}
 
-            {/* <div>
-              {product.star > 0 &&
+            <div>
+              {product.ratings > 0 &&
                 Array.from({ length: 5 }, (_, key) => {
-                  if (key <= product.star)
+                  if (key+1 <= product.ratings)
+                  {
                     return (
                       <i
                         className="bi bi-star-fill text-warning me-1"
                         key={key}
                       />
                     );
+                  }
                   else
                     return (
                       <i
@@ -38,7 +40,7 @@ const CardProductList = (props) => {
                       />
                     );
                 })}
-            </div> */}
+            </div>
             {product.productDescription &&
               product.productDescription.includes("|") === false && (
                 <p className="small mt-2">{product.productDescription}</p>

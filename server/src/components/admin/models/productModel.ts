@@ -38,12 +38,19 @@ const productSchema = new mongoose.Schema({
         enum:[0,1],
         default:1,
         required:true,
-        comment:'value for 0 is not available on free shipping and 1 is available on free shipping'
+        comment:'0 - not available on free shipping , 1 - available on free shipping'
     },
     status:{
         type:String,
         enum:['active','block'],
         default:'active'
+    },
+    ratings:{
+        type:Number,
+        enum:[1,2,3,4,5],
+        default:3,
+        required:true,
+        comment:'5- Outstanding, 4- Exceeds Expectations, 3- Meets Expectations, 2- Needs Improvement, 1- Unacceptable'
     }
 })
 
