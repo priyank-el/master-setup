@@ -566,7 +566,8 @@ const fetchAllProducts = async (req: Request, res: Response) => {
           'status': 1,
           'category':'$category',
           'brand':'$brand',
-          'price':1
+          'price':1,
+          'ratings':1
         }
       }
     ])
