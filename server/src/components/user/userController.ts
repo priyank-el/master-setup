@@ -10,6 +10,7 @@ import eventEmitter from '../../utils/event'
 import mongoose from "mongoose"
 import fs from 'fs'
 import path from "path"
+import Product from "../admin/models/productModel"
 
 export const register = async (req: Request, res: Response) => {
   try {
@@ -197,6 +198,25 @@ export const getAllUsers = async (req: Request, res: Response) => {
     commonUtils.sendSuccess(req,res,users,200)
   } catch (error) {
     console.log(error);
+    commonUtils.sendError(req,res,error,401)
+  }
+}
+
+export const allProducts = async (req: Request, res: Response) => {
+  try {
+    const value = req.query.value
+    const serchValue = req.query.value
+      ? {
+        $match: {
+          productName: { $regex: value, $options: 'i' }
+        }
+      }
+      : { $match: {} }
+    const products = await Product.aggregate([
+      serchValue
+    ])
+    commonUtils.sendSuccess(req,res,products,200)
+  } catch (error) {
     commonUtils.sendError(req,res,error,401)
   }
 }

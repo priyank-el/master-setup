@@ -1,62 +1,89 @@
-import React, { lazy, Component } from "react";
-import { data } from "../../data";
-const Paging = lazy(() => import("../../components/Paging"));
-const Breadcrumb = lazy(() => import("../../components/Breadcrumb"));
-const FilterCategory = lazy(() => import("../../components/filter/Category"));
-const FilterPrice = lazy(() => import("../../components/filter/Price"));
-const FilterSize = lazy(() => import("../../components/filter/Size"));
-const FilterStar = lazy(() => import("../../components/filter/Star"));
-const FilterColor = lazy(() => import("../../components/filter/Color"));
-const FilterTag = lazy(() => import("../../components/filter/Tag"));
-const FilterClear = lazy(() => import("../../components/filter/Clear"));
-const CardServices = lazy(() => import("../../components/card/CardServices"));
+import React, { lazy, useState, useEffect } from "react";
+import axios from "axios"
+import { Link } from "react-router-dom";
 const CardProductGrid = lazy(() =>
   import("../../components/card/CardProductGrid")
 );
 const CardProductList = lazy(() =>
   import("../../components/card/CardProductList")
 );
+const Paging = lazy(() => import("../../components/Paging"));
 
-class ProductListView extends Component {
-  state = {
-    currentProducts: [],
-    currentPage: null,
-    totalPages: null,
-    totalItems: 0,
-    view: "list",
+
+const ProductListView = () => {
+  // state = {
+  //   currentProducts: [],
+  //   currentPage: null,
+  //   totalPages: null,
+  //   totalItems: 0,
+  //   view: "list",
+  // };
+
+  // UNSAFE_componentWillMount() {
+  //   const totalItems = this.getProducts().length;
+  //   this.setState({ totalItems });
+  // }
+
+  // onPageChanged = (page) => {
+  //   let products = this.getProducts();
+  //   const { currentPage, totalPages, pageLimit } = page;
+  //   const offset = (currentPage - 1) * pageLimit;
+  //   const currentProducts = products.slice(offset, offset + pageLimit);
+  //   this.setState({ currentPage, currentProducts, totalPages });
+  // };
+
+
+  // getProducts = () => {
+  //   let products = data.products;
+  //   products = products.concat(products);
+  //   products = products.concat(products);
+  //   products = products.concat(products);
+  //   products = products.concat(products);
+  //   products = products.concat(products);
+  //   return products;
+  // };
+
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [searchValue, setSearchValue] = useState('')
+  const [view, setView] = useState('list')
+
+  const onChangeView = (view) => {
+    setView(view);
   };
 
-  UNSAFE_componentWillMount() {
-    const totalItems = this.getProducts().length;
-    this.setState({ totalItems });
+  useEffect(() => {
+    fetchAllProducts()
+  }, [])
+
+  const fetchAllProducts = async () => {
+    try {
+      setLoading(true)
+      const { data } = await axios.get(`http://localhost:3003/user/all-products?value=${searchValue}`, {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken"),
+          "env": "test"
+        }
+      })
+      console.log("data -> ", data);
+      if (data) {
+        setProducts(data)
+        setLoading(false)
+      }
+    } catch (error) {
+
+    }
   }
 
-  onPageChanged = (page) => {
-    let products = this.getProducts();
-    const { currentPage, totalPages, pageLimit } = page;
-    const offset = (currentPage - 1) * pageLimit;
-    const currentProducts = products.slice(offset, offset + pageLimit);
-    this.setState({ currentPage, currentProducts, totalPages });
-  };
-
-  onChangeView = (view) => {
-    this.setState({ view });
-  };
-
-  getProducts = () => {
-    let products = data.products;
-    products = products.concat(products);
-    products = products.concat(products);
-    products = products.concat(products);
-    products = products.concat(products);
-    products = products.concat(products);
-    return products;
-  };
-
-  render() {
+  if (loading) {
     return (
-      <React.Fragment>
-        <div
+      <h3 style={{ textAlign: "center" }}>loading..</h3>
+    )
+  }
+
+  return (
+    <React.Fragment>
+      {/* <div
           className="p-5 bg-primary bs-cover"
           style={{
             backgroundImage: "url(../../images/banner/50-Banner.webp)",
@@ -67,11 +94,11 @@ class ProductListView extends Component {
               T-Shirts
             </span>
           </div>
-        </div>
-        <Breadcrumb />
-        <div className="container-fluid mb-3">
-          <div className="row">
-            <div className="col-md-3">
+        </div> */}
+      {/* <Breadcrumb /> */}
+      <div className="container-fluid mb-3">
+        <div className="row">
+          {/* <div className="col-md-3">
               <FilterCategory />
               <FilterPrice />
               <FilterSize />
@@ -80,17 +107,17 @@ class ProductListView extends Component {
               <FilterClear />
               <FilterTag />
               <CardServices />
-            </div>
-            <div className="col-md-9">
-              <div className="row">
-                <div className="col-7">
+            </div> */}
+          <div className="col-md-12">
+            <div className="row">
+              {/* <div className="col-7">
                   <span className="align-middle fw-bold">
                     {this.state.totalItems} results for{" "}
                     <span className="text-warning">"t-shirts"</span>
                   </span>
-                </div>
-                <div className="col-5 d-flex justify-content-end">
-                  <select
+                </div> */}
+              <div className="col-5 d-flex justify-content-end">
+                {/* <select
                     className="form-select mw-180 float-start"
                     aria-label="Default select"
                   >
@@ -99,69 +126,77 @@ class ProductListView extends Component {
                     <option value={3}>Trending</option>
                     <option value={4}>Price low to high</option>
                     <option value={4}>Price high to low</option>
-                  </select>
-                  <div className="btn-group ms-3" role="group">
-                    <button
-                      aria-label="Grid"
-                      type="button"
-                      onClick={() => this.onChangeView("grid")}
-                      className={`btn ${
-                        this.state.view === "grid"
-                          ? "btn-primary"
-                          : "btn-outline-primary"
+                  </select> */}
+                <div className="btn-group ms-3" role="group">
+                  <button
+                    aria-label="Grid"
+                    type="button"
+                    onClick={() => onChangeView("grid")}
+                    className={`btn ${view === "grid"
+                      ? "btn-primary"
+                      : "btn-outline-primary"
                       }`}
-                    >
-                      <i className="bi bi-grid" />
-                    </button>
-                    <button
-                      aria-label="List"
-                      type="button"
-                      onClick={() => this.onChangeView("list")}
-                      className={`btn ${
-                        this.state.view === "list"
-                          ? "btn-primary"
-                          : "btn-outline-primary"
+                  >
+                    <i className="bi bi-grid" />
+                  </button>
+                  <button
+                    aria-label="List"
+                    type="button"
+                    onClick={() => onChangeView("list")}
+                    className={`btn ${view === "list"
+                      ? "btn-primary"
+                      : "btn-outline-primary"
                       }`}
-                    >
-                      <i className="bi bi-list" />
-                    </button>
-                  </div>
+                  >
+                    <i className="bi bi-list" />
+                  </button>
+
                 </div>
               </div>
-              <hr />
-              <div className="row g-3">
-                {this.state.view === "grid" &&
-                  this.state.currentProducts.map((product, idx) => {
-                    return (
-                      <div key={idx} className="col-md-4">
-                        <CardProductGrid data={product} />
-                      </div>
-                    );
-                  })}
-                {this.state.view === "list" &&
-                  this.state.currentProducts.map((product, idx) => {
-                    return (
-                      <div key={idx} className="col-md-12">
-                        <CardProductList data={product} />
-                      </div>
-                    );
-                  })}
-              </div>
-              <hr />
-              <Paging
-                totalRecords={this.state.totalItems}
-                pageLimit={9}
+            </div>
+            <hr />
+            {
+              products.length === 0
+                ?
+                <h3>No products available</h3>
+                :
+                <div className="row g-3">
+                  {view === "grid" &&
+                    products.map((product, idx) => {
+                      return (
+                        <div key={idx} className="col-md-4">
+                          <Link style={{ textDecoration: "none" }}>
+                            <CardProductGrid data={product} />
+                          </Link>
+                        </div>
+                      );
+                    })}
+                  {view === "list" &&
+                    products.map((product, idx) => {
+                      return (
+                        <div key={idx} className="col-md-12">
+                          <Link style={{ textDecoration: "none" }}>
+                            <CardProductList data={product} />
+                          </Link>
+                        </div>
+                      );
+                    })}
+                </div>}
+            <hr />
+            {/* <Paging
+                totalRecords={products.length}
+                pageLimit={6}
                 pageNeighbours={3}
-                onPageChanged={this.onPageChanged}
+                onPageChanged={onPageChanged}
                 sizing=""
                 alignment="justify-content-center"
-              />
-            </div>
+              /> */}
           </div>
         </div>
-      </React.Fragment>
-    );
-  }
+      </div>
+    </React.Fragment>
+  );
 }
+
 
 export default ProductListView;
