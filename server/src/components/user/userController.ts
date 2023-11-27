@@ -11,6 +11,7 @@ import mongoose from "mongoose"
 import fs from 'fs'
 import path from "path"
 import Product from "../admin/models/productModel"
+import Cart from "./models/cartModel"
 
 export const register = async (req: Request, res: Response) => {
   try {
@@ -220,6 +221,82 @@ export const allProducts = async (req: Request, res: Response) => {
     commonUtils.sendError(req,res,error,401)
   }
 }
+
+// CART :-
+
+export const addToCart = async (req: Request, res: Response) => {
+  const {productId} = req.body
+  const {user}  = req.app.locals.user
+
+  try {
+    await Cart.create({
+      userId:user._id,
+      productId
+    })
+  
+    commonUtils.sendSuccess(req,res,{message:'product added in cart.'},201)
+  } catch (error) {
+    commonUtils.sendError(req,res,error,401)
+  }
+}
+
+export const fetchAllCartProducts = async (req: Request, res: Response) => {
+  const {user} = req.app.locals.user
+  const userId = new mongoose.Types.ObjectId(user._id)
+  try {
+    const products = await Cart.aggregate([
+      {
+        $match:{ userId }
+      },
+      {
+        $lookup:{
+          from:'products',
+          localField:'productId',
+          foreignField:'_id',
+          as:'product'
+        }
+      },
+      {
+        $unwind:{
+          path:'$product',
+          preserveNullAndEmptyArrays:true
+        }
+      },
+      {
+        $project:{
+          'productId':0,
+          'createdAt':0,
+          'updatedAt':0,
+          '__v':0,
+          'product.__v':0
+        }
+      }
+    ])
+  
+    commonUtils.sendSuccess(req,res,products,200)
+  } catch (error) {
+    commonUtils.sendError(req,res,error,401)
+  }
+}
+
+export const addQuantityInCart = async (req: Request, res: Response) => {
+  const { cartId, productId, currentQuantity } = req.body;
+
+  try {
+    const product = await Product.findById(productId)
+    const isAvailable = currentQuantity < product.numberOfProducts 
+  
+    if(isAvailable){
+      await Cart.findByIdAndUpdate(cartId,{
+        numberOfProducts:currentQuantity + 1
+      })
+    }
+
+    commonUtils.sendSuccess(req,res,{message:'add quantity'},200)
+  } catch (error) {
+    commonUtils.sendError(req,res,error,401)
+  }
+} 
 
 export const sendVerifyEmail = async (
   username: string,

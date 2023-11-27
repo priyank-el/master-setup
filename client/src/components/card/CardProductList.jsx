@@ -1,7 +1,33 @@
+import axios from "axios";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const CardProductList = (props) => {
   const product = props.data;
+
+  const addToCart = async (productData) => {
+    console.log('product ->',productData);
+   
+    try {
+      debugger
+      const { data } = await axios.post('http://localhost:3003/user/add-cart',{
+        productId:productData._id
+      },{
+        headers:{
+          "env":"test",
+          Authorization:localStorage.getItem('JwtToken')
+        }
+      })
+
+      if(data){
+        toast.success(data.message)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
   return (
     <div className="card">
       <div className="row g-0">
@@ -15,10 +41,12 @@ const CardProductList = (props) => {
                 {product.productName}
               </Link>
             </h2>
-            {/* {product.isNew && (
-              <span className="badge bg-success me-2">New</span>
+            {product.isInStock === true && (
+              <span className="badge bg-success me-3">In stock</span>
             )}
-            {product.isHot && <span className="badge bg-danger me-2">Hot</span>} */}
+            {product.isInStock === false &&(
+              <span className="badge bg-danger me-3">Out of stock</span>
+              )}
 
             <div>
               {product.ratings > 0 &&
@@ -73,6 +101,7 @@ const CardProductList = (props) => {
                 type="button"
                 className="btn btn-sm btn-primary"
                 title="Add to cart"
+                onClick={() => addToCart(product)}
               >
                 <i className="bi bi-cart-plus" />
               </button>

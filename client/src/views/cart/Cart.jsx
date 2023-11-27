@@ -1,4 +1,5 @@
-import { lazy } from "react";
+import axios from "axios";
+import { lazy, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 const CouponApplyForm = lazy(() =>
   import("../../components/others/CouponApplyForm")
@@ -8,6 +9,61 @@ const CartView = () => {
   const onSubmitApplyCouponCode = async (values) => {
     alert(JSON.stringify(values));
   };
+
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    fetchAllCartProducts()
+  }, [])
+
+  // ALL CART PRODUCTS:-
+  const fetchAllCartProducts = async () => {
+    try {
+      setLoading(true)
+      const { data } = await axios.get('http://localhost:3003/user/all-cart-products', {
+        headers: {
+          "env": "test",
+          "Authorization": localStorage.getItem('JwtToken')
+        }
+      })
+
+      if (data) {
+        setLoading(false)
+        setProducts(data)
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false)
+    }
+  }
+
+  const increment = async (product) => {
+    try {
+      setLoading(true)
+      const { data } = await axios.post('http://localhost:3003/user/add-quantity', {
+        cartId: product._id,
+        productId: product.product._id,
+        currentQuantity: product.numberOfProducts
+      }, {
+        headers: {
+          "env": "test",
+          "Authorization": localStorage.getItem('JwtToken')
+        }
+      })
+
+      if (data) {
+        setLoading(false)
+        fetchAllCartProducts()
+      }
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+    }
+  }
+
+  // if (loading) return <h3>loading..</h3>
+  
   return (
     <div>
       <div className="bg-secondary border-top p-4 text-white mb-3">
@@ -32,124 +88,80 @@ const CartView = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>
-                        <div className="row">
-                          <div className="col-3 d-none d-md-block">
-                            <img
-                              src="../../images/products/tshirt_red_480x400.webp"
-                              width="80"
-                              alt="..."
-                            />
-                          </div>
-                          <div className="col">
-                            <Link
-                              to="/product/detail"
-                              className="text-decoration-none"
-                            >
-                              Another name of some product goes just here
-                            </Link>
-                            <p className="small text-muted">
-                              Size: XL, Color: blue, Brand: XYZ
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="input-group input-group-sm mw-140">
-                          <button
-                            className="btn btn-primary text-white"
-                            type="button"
-                          >
-                            <i className="bi bi-dash-lg"></i>
-                          </button>
-                          <input
-                            type="text"
-                            className="form-control"
-                            defaultValue="1"
-                          />
-                          <button
-                            className="btn btn-primary text-white"
-                            type="button"
-                          >
-                            <i className="bi bi-plus-lg"></i>
-                          </button>
-                        </div>
-                      </td>
-                      <td>
-                        <var className="price">$237.00</var>
-                        <small className="d-block text-muted">
-                          $79.00 each
-                        </small>
-                      </td>
-                      <td className="text-end">
-                        <button className="btn btn-sm btn-outline-secondary me-2">
-                          <i className="bi bi-heart-fill"></i>
-                        </button>
-                        <button className="btn btn-sm btn-outline-danger">
-                          <i className="bi bi-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div className="row">
-                          <div className="col-3 d-none d-md-block">
-                            <img
-                              src="../../images/products/tshirt_grey_480x400.webp"
-                              width="80"
-                              alt="..."
-                            />
-                          </div>
-                          <div className="col">
-                            <Link
-                              to="/product/detail"
-                              className="text-decoration-none"
-                            >
-                              Another name of some product goes just here
-                            </Link>
-                            <p className="small text-muted">
-                              Size: XL, Color: blue, Brand: XYZ
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="input-group input-group-sm mw-140">
-                          <button
-                            className="btn btn-primary text-white"
-                            type="button"
-                          >
-                            <i className="bi bi-dash-lg"></i>
-                          </button>
-                          <input
-                            type="text"
-                            className="form-control"
-                            defaultValue="1"
-                          />
-                          <button
-                            className="btn btn-primary text-white"
-                            type="button"
-                          >
-                            <i className="bi bi-plus-lg"></i>
-                          </button>
-                        </div>
-                      </td>
-                      <td>
-                        <var className="price">$237.00</var>
-                        <small className="d-block text-muted">
-                          $79.00 each
-                        </small>
-                      </td>
-                      <td className="text-end">
-                        <button className="btn btn-sm btn-outline-secondary me-2">
-                          <i className="bi bi-heart-fill"></i>
-                        </button>
-                        <button className="btn btn-sm btn-outline-danger">
-                          <i className="bi bi-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
+
+                    {
+                      products.length > 0 &&
+                      products.map((product, index) => (
+                        <tr>
+                          <td>
+                            <div className="row">
+                              <div className="col-3 d-none d-md-block">
+                                <img
+                                  src={`http://localhost:3003/uploads/product/${product?.product?.image}`}
+                                  width="80"
+                                  style={{ borderRadius: '10px' }}
+                                  alt="..."
+                                />
+                              </div>
+                              <div className="col">
+                                <Link
+                                  to="/product/detail"
+                                  className="text-decoration-none"
+                                >
+                                  {
+                                    product?.product?.productName
+                                  }
+                                </Link>
+                                <p className="small text-muted">
+                                  {
+                                    product?.product?.productDescription
+                                  }
+                                </p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="input-group input-group-sm mw-140">
+                              <button
+                                className="btn btn-primary text-white"
+                                type="button"
+                              // onClick={()=>incrementData(product)}
+                              >
+                                <i className="bi bi-dash-lg"></i>
+                              </button>
+                              <input
+                                type="text"
+                                className="form-control"
+                                value={product?.numberOfProducts}
+                              />
+                              <button
+                                className="btn btn-primary text-white"
+                                type="button"
+                                onClick={() => increment(product)}
+                              >
+                                <i className="bi bi-plus-lg"></i>
+                              </button>
+                            </div>
+                          </td>
+                          <td>
+                            <var className="price">${product?.product?.price}</var>
+                            {/* <small className="d-block text-muted">
+                              $79.00 each
+                            </small> */}
+                          </td>
+                          <td className="text-end">
+                            <button className="btn btn-sm btn-outline-secondary me-2">
+                              <i className="bi bi-heart-fill"></i>
+                            </button>
+                            <button className="btn btn-sm btn-outline-danger">
+                              <i className="bi bi-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    }
+
+
                   </tbody>
                 </table>
               </div>

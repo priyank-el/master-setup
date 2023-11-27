@@ -9,7 +9,11 @@ import {
   resendOtp,
   getProfile,
   getAllUsers,
-  allProducts
+  allProducts,
+  addToCart,
+  fetchAllCartProducts,
+
+  addQuantityInCart
 } from "./userController";
 import V from "./validation";
 import Middlewares from '../../middlewares/validations'
@@ -91,7 +95,32 @@ export default [
     isPublic: true
   },
 
+    //CART :-
 
+    {
+      path: "/add-cart",
+      method: "post",
+      controller:addToCart,
+      authMiddleware:Middlewares.JwtAuth,
+      isPublic:false
+    },
+    {
+      path: "/all-cart-products",
+      method: "get",
+      controller:fetchAllCartProducts,
+      authMiddleware:Middlewares.JwtAuth,
+      isPublic:false
+    },
+
+
+
+    {
+      path: "/add-quantity",
+      method: "post",
+      controller:addQuantityInCart,
+      authMiddleware:Middlewares.JwtAuth,
+      isPublic:false
+    },
   // {
   //   path: "/logout",
   //   method: "patch",

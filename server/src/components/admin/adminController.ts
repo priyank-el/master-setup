@@ -13,6 +13,7 @@ import Category from "./models/categoryModel";
 import Brand from "./models/brandModel";
 import mongoose from "mongoose";
 import Product from "./models/productModel";
+import Cart from "../user/models/cartModel";
 
 async function register(req: Request, res: Response) {
 
@@ -567,7 +568,8 @@ const fetchAllProducts = async (req: Request, res: Response) => {
           'category':'$category',
           'brand':'$brand',
           'price':1,
-          'ratings':1
+          'ratings':1,
+          'numberOfProducts':1
         }
       }
     ])
@@ -585,6 +587,7 @@ const createProduct = async (req: Request, res: Response) => {
     price,
     productCategory,
     productBrand,
+    numberOfProducts,
     image
   } = req.body
 
@@ -594,6 +597,7 @@ const createProduct = async (req: Request, res: Response) => {
       productDescription,
       productCategory,
       productBrand,
+      numberOfProducts,
       price,
       image
     })
@@ -612,6 +616,7 @@ const updateProduct = async (req: Request, res: Response) => {
     productDescription,
     productCategory,
     productBrand,
+    numberOfProducts,
     price,
     image
   } = req.body
@@ -636,6 +641,7 @@ const updateProduct = async (req: Request, res: Response) => {
       productDescription,
       productCategory,
       productBrand,
+      numberOfProducts,
       price,
       image
     })
@@ -673,6 +679,8 @@ const deleteProductById = async (req: Request, res: Response) => {
   }
 }
 
+
+
 export default {
   register,
   login,
@@ -699,6 +707,7 @@ export default {
   updateProduct,
   updateProductStatus,
   deleteProductById,
+
   // logout,
   // refreshToken,
   // updateProfile,

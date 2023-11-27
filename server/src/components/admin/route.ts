@@ -185,6 +185,9 @@ export default [
     isPublic:false
   },
 
+
+
+
   // {
   //   path: "/changePassword",
   //   method: "post",
