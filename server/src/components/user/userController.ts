@@ -298,6 +298,20 @@ export const addQuantityInCart = async (req: Request, res: Response) => {
   }
 } 
 
+export const removeQuantityInCart = async (req: Request, res: Response) => {
+  const { cartId, currentQuantity } = req.body;
+
+  try {  
+      await Cart.findByIdAndUpdate(cartId,{
+        numberOfProducts:currentQuantity - 1
+      })
+
+    commonUtils.sendSuccess(req,res,{message:'remove quantity'},200)
+  } catch (error) {
+    commonUtils.sendError(req,res,error,401)
+  }
+} 
+
 export const sendVerifyEmail = async (
   username: string,
   to: any,
