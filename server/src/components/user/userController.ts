@@ -12,6 +12,9 @@ import fs from 'fs'
 import path from "path"
 import Product from "../admin/models/productModel"
 import Cart from "./models/cartModel"
+import Payment from "./models/PaymentModel"
+
+const { ObjectId } = mongoose.Types
 
 export const register = async (req: Request, res: Response) => {
   try {
@@ -114,17 +117,17 @@ export const updateUserProfile = async (req: Request, res: Response) => {
   const userId: any = req.query.userId;
 
   const user = await User.findById(userId)
-        if (user?.image) {
-            const image = user.image;
-            // console.log(path.join(__dirname,'../../../uploads/user/'));
-            fs.unlink(path.join(__dirname,`../../../uploads/user/${image}`), (e) => {
-                if (e) {
-                    console.log(e);
-                } else {
-                    console.log("file deleted success..");
-                }
-            })  
-        }
+  if (user?.image) {
+    const image = user.image;
+    // console.log(path.join(__dirname,'../../../uploads/user/'));
+    fs.unlink(path.join(__dirname, `../../../uploads/user/${image}`), (e) => {
+      if (e) {
+        console.log(e);
+      } else {
+        console.log("file deleted success..");
+      }
+    })
+  }
 
   try {
     await User.findByIdAndUpdate(new mongoose.Types.ObjectId(userId), {
@@ -196,10 +199,10 @@ export const getAllUsers = async (req: Request, res: Response) => {
   try {
     console.log("come here");
     const users = await User.find()
-    commonUtils.sendSuccess(req,res,users,200)
+    commonUtils.sendSuccess(req, res, users, 200)
   } catch (error) {
     console.log(error);
-    commonUtils.sendError(req,res,error,401)
+    commonUtils.sendError(req, res, error, 401)
   }
 }
 
@@ -216,66 +219,67 @@ export const allProducts = async (req: Request, res: Response) => {
     const products = await Product.aggregate([
       serchValue
     ])
-    commonUtils.sendSuccess(req,res,products,200)
+    commonUtils.sendSuccess(req, res, products, 200)
   } catch (error) {
-    commonUtils.sendError(req,res,error,401)
+    commonUtils.sendError(req, res, error, 401)
   }
 }
 
 // CART :-
 
 export const addToCart = async (req: Request, res: Response) => {
-  const {productId} = req.body
-  const {user}  = req.app.locals.user
+  const { productId, price } = req.body
+  const { user } = req.app.locals.user
 
   try {
     await Cart.create({
-      userId:user._id,
-      productId
+      userId: user._id,
+      productId,
+      price
     })
-  
-    commonUtils.sendSuccess(req,res,{message:'product added in cart.'},201)
+
+    commonUtils.sendSuccess(req, res, { message: 'product added in cart.' }, 201)
   } catch (error) {
-    commonUtils.sendError(req,res,error,401)
+    commonUtils.sendError(req, res, error, 401)
   }
 }
 
 export const fetchAllCartProducts = async (req: Request, res: Response) => {
-  const {user} = req.app.locals.user
+  const { user } = req.app.locals.user
   const userId = new mongoose.Types.ObjectId(user._id)
   try {
     const products = await Cart.aggregate([
       {
-        $match:{ userId }
+        $match: { userId }
       },
       {
-        $lookup:{
-          from:'products',
-          localField:'productId',
-          foreignField:'_id',
-          as:'product'
+        $lookup: {
+          from: 'products',
+          localField: 'productId',
+          foreignField: '_id',
+          as: 'product'
         }
       },
       {
-        $unwind:{
-          path:'$product',
-          preserveNullAndEmptyArrays:true
+        $unwind: {
+          path: '$product',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
-        $project:{
-          'productId':0,
-          'createdAt':0,
-          'updatedAt':0,
-          '__v':0,
-          'product.__v':0
+        $project: {
+          'productId': 0,
+          'createdAt': 0,
+          'updatedAt': 0,
+          '__v': 0,
+          'product.__v': 0
         }
       }
     ])
-  
-    commonUtils.sendSuccess(req,res,products,200)
+
+    commonUtils.sendSuccess(req, res, products, 200)
   } catch (error) {
-    commonUtils.sendError(req,res,error,401)
+    commonUtils.sendError(req, res, error, 401)
   }
 }
 
@@ -284,33 +288,95 @@ export const addQuantityInCart = async (req: Request, res: Response) => {
 
   try {
     const product = await Product.findById(productId)
-    const isAvailable = currentQuantity < product.numberOfProducts 
-  
-    if(isAvailable){
-      await Cart.findByIdAndUpdate(cartId,{
-        numberOfProducts:currentQuantity + 1
+    const isAvailable = currentQuantity < product.numberOfProducts
+
+    if (isAvailable) {
+      await Cart.findByIdAndUpdate(cartId, {
+        numberOfProducts: currentQuantity + 1
       })
     }
 
-    commonUtils.sendSuccess(req,res,{message:'add quantity'},200)
+    commonUtils.sendSuccess(req, res, { message: 'add quantity' }, 200)
   } catch (error) {
-    commonUtils.sendError(req,res,error,401)
+    commonUtils.sendError(req, res, error, 401)
   }
-} 
+}
 
 export const removeQuantityInCart = async (req: Request, res: Response) => {
   const { cartId, currentQuantity } = req.body;
 
-  try {  
-      await Cart.findByIdAndUpdate(cartId,{
-        numberOfProducts:currentQuantity - 1
-      })
+  try {
 
-    commonUtils.sendSuccess(req,res,{message:'remove quantity'},200)
+    if (currentQuantity === 1) throw 'atleast one quantity required.'
+    await Cart.findByIdAndUpdate(cartId, {
+      numberOfProducts: currentQuantity - 1
+    })
+
+    commonUtils.sendSuccess(req, res, { message: 'remove quantity' }, 200)
   } catch (error) {
-    commonUtils.sendError(req,res,error,401)
+    commonUtils.sendError(req, res, error, 401)
   }
-} 
+}
+
+export const deleteCartById = async (req: Request, res: Response) => {
+  try {
+    const { cartId } = req.body
+
+    await Cart.findByIdAndDelete(cartId)
+
+    commonUtils.sendSuccess(req, res, { message: 'cart deleted.' })
+  } catch (error) {
+    commonUtils.sendError(req, res, error, 401)
+  }
+}
+
+// PAYMENT :-
+export const paymentByUser = async (req: Request, res: Response) => {
+  const {
+    name,
+    address,
+    address2,
+    cardName,
+    cardNumber,
+    cardExpireMonth,
+    cardExpireYear,
+    cardCVV,
+    products,
+    payedMoney
+  } = req.body;
+
+  const userId = new ObjectId(req.app.locals.user.user._id)
+
+  try {
+    if(payedMoney === 0) throw 'add at least one product to cart.'
+
+    await Payment.create({
+      userId,
+      shippingInformation: {
+        name:name.trim(),
+        address:address.trim(),
+        address2:address2.trim()
+      },
+      paymentMethod: {
+        cardHolderName: cardName,
+        cardNumber: cardNumber,
+        expireMonth: cardExpireMonth,
+        expireYear: cardExpireYear,
+        cardCVV:cardCVV
+      },
+      product:products,
+      payedMoney
+    })
+
+    await Cart.deleteMany({
+      userId
+    })
+
+    commonUtils.sendSuccess(req, res, { message: 'payment done.' }, 201)
+  } catch (error) {
+    commonUtils.sendError(req, res, error, 401)
+  }
+}
 
 export const sendVerifyEmail = async (
   username: string,

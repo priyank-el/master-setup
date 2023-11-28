@@ -6,12 +6,11 @@ const CardProductList = (props) => {
   const product = props.data;
 
   const addToCart = async (productData) => {
-    console.log('product ->',productData);
-   
     try {
       debugger
       const { data } = await axios.post('http://localhost:3003/user/add-cart',{
-        productId:productData._id
+        productId:productData._id,
+        price:productData.price
       },{
         headers:{
           "env":"test",

@@ -1,10 +1,32 @@
-import { lazy } from "react";
+import axios from 'axios'
+import { lazy, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 const Search = lazy(() => import("./Search"));
 
 const Header = () => {
 
   const navigate = useNavigate()
+
+  const [cartIteams,setCartIteams] = useState([])
+
+  useEffect(()=>{
+    fetchAllProducts()
+  },[])
+
+  const fetchAllProducts = async () => {
+    try {
+      const {data} = await axios.get('http://localhost:3003/user/all-cart-products',{
+        headers:{
+          env:'test',
+          Authorization:localStorage.getItem('JwtToken')
+        }
+      })
+
+      if(data) setCartIteams(data)
+    } catch (error) {
+        console.log(error);
+    }
+  }
 
   return (
     <header className="p-3 border-bottom bg-light">
@@ -21,7 +43,10 @@ const Header = () => {
               <Link to="/cart" className="btn btn-primary">
                 <i className="bi bi-cart3"></i>
                 <div className="position-absolute top-0 start-100 translate-middle badge bg-danger rounded-circle">
-                  2
+                  {
+                    Array.isArray(cartIteams) &&
+                    cartIteams.length
+                  }
                 </div>
               </Link>
             </div>

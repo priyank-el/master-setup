@@ -9,6 +9,8 @@ const UpdatNewPassword = lazy(()=>import("../views/account/UpdateNewPassword"))
 const MyProfileView = lazy(()=>import("../views/account/MyProfile"))
 const Details = lazy(()=>import("../views/product/List"))
 const CartView = lazy(()=>import("../views/cart/Cart"))
+const CheckoutView = lazy(()=>import("../views/cart/Checkout"))
+const Invoice = lazy(()=>import("../views/cart/Invoice"))
 
 // AUTHENTICATED ROUTES:
 const HomeView = lazy(()=>import( "../views/Home"))
@@ -85,7 +87,21 @@ const routes = [
         path: '/cart',
         component: CartView,
         exact: true,
-        name: "listing products",
+        name: "cart products",
+        auth: true
+    },
+    {
+        path: '/checkout',
+        component: CheckoutView,
+        exact: true,
+        name: "checkout view",
+        auth: true
+    },
+    {
+        path: '/invoice',
+        component: Invoice,
+        exact: true,
+        name: "invoice view",
         auth: true
     },
     {

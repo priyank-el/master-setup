@@ -1,6 +1,7 @@
 import axios from "axios";
 import { lazy, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import {toast} from 'react-toastify'
 const CouponApplyForm = lazy(() =>
   import("../../components/others/CouponApplyForm")
 );
@@ -11,11 +12,25 @@ const CartView = () => {
   };
 
   const [products, setProducts] = useState([])
+  const [totalPrice,setTotalPrice] = useState(0)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     fetchAllCartProducts()
   }, [])
+
+  useEffect(()=>{
+    totalPriceOfProducts()
+  },[products])
+
+  const totalPriceOfProducts = () => {
+    let total = 0;
+    products.map(product => {
+      console.log(product)
+      total += product.price * product.numberOfProducts
+    })
+    setTotalPrice(total)
+  }
 
   // ALL CART PRODUCTS:-
   const fetchAllCartProducts = async () => {
@@ -58,6 +73,48 @@ const CartView = () => {
       }
     } catch (error) {
       setLoading(false)
+      console.log(error)
+    }
+  }
+  const decrement = async (product) => {
+    try {
+      setLoading(true)
+      const { data } = await axios.post('http://localhost:3003/user/remove-quantity', {
+        cartId: product._id,
+        // productId: product.product._id,
+        currentQuantity: product.numberOfProducts
+      }, {
+        headers: {
+          "env": "test",
+          "Authorization": localStorage.getItem('JwtToken')
+        }
+      })
+
+      if (data) {
+        setLoading(false)
+        fetchAllCartProducts()
+      }
+    } catch (error) {
+      setLoading(false)
+      if(error.response.data) toast.error(error.response.data)
+    }
+  }
+
+  const onDeleteHandler = async (productData) => {
+    try {
+      debugger
+      const { data } = await axios.post(`http://localhost:3003/user/delete-cart`,{
+          cartId:productData._id
+      },{
+        headers:{
+          env:'test',
+          Authorization:localStorage.getItem('JwtToken')
+        }
+      })
+      if(data){
+        fetchAllCartProducts()
+      }
+    } catch (error) {
       console.log(error)
     }
   }
@@ -125,7 +182,7 @@ const CartView = () => {
                               <button
                                 className="btn btn-primary text-white"
                                 type="button"
-                              // onClick={()=>incrementData(product)}
+                              onClick={()=>decrement(product)}
                               >
                                 <i className="bi bi-dash-lg"></i>
                               </button>
@@ -144,7 +201,7 @@ const CartView = () => {
                             </div>
                           </td>
                           <td>
-                            <var className="price">${product?.product?.price}</var>
+                            <var className="price">${product?.product?.price * product.numberOfProducts}</var>
                             {/* <small className="d-block text-muted">
                               $79.00 each
                             </small> */}
@@ -153,7 +210,9 @@ const CartView = () => {
                             <button className="btn btn-sm btn-outline-secondary me-2">
                               <i className="bi bi-heart-fill"></i>
                             </button>
-                            <button className="btn btn-sm btn-outline-danger">
+                            <button 
+                              className="btn btn-sm btn-outline-danger"
+                              onClick={()=>onDeleteHandler(product)}>
                               <i className="bi bi-trash"></i>
                             </button>
                           </td>
@@ -181,14 +240,14 @@ const CartView = () => {
             </div>
           </div>
           <div className="col-md-3">
-            <div className="card mb-3">
+            {/* <div className="card mb-3">
               <div className="card-body">
                 <CouponApplyForm onSubmit={onSubmitApplyCouponCode} />
               </div>
-            </div>
+            </div> */}
             <div className="card">
               <div className="card-body">
-                <dl className="row border-bottom">
+                {/* <dl className="row border-bottom">
                   <dt className="col-6">Total price:</dt>
                   <dd className="col-6 text-end">$1,568</dd>
 
@@ -199,11 +258,11 @@ const CartView = () => {
                     <span className="small text-muted">EXAMPLECODE</span>{" "}
                   </dt>
                   <dd className="col-6 text-success text-end">-$68</dd>
-                </dl>
+                </dl> */}
                 <dl className="row">
                   <dt className="col-6">Total:</dt>
                   <dd className="col-6 text-end  h5">
-                    <strong>$1,350</strong>
+                    <strong>${totalPrice}</strong>
                   </dd>
                 </dl>
                 <hr />

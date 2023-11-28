@@ -13,7 +13,12 @@ import {
   addToCart,
   fetchAllCartProducts,
 
-  addQuantityInCart
+  addQuantityInCart,
+  removeQuantityInCart,
+  deleteCartById,
+
+  paymentByUser
+
 } from "./userController";
 import V from "./validation";
 import Middlewares from '../../middlewares/validations'
@@ -121,6 +126,31 @@ export default [
       authMiddleware:Middlewares.JwtAuth,
       isPublic:false
     },
+    {
+      path: "/remove-quantity",
+      method: "post",
+      controller:removeQuantityInCart,
+      authMiddleware:Middlewares.JwtAuth,
+      isPublic:false
+    },
+    {
+      path: "/delete-cart",
+      method: "post",
+      controller:deleteCartById,
+      authMiddleware:Middlewares.JwtAuth,
+      isPublic:false
+    },
+
+
+    // PAYMENT:-
+    {
+      path: "/payment",
+      method: "post",
+      controller:paymentByUser,
+      authMiddleware:Middlewares.JwtAuth,
+      isPublic:false
+    },
+
   // {
   //   path: "/logout",
   //   method: "patch",
