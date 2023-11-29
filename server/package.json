@@ -9,7 +9,8 @@
     "dev": "nodemon src/index.ts",
     "start:dev": "cross-env NODE_ENV=development nodemon src/index.ts",
     "start:test": "cross-env NODE_ENV=staging nodemon src/index.ts",
-    "start:prod": "cross-env NODE_ENV=production nodemon src/index.ts"
+    "start:prod": "cross-env NODE_ENV=production nodemon src/index.ts",
+    "build":"tsc --build"
   },
   "repository": {
     "type": "git"
