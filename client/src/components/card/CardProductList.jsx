@@ -8,20 +8,21 @@ const CardProductList = (props) => {
   const addToCart = async (productData) => {
     try {
       debugger
-      const { data } = await axios.post('http://localhost:3003/user/add-cart',{
-        productId:productData._id,
-        price:productData.price
-      },{
-        headers:{
-          "env":"test",
-          Authorization:localStorage.getItem('JwtToken')
+      const { data } = await axios.post('http://localhost:3003/user/add-cart', {
+        productId: productData._id,
+        price: productData.price
+      }, {
+        headers: {
+          "env": "test",
+          Authorization: localStorage.getItem('JwtToken')
         }
       })
 
-      if(data){
+      if (data) {
         toast.success(data.message)
       }
     } catch (error) {
+      if (error.response.data) toast.info(error.response.data)
       console.log(error);
     }
 
@@ -31,7 +32,13 @@ const CardProductList = (props) => {
     <div className="card">
       <div className="row g-0">
         <div className="col-md-3 text-center">
-          <img src={`http://localhost:3003/uploads/product/${product.image}`} className="img-fluid" alt="..." />
+          {
+            product.image 
+            ?
+            <img src={`http://localhost:3003/uploads/product/${product.image}`} className="img-fluid" alt="..." />
+            :
+            <img src={`http://localhost:3003/uploads/user/no-image.jpeg`} className="img-fluid" alt="..." />
+          }
         </div>
         <div className="col-md-6">
           <div className="card-body">
@@ -43,9 +50,9 @@ const CardProductList = (props) => {
             {product.isInStock === true && (
               <span className="badge bg-success me-3">In stock</span>
             )}
-            {product.isInStock === false &&(
+            {product.isInStock === false && (
               <span className="badge bg-danger me-3">Out of stock</span>
-              )}
+            )}
 
             <div>
               {product.ratings > 0 &&

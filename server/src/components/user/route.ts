@@ -17,8 +17,8 @@ import {
   removeQuantityInCart,
   deleteCartById,
 
-  paymentByUser
-
+  paymentByUser,
+  createCheckoutSession
 } from "./userController";
 import V from "./validation";
 import Middlewares from '../../middlewares/validations'
@@ -147,6 +147,13 @@ export default [
       path: "/payment",
       method: "post",
       controller:paymentByUser,
+      authMiddleware:Middlewares.JwtAuth,
+      isPublic:false
+    },
+    {
+      path: "/create-checkout-session",
+      method: "post",
+      controller:createCheckoutSession,
       authMiddleware:Middlewares.JwtAuth,
       isPublic:false
     },

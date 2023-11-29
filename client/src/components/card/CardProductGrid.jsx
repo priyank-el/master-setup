@@ -4,7 +4,14 @@ const CardProductGrid = (props) => {
   const product = props.data;
   return (
     <div className="card">
-      <img src={`http://localhost:3003/uploads/product/${product.image}`} className="card-img-top" alt="..." />
+      {
+        product.image
+          ?
+          <img src={`http://localhost:3003/uploads/product/${product.image}`} className="card-img-top" alt="..." />
+          :
+          <img src={`http://localhost:3003/uploads/user/no-image.jpeg`} className="img-fluid" alt="..." />
+      }
+
       {/* {product.isNew && (
         <span className="badge bg-success position-absolute mt-2 ms-2">
           New
