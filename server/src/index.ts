@@ -102,7 +102,8 @@ server.listen(config.get("PORT"), () => {
     console.log(`⚡️[NodeJs server]: Server is running at http://localhost:${config.get("PORT")}`)
     
     mongoose.connect(
-        config.get("DB_CONN_STRING"),
+        // config.get("DB_CONN_STRING"),
+        config.get("ATLAS_DB_CONN_STRING"),
         () => console.log('connected to mongodb.')
     );
     redisClient.on('error', (err: any) => console.log('Redis Client Error', err));

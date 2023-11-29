@@ -1,5 +1,6 @@
 import axios from "axios";
 import { lazy, useEffect, useState } from "react";
+import {loadStripe} from '@stripe/stripe-js'
 import { Link } from "react-router-dom";
 import {toast} from 'react-toastify'
 const CouponApplyForm = lazy(() =>
@@ -120,6 +121,31 @@ const CartView = () => {
   }
 
   // if (loading) return <h3>loading..</h3>
+
+  const makePayment = async () => {
+    const stripe = await loadStripe('pk_test_51OEpNKSIGOsKAxhxDkEETtsAQ13h2FTsZmlv5an6IV3tiJ6jO4HMkLx0iwyETxEIvMZYxd71YN0wA9mSCumtOjpZ00DOu7hcuE')
+
+    debugger
+    try {
+      const response = await axios.post('http://localhost:3003/user/create-checkout-session',{
+        products
+      },{
+        headers:{
+          env:'test',
+          Authorization:localStorage.getItem('JwtToken')
+        }
+      })
+      console.log(response);
+  
+      const result = stripe.redirectToCheckout({
+        sessionId:response.data.id
+      })
+  
+      if(result.error) console.log(result.error);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   
   return (
     <div>
@@ -156,6 +182,7 @@ const CartView = () => {
                                 <img
                                   src={`http://localhost:3003/uploads/product/${product?.product?.image}`}
                                   width="80"
+                                  height="50"
                                   style={{ borderRadius: '10px' }}
                                   alt="..."
                                 />
@@ -225,7 +252,7 @@ const CartView = () => {
                 </table>
               </div>
               <div className="card-footer">
-                <Link to="/checkout" className="btn btn-primary float-end">
+                <Link onClick={makePayment} className="btn btn-primary float-end">
                   Make Purchase <i className="bi bi-chevron-right"></i>
                 </Link>
                 <Link to="/" className="btn btn-secondary">

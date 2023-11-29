@@ -1,6 +1,7 @@
 const config = require("config")
 
 import { Request, Response } from "express"
+import Stripe from 'stripe'
 import commonUtils from "../../utils/commonUtils"
 import { AppStrings } from "../../utils/appStrings"
 import User from "./models/userModel"
@@ -15,6 +16,8 @@ import Cart from "./models/cartModel"
 import Payment from "./models/PaymentModel"
 
 const { ObjectId } = mongoose.Types
+
+const stripe = new Stripe('sk_test_51OEpNKSIGOsKAxhxhNgdcaN1n9mJ14eSCHrQCqwmB2Nv7NXJyPCUReqU01a5IdPjsAYkwXmQHTdRwwkyOqH6WkvF00zXA5Z5rV')
 
 export const register = async (req: Request, res: Response) => {
   try {
@@ -232,6 +235,11 @@ export const addToCart = async (req: Request, res: Response) => {
   const { user } = req.app.locals.user
 
   try {
+
+    const alreadyInCart = await Cart.findOne({ productId })
+
+    if (alreadyInCart) throw 'This product is already in cart.'
+
     await Cart.create({
       userId: user._id,
       productId,
@@ -348,23 +356,23 @@ export const paymentByUser = async (req: Request, res: Response) => {
   const userId = new ObjectId(req.app.locals.user.user._id)
 
   try {
-    if(payedMoney === 0) throw 'add at least one product to cart.'
+    if (payedMoney === 0) throw 'add at least one product to cart.'
 
     await Payment.create({
       userId,
       shippingInformation: {
-        name:name.trim(),
-        address:address.trim(),
-        address2:address2.trim()
+        name: name.trim(),
+        address: address.trim(),
+        address2: address2.trim()
       },
       paymentMethod: {
         cardHolderName: cardName,
         cardNumber: cardNumber,
         expireMonth: cardExpireMonth,
         expireYear: cardExpireYear,
-        cardCVV:cardCVV
+        cardCVV: cardCVV
       },
-      product:products,
+      product: products,
       payedMoney
     })
 
@@ -373,6 +381,39 @@ export const paymentByUser = async (req: Request, res: Response) => {
     })
 
     commonUtils.sendSuccess(req, res, { message: 'payment done.' }, 201)
+  } catch (error) {
+    commonUtils.sendError(req, res, error, 401)
+  }
+}
+
+export const createCheckoutSession = async (req: Request, res: Response) => {
+  const {products} = req.body
+
+  const lineItems = products.map((product: any) => ({
+    price_data: {
+      currency: 'INR',
+      product_data: {
+        name: product.product.productName
+      },
+      unit_amount: product.price * 100,
+    },
+    quantity: product.numberOfProducts
+  }))
+
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items:lineItems,
+      mode: "payment",
+      success_url: "http://localhost:3000",
+      cancel_url: "http://localhost:3000/cancel"
+    })
+
+    if(session.id) {
+      
+    }
+
+    commonUtils.sendSuccess(req, res, { id: session.id }, 200)
   } catch (error) {
     commonUtils.sendError(req, res, error, 401)
   }
