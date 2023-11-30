@@ -123,12 +123,13 @@ const CartView = () => {
   // if (loading) return <h3>loading..</h3>
 
   const makePayment = async () => {
-    const stripe = await loadStripe('pk_test_51OEpNKSIGOsKAxhxDkEETtsAQ13h2FTsZmlv5an6IV3tiJ6jO4HMkLx0iwyETxEIvMZYxd71YN0wA9mSCumtOjpZ00DOu7hcuE')
+    const stripe = await loadStripe()
 
-    debugger
     try {
+      debugger
       const response = await axios.post('http://localhost:3003/user/create-checkout-session',{
-        products
+        products,
+        totalPrice
       },{
         headers:{
           env:'test',
@@ -136,12 +137,15 @@ const CartView = () => {
         }
       })
       console.log(response);
-  
-      const result = stripe.redirectToCheckout({
+      
+      const result = await stripe.redirectToCheckout({
         sessionId:response.data.id
       })
   
       if(result.error) console.log(result.error);
+
+      console.log({result})
+
     } catch (error) {
       console.log(error);
     }

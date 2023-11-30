@@ -20,5 +20,7 @@
     "MAIL_PASSWORD": "kiwzdtmctsfkwuiv",
     "saltRounds": 10,
     "PHONE_NUMBER": "",
-    "LOGO_PATH": "/uploads/images/logo.svg"
+    "LOGO_PATH": "/uploads/images/logo.svg",
+    "STRIPE_PUBLISHED_KEY":"pk_test_51OEpNKSIGOsKAxhxDkEETtsAQ13h2FTsZmlv5an6IV3tiJ6jO4HMkLx0iwyETxEIvMZYxd71YN0wA9mSCumtOjpZ00DOu7hcuE",
+    "STRIPE_SECRETE_KEY": "sk_test_51OEpNKSIGOsKAxhxhNgdcaN1n9mJ14eSCHrQCqwmB2Nv7NXJyPCUReqU01a5IdPjsAYkwXmQHTdRwwkyOqH6WkvF00zXA5Z5rV"
 }

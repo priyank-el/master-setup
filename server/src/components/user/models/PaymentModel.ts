@@ -8,48 +8,23 @@ const paymentSchema = new Schema({
         type:ObjectId,
         ref:'User'
     },
-    shippingInformation : {
-        name:{
-            type:String,
-            default:null
-        },
-        address:{
-            type:String,
-            default:null
-        },
-        address2:{
-            type:String,
-            default:null
-        }
-    },
+    // shippingInformation : {
+    //     name:{
+    //         type:String,
+    //         default:null
+    //     },
+    //     address:{
+    //         type:String,
+    //         default:null
+    //     },
+    //     address2:{
+    //         type:String,
+    //         default:null
+    //     }
+    // },
     paymentMethod:{
-        methodName:{
-            type:String,
-            default:'credit card'
-        },
-        cardHolderName:{
-            type:String,
-            default:null
-        },
-        cardNumber:{
-            type:String,
-            default:null
-        },
-        expireMonth:{
-            type:String,
-            default:null,
-            required:true
-        },
-        expireYear:{
-            type:String,
-            required:true,
-            default:null
-        },
-        cardCVV:{
-            type:String,
-            required:true,
-            default:null
-        }
+        type:String,
+        default:'Card'
     },
     product:{
         type:Array,
@@ -58,6 +33,18 @@ const paymentSchema = new Schema({
     payedMoney:{
         type:Number,
         default:0
+    },
+    paymentStatus:{
+        type:Number,
+        enum:[0,1],
+        default:1,
+        comment:'0 - failed, 1 - success'
+    },
+    delivered:{
+        type:Number,
+        enum:[0,1,2],
+        default:0,
+        comment:'0 - pending, 1 - on the way, 2 - success'
     }
 },{
     timestamps:true

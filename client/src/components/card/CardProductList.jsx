@@ -7,7 +7,6 @@ const CardProductList = (props) => {
 
   const addToCart = async (productData) => {
     try {
-      debugger
       const { data } = await axios.post('http://localhost:3003/user/add-cart', {
         productId: productData._id,
         price: productData.price
@@ -30,12 +29,12 @@ const CardProductList = (props) => {
 
   return (
     <div className="card">
-      <div className="row g-0">
-        <div className="col-md-3 text-center">
+      <div className="row g-0" >
+        <div className="col-md-3 d-flex align-items-start">
           {
             product.image 
             ?
-            <img src={`http://localhost:3003/uploads/product/${product.image}`} className="img-fluid" alt="..." />
+            <img src={`http://localhost:3003/uploads/product/${product.image}`} style={{ objectFit: "fill", height: "300px", width:"350px" }} className="img-fluid" alt="..." />
             :
             <img src={`http://localhost:3003/uploads/user/no-image.jpeg`} className="img-fluid" alt="..." />
           }

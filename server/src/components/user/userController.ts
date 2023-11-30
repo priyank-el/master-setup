@@ -17,7 +17,7 @@ import Payment from "./models/PaymentModel"
 
 const { ObjectId } = mongoose.Types
 
-const stripe = new Stripe('sk_test_51OEpNKSIGOsKAxhxhNgdcaN1n9mJ14eSCHrQCqwmB2Nv7NXJyPCUReqU01a5IdPjsAYkwXmQHTdRwwkyOqH6WkvF00zXA5Z5rV')
+const stripe = new Stripe("STRIPE_SECRETE_KEY")
 
 export const register = async (req: Request, res: Response) => {
   try {
@@ -233,10 +233,16 @@ export const allProducts = async (req: Request, res: Response) => {
 export const addToCart = async (req: Request, res: Response) => {
   const { productId, price } = req.body
   const { user } = req.app.locals.user
+  const userId = new ObjectId(req.app.locals.user.user._id)
 
   try {
 
-    const alreadyInCart = await Cart.findOne({ productId })
+    const alreadyInCart = await Cart.findOne({
+      $and: [
+        { productId },
+        { userId }
+      ]
+    })
 
     if (alreadyInCart) throw 'This product is already in cart.'
 
@@ -339,55 +345,56 @@ export const deleteCartById = async (req: Request, res: Response) => {
 }
 
 // PAYMENT :-
-export const paymentByUser = async (req: Request, res: Response) => {
-  const {
-    name,
-    address,
-    address2,
-    cardName,
-    cardNumber,
-    cardExpireMonth,
-    cardExpireYear,
-    cardCVV,
-    products,
-    payedMoney
-  } = req.body;
+// export const paymentByUser = async (req: Request, res: Response) => {
+//   const {
+//     name,
+//     address,
+//     address2,
+//     cardName,
+//     cardNumber,
+//     cardExpireMonth,
+//     cardExpireYear,
+//     cardCVV,
+//     products,
+//     payedMoney
+//   } = req.body;
 
-  const userId = new ObjectId(req.app.locals.user.user._id)
+//   const userId = new ObjectId(req.app.locals.user.user._id)
 
-  try {
-    if (payedMoney === 0) throw 'add at least one product to cart.'
+//   try {
+//     if (payedMoney === 0) throw 'add at least one product to cart.'
 
-    await Payment.create({
-      userId,
-      shippingInformation: {
-        name: name.trim(),
-        address: address.trim(),
-        address2: address2.trim()
-      },
-      paymentMethod: {
-        cardHolderName: cardName,
-        cardNumber: cardNumber,
-        expireMonth: cardExpireMonth,
-        expireYear: cardExpireYear,
-        cardCVV: cardCVV
-      },
-      product: products,
-      payedMoney
-    })
+//     await Payment.create({
+//       userId,
+//       shippingInformation: {
+//         name: name.trim(),
+//         address: address.trim(),
+//         address2: address2.trim()
+//       },
+//       paymentMethod: {
+//         cardHolderName: cardName,
+//         cardNumber: cardNumber,
+//         expireMonth: cardExpireMonth,
+//         expireYear: cardExpireYear,
+//         cardCVV: cardCVV
+//       },
+//       product: products,
+//       payedMoney
+//     })
 
-    await Cart.deleteMany({
-      userId
-    })
+//     await Cart.deleteMany({
+//       userId
+//     })
 
-    commonUtils.sendSuccess(req, res, { message: 'payment done.' }, 201)
-  } catch (error) {
-    commonUtils.sendError(req, res, error, 401)
-  }
-}
+//     commonUtils.sendSuccess(req, res, { message: 'payment done.' }, 201)
+//   } catch (error) {
+//     commonUtils.sendError(req, res, error, 401)
+//   }
+// }
 
 export const createCheckoutSession = async (req: Request, res: Response) => {
-  const {products} = req.body
+  const { products, totalPrice } = req.body
+  const userId = new ObjectId(req.app.locals.user.user._id)
 
   const lineItems = products.map((product: any) => ({
     price_data: {
@@ -403,14 +410,23 @@ export const createCheckoutSession = async (req: Request, res: Response) => {
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
-      line_items:lineItems,
+      line_items: lineItems,
       mode: "payment",
-      success_url: "http://localhost:3000",
+      success_url: "http://localhost:3000/success",
       cancel_url: "http://localhost:3000/cancel"
     })
+    console.log({ session })
+    if (session.id) {
 
-    if(session.id) {
-      
+      await Payment.create({
+        userId,
+        product: products,
+        payedMoney: totalPrice
+      })
+
+      await Cart.deleteMany({
+        userId
+      })
     }
 
     commonUtils.sendSuccess(req, res, { id: session.id }, 200)

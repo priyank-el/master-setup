@@ -7,7 +7,7 @@ const CardProductGrid = (props) => {
       {
         product.image
           ?
-          <img src={`http://localhost:3003/uploads/product/${product.image}`} className="card-img-top" alt="..." />
+          <img src={`http://localhost:3003/uploads/product/${product.image}`} height={300} className="card-img-top" alt="..." />
           :
           <img src={`http://localhost:3003/uploads/user/no-image.jpeg`} className="img-fluid" alt="..." />
       }
