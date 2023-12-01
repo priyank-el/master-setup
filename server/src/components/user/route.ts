@@ -10,6 +10,7 @@ import {
   getProfile,
   getAllUsers,
   allProducts,
+  productById,
   addToCart,
   fetchAllCartProducts,
 
@@ -96,6 +97,13 @@ export default [
     path: "/all-products",
     method: "get",
     controller: allProducts,
+    // validation: V.updateProfile,
+    isPublic: true
+  },
+  {
+    path: "/product-detail",
+    method: "get",
+    controller: productById,
     // validation: V.updateProfile,
     isPublic: true
   },

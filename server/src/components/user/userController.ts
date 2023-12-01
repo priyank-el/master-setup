@@ -228,6 +228,19 @@ export const allProducts = async (req: Request, res: Response) => {
   }
 }
 
+export const productById = async (req: Request, res: Response) => {
+  const id:any = req.query.productId
+  const productId = new ObjectId(id)
+
+ try {
+   const product = await Product.findById(productId)
+ 
+   commonUtils.sendSuccess(req,res,product,200)
+ } catch (error) {
+  commonUtils.sendError(req,res,error,401)
+ }
+}
+
 // CART :-
 
 export const addToCart = async (req: Request, res: Response) => {

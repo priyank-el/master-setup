@@ -34,7 +34,7 @@ const CardProductList = (props) => {
           {
             product.image 
             ?
-            <img src={`http://localhost:3003/uploads/product/${product.image}`} style={{ objectFit: "fill", height: "300px", width:"350px" }} className="img-fluid" alt="..." />
+            <img src={`http://localhost:3003/uploads/product/${product.image[0]}`} style={{ objectFit: "fill", height: "300px", width:"350px" }} className="img-fluid" alt="..." />
             :
             <img src={`http://localhost:3003/uploads/user/no-image.jpeg`} className="img-fluid" alt="..." />
           }
@@ -42,7 +42,7 @@ const CardProductList = (props) => {
         <div className="col-md-6">
           <div className="card-body">
             <h2 className="card-subtitle me-2 d-inline">
-              <Link to={product.link} className="text-decoration-none">
+              <Link to={`/product-detail?productId=${product._id}`} className="text-decoration-none">
                 {product.productName}
               </Link>
             </h2>

@@ -1,5 +1,8 @@
-import { lazy } from "react";
+import { lazy, useEffect, useState } from "react";
 import { data } from "../../data";
+import { useLocation } from 'react-router-dom'
+import axios from "axios";
+import {toast} from 'react-toastify'
 const CardFeaturedProduct = lazy(() =>
   import("../../components/card/CardFeaturedProduct")
 );
@@ -17,57 +20,140 @@ const ShippingReturns = lazy(() =>
 const SizeChart = lazy(() => import("../../components/others/SizeChart"));
 
 const ProductDetailView = () => {
+
+  const location = useLocation()
+  const productId = new URLSearchParams(location.search).get('productId')
+
+  const [productDetail, setProductDetail] = useState({})
+  const [mainImage, setMainImage] = useState('')
+
+  useEffect(() => {
+    fetchProductData()
+  }, [])
+
+  const fetchProductData = async () => {
+    try {
+      debugger
+      const { data } = await axios.get(`http://localhost:3003/user/product-detail?productId=${productId}`, {
+        headers: {
+          env: 'test'
+        }
+      })
+
+      if (data) setProductDetail(data)
+      setMainImage(data.image[0])
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // CHANGE HANDLER FOR IMAGES:
+  const onChangeHandler = (image) => setMainImage(image)
+
+  // ADD TO CART HANDLER:
+  const addToCart = async (productData) => {
+    try {
+      const { data } = await axios.post('http://localhost:3003/user/add-cart', {
+        productId: productData._id,
+        price: productData.price
+      }, {
+        headers: {
+          "env": "test",
+          Authorization: localStorage.getItem('JwtToken')
+        }
+      })
+
+      if (data) {
+        toast.success(data.message)
+      }
+    } catch (error) {
+      if (error.response.data) toast.info(error.response.data)
+      console.log(error);
+    }
+
+  }
+
   return (
     <div className="container-fluid mt-3">
       <div className="row">
         <div className="col-md-8">
           <div className="row mb-3">
             <div className="col-md-5 text-center">
-              <img
-                src="../../images/products/tshirt_red_480x400.webp"
-                className="img-fluid mb-3"
-                alt=""
-              />
-              <img
-                src="../../images/products/tshirt_grey_480x400.webp"
-                className="border border-secondary me-2"
-                width="75"
-                alt="..."
-              />
-              <img
-                src="../../images/products/tshirt_black_480x400.webp"
-                className="border border-secondary me-2"
-                width="75"
-                alt="..."
-              />
-              <img
-                src="../../images/products/tshirt_green_480x400.webp"
-                className="border border-secondary me-2"
-                width="75"
-                alt="..."
-              />
+              {
+                productDetail.image
+                  ?
+                  <img
+                    src={`http://localhost:3003/uploads/product/${mainImage}`}
+                    className="img-fluid mb-3"
+                    style={{ borderRadius: '10px', height: "400px", width: "400px" }}
+                    alt="..."
+                  />
+                  :
+                  <img
+                    src={`http://localhost:3003/uploads/user/no-image.jpeg`}
+                    className="img-fluid mb-3"
+                    style={{ borderRadius: '10px', height: "400px", width: "400px" }}
+                    alt="..."
+                  />
+              }
+              {
+                productDetail?.image?.length > 0 &&
+                productDetail?.image?.map(image => (
+                  <img
+                    src={`http://localhost:3003/uploads/product/${image}`}
+                    className="me-2"
+                    width="75"
+                    height={75}
+                    onClick={() => onChangeHandler(image)}
+                    style={{ borderRadius: "5px" }}
+                    alt="..."
+                  />
+                ))
+              }
+
             </div>
             <div className="col-md-7">
-              <h1 className="h5 d-inline me-2">Great product name goes here</h1>
-              <span className="badge bg-success me-2">New</span>
-              <span className="badge bg-danger me-2">Hot</span>
+              <h1 className="h5 d-inline me-2">{productDetail.productName}</h1>
+              {/* <span className="badge bg-success me-2">New</span>
+              <span className="badge bg-danger me-2">Hot</span> */}
               <div className="mb-3">
-                <i className="bi bi-star-fill text-warning me-1" />
-                <i className="bi bi-star-fill text-warning me-1" />
-                <i className="bi bi-star-fill text-warning me-1" />
-                <i className="bi bi-star-fill text-warning me-1" />
-                <i className="bi bi-star-fill text-secondary me-1" />|{" "}
-                <span className="text-muted small">
+                <div>
+                  {productDetail.ratings > 0 &&
+                    Array.from({ length: 5 }, (_, key) => {
+                      if (key + 1 <= productDetail.ratings)
+                        return (
+                          <i
+                            className="bi bi-star-fill text-warning me-1"
+                            key={key}
+                          />
+                        );
+                      else
+                        return (
+                          <i
+                            className="bi bi-star-fill text-secondary me-1"
+                            key={key}
+                          />
+                        );
+                    })}
+                </div>
+                {/* <span className="text-muted small">
                   42 ratings and 4 reviews
-                </span>
+                </span> */}
               </div>
               <dl className="row small mb-3">
                 <dt className="col-sm-3">Availability</dt>
-                <dd className="col-sm-9">In stock</dd>
+                {
+                  productDetail.isInStock
+                    ?
+                    <dd className="col-sm-9">In stoke</dd>
+                    :
+                    <dd className="col-sm-9">Out of stoke</dd>
+
+                }
                 <dt className="col-sm-3">Sold by</dt>
                 <dd className="col-sm-9">Authorised Store</dd>
-                <dt className="col-sm-3">Size</dt>
-                <dd className="col-sm-9">
+                {/* <dt className="col-sm-3">Size</dt> */}
+                {/* <dd className="col-sm-9">
                   <div className="form-check form-check-inline">
                     <input
                       className="form-check-input"
@@ -125,7 +211,7 @@ const ProductDetailView = () => {
                       XXL
                     </label>
                   </div>
-                </dd>
+                </dd> */}
                 <dt className="col-sm-3">Color</dt>
                 <dd className="col-sm-9">
                   <button className="btn btn-sm btn-primary p-2 me-2"></button>
@@ -147,7 +233,7 @@ const ProductDetailView = () => {
               </div>
               <div className="mb-3">
                 <div className="d-inline float-start me-2">
-                  <div className="input-group input-group-sm mw-140">
+                  {/* <div className="input-group input-group-sm mw-140">
                     <button
                       className="btn btn-primary text-white"
                       type="button"
@@ -165,16 +251,17 @@ const ProductDetailView = () => {
                     >
                       <i className="bi bi-plus-lg"></i>
                     </button>
-                  </div>
+                  </div> */}
                 </div>
                 <button
                   type="button"
                   className="btn btn-sm btn-primary me-2"
                   title="Add to cart"
+                  onClick={() => addToCart(productDetail)}
                 >
                   <i className="bi bi-cart-plus me-1"></i>Add to cart
                 </button>
-                <button
+                {/* <button
                   type="button"
                   className="btn btn-sm btn-warning me-2"
                   title="Buy now"
@@ -187,7 +274,7 @@ const ProductDetailView = () => {
                   title="Add to wishlist"
                 >
                   <i className="bi bi-heart-fill"></i>
-                </button>
+                </button> */}
               </div>
               <div>
                 <p className="fw-bold mb-2 small">Product Highlights</p>

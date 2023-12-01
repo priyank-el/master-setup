@@ -63,41 +63,45 @@ const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
     const image_ = multer({
         storage: commonFileStorage(destination),
         fileFilter: fileFilter,
-    }).single("image");
+    }).array("image",4);
 
-    image_(req, res, async (err: any) => {
-        if (err) return commonUtils.sendError(req, res, { message: err.message }, 409);
-        if (!req.file) return commonUtils.sendError(req, res, { message: AppStrings.IMAGE_NOT_FOUND }, 409);
-        const image_name = req.file.filename;
-        // const originam_image_name = req.file.originalname
-        commonUtils.sendSuccess(req, res, {
-            file_name: image_name
-        }, 200);
-    });
-}
+    
+        image_(req, res, async (err: any) => {
+            if (err) return commonUtils.sendError(req, res, { message: err.message }, 409);
+            if (!req.files) return commonUtils.sendError(req, res, { message: AppStrings.IMAGE_NOT_FOUND }, 409);
+            const images:any = req.files
+            const imageNames = images.map((file:any) => file.filename);
+            // const image_name = req.file.filename;
+            // const originam_image_name = req.file.originalname
+            commonUtils.sendSuccess(req, res, {
+                file_name: imageNames
+            }, 200);
+        });
+    }
 
-async function uploadPdf(req: Request, res: Response, next: NextFunction) {
-    const file = multer({
-        storage: fileStoragePdf,
-        fileFilter: fileFilterPdf,
-        limits: { fields: 1, fileSize: 6000000, files: 1, parts: 2 }
-    }).single("pdf");
 
-    file(req, res, async (err: any) => {
+    async function uploadPdf(req: Request, res: Response, next: NextFunction) {
+        const file = multer({
+            storage: fileStoragePdf,
+            fileFilter: fileFilterPdf,
+            limits: { fields: 1, fileSize: 6000000, files: 1, parts: 2 }
+        }).single("pdf");
 
-        if (err) {
+        file(req, res, async (err: any) => {
 
-            return commonUtils.sendError(req, res, { message: "Pdf not uploaded" }, 409);
-        }
-        if (!req.file) return commonUtils.sendError(req, res, { message: "Pdf not found" }, 404);
-        const image_name = req.file.filename;
-        return commonUtils.sendSuccess(req, res, {
-            file_name: image_name,
-        }, 200);
-    });
-}
+            if (err) {
 
-export default {
-    uploadImage,
-    uploadPdf
-}
+                return commonUtils.sendError(req, res, { message: "Pdf not uploaded" }, 409);
+            }
+            if (!req.file) return commonUtils.sendError(req, res, { message: "Pdf not found" }, 404);
+            const image_name = req.file.filename;
+            return commonUtils.sendSuccess(req, res, {
+                file_name: image_name,
+            }, 200);
+        });
+    }
+
+    export default {
+        uploadImage,
+        uploadPdf
+    }

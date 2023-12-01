@@ -29,8 +29,8 @@ const productSchema = new mongoose.Schema({
         required:true
     },
     image:{
-        type:String,
-        default:null,
+        type:Array,
+        default:[],
         required:true
     },
     isFreeShipping:{

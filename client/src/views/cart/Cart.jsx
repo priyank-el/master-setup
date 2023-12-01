@@ -1,8 +1,8 @@
 import axios from "axios";
 import { lazy, useEffect, useState } from "react";
-import {loadStripe} from '@stripe/stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
 import { Link } from "react-router-dom";
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 const CouponApplyForm = lazy(() =>
   import("../../components/others/CouponApplyForm")
 );
@@ -13,16 +13,16 @@ const CartView = () => {
   };
 
   const [products, setProducts] = useState([])
-  const [totalPrice,setTotalPrice] = useState(0)
+  const [totalPrice, setTotalPrice] = useState(0)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     fetchAllCartProducts()
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     totalPriceOfProducts()
-  },[products])
+  }, [products])
 
   const totalPriceOfProducts = () => {
     let total = 0;
@@ -97,22 +97,22 @@ const CartView = () => {
       }
     } catch (error) {
       setLoading(false)
-      if(error.response.data) toast.error(error.response.data)
+      if (error.response.data) toast.error(error.response.data)
     }
   }
 
   const onDeleteHandler = async (productData) => {
     try {
       debugger
-      const { data } = await axios.post(`http://localhost:3003/user/delete-cart`,{
-          cartId:productData._id
-      },{
-        headers:{
-          env:'test',
-          Authorization:localStorage.getItem('JwtToken')
+      const { data } = await axios.post(`http://localhost:3003/user/delete-cart`, {
+        cartId: productData._id
+      }, {
+        headers: {
+          env: 'test',
+          Authorization: localStorage.getItem('JwtToken')
         }
       })
-      if(data){
+      if (data) {
         fetchAllCartProducts()
       }
     } catch (error) {
@@ -127,30 +127,30 @@ const CartView = () => {
 
     try {
       debugger
-      const response = await axios.post('http://localhost:3003/user/create-checkout-session',{
+      const response = await axios.post('http://localhost:3003/user/create-checkout-session', {
         products,
         totalPrice
-      },{
-        headers:{
-          env:'test',
-          Authorization:localStorage.getItem('JwtToken')
+      }, {
+        headers: {
+          env: 'test',
+          Authorization: localStorage.getItem('JwtToken')
         }
       })
       console.log(response);
-      
-      const result = await stripe.redirectToCheckout({
-        sessionId:response.data.id
-      })
-  
-      if(result.error) console.log(result.error);
 
-      console.log({result})
+      const result = await stripe.redirectToCheckout({
+        sessionId: response.data.id
+      })
+
+      if (result.error) console.log(result.error);
+
+      console.log({ result })
 
     } catch (error) {
       console.log(error);
     }
   }
-  
+
   return (
     <div>
       <div className="bg-secondary border-top p-4 text-white mb-3">
@@ -184,7 +184,7 @@ const CartView = () => {
                             <div className="row">
                               <div className="col-3 d-none d-md-block">
                                 <img
-                                  src={`http://localhost:3003/uploads/product/${product?.product?.image}`}
+                                  src={`http://localhost:3003/uploads/product/${product?.product?.image[0]}`}
                                   width="80"
                                   height="50"
                                   style={{ borderRadius: '10px' }}
@@ -192,13 +192,8 @@ const CartView = () => {
                                 />
                               </div>
                               <div className="col">
-                                <Link
-                                  to="/product/detail"
-                                  className="text-decoration-none"
-                                >
-                                  {
-                                    product?.product?.productName
-                                  }
+                                <Link to={`/product-detail?productId=${product.product._id}`} className="text-decoration-none">
+                                  {product.product.productName}
                                 </Link>
                                 <p className="small text-muted">
                                   {
@@ -213,7 +208,7 @@ const CartView = () => {
                               <button
                                 className="btn btn-primary text-white"
                                 type="button"
-                              onClick={()=>decrement(product)}
+                                onClick={() => decrement(product)}
                               >
                                 <i className="bi bi-dash-lg"></i>
                               </button>
@@ -241,9 +236,9 @@ const CartView = () => {
                             <button className="btn btn-sm btn-outline-secondary me-2">
                               <i className="bi bi-heart-fill"></i>
                             </button>
-                            <button 
+                            <button
                               className="btn btn-sm btn-outline-danger"
-                              onClick={()=>onDeleteHandler(product)}>
+                              onClick={() => onDeleteHandler(product)}>
                               <i className="bi bi-trash"></i>
                             </button>
                           </td>

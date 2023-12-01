@@ -208,6 +208,7 @@ export const commonFileStorage = (destination: any) => multer.diskStorage({
     },
 
     filename: (req: Request, file: any, callback: FileNameCallback): void => {
+        console.log("hello")
         if (destination == "./uploads/images") {
             callback(null, "logo" + path.extname(file.originalname))
         }
