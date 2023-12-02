@@ -7,7 +7,7 @@
     "REDIS_HOST": "127.0.0.1",
     "REDIS_PORT": "6379",
     "DB_CONN_STRING": "mongodb://127.0.0.1:27017/kyt",
-    "ATLAS_DB_CONN_STRING": "mongodb+srv://user:user@mycluster.qss9tcw.mongodb.net/e-commerce-app",
+    "ATLAS_DB_CONN_STRING": "mongodb+srv://test:test@mycluster.qss9tcw.mongodb.net/e-commerce-app",
     "API_KEY_ENC": "D74B6CDA73DEF9A2B3851F64D45EBKOL",
     "API_KEY_DEC": "9BD2C4A1CC8B78318571514DF7F8C0IK",
     "API_ENCRYPT_VI_KEY": "7A24432646294A40",

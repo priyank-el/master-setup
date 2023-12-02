@@ -11,6 +11,9 @@ import {
   getAllUsers,
   allProducts,
   productById,
+
+  addToFavourite,
+
   addToCart,
   fetchAllCartProducts,
 
@@ -80,7 +83,7 @@ export default [
     method: "get",
     controller: getProfile,
     isPublic: false,
-    isEncrypt:false,
+    isEncrypt: false,
     authMiddleware: Middlewares.JwtAuth,
   },
   {
@@ -108,63 +111,73 @@ export default [
     isPublic: true
   },
 
-    //CART :-
+  // FAVOURITE PRODUCTS:
 
-    {
-      path: "/add-cart",
-      method: "post",
-      controller:addToCart,
-      authMiddleware:Middlewares.JwtAuth,
-      isPublic:false
-    },
-    {
-      path: "/all-cart-products",
-      method: "get",
-      controller:fetchAllCartProducts,
-      authMiddleware:Middlewares.JwtAuth,
-      isPublic:false
-    },
+  {
+    path: "/add-favourite",
+    method: "post",
+    controller: addToFavourite,
+    authMiddleware: Middlewares.JwtAuth,
+    isPublic: false
+  },
 
+  //CART :-
 
-
-    {
-      path: "/add-quantity",
-      method: "post",
-      controller:addQuantityInCart,
-      authMiddleware:Middlewares.JwtAuth,
-      isPublic:false
-    },
-    {
-      path: "/remove-quantity",
-      method: "post",
-      controller:removeQuantityInCart,
-      authMiddleware:Middlewares.JwtAuth,
-      isPublic:false
-    },
-    {
-      path: "/delete-cart",
-      method: "post",
-      controller:deleteCartById,
-      authMiddleware:Middlewares.JwtAuth,
-      isPublic:false
-    },
+  {
+    path: "/add-cart",
+    method: "post",
+    controller: addToCart,
+    authMiddleware: Middlewares.JwtAuth,
+    isPublic: false
+  },
+  {
+    path: "/all-cart-products",
+    method: "get",
+    controller: fetchAllCartProducts,
+    authMiddleware: Middlewares.JwtAuth,
+    isPublic: false
+  },
 
 
-    // PAYMENT:-
-    // {
-    //   path: "/payment",
-    //   method: "post",
-    //   controller:paymentByUser,
-    //   authMiddleware:Middlewares.JwtAuth,
-    //   isPublic:false
-    // },
-    {
-      path: "/create-checkout-session",
-      method: "post",
-      controller:createCheckoutSession,
-      authMiddleware:Middlewares.JwtAuth,
-      isPublic:false
-    },
+
+  {
+    path: "/add-quantity",
+    method: "post",
+    controller: addQuantityInCart,
+    authMiddleware: Middlewares.JwtAuth,
+    isPublic: false
+  },
+  {
+    path: "/remove-quantity",
+    method: "post",
+    controller: removeQuantityInCart,
+    authMiddleware: Middlewares.JwtAuth,
+    isPublic: false
+  },
+  {
+    path: "/delete-cart",
+    method: "post",
+    controller: deleteCartById,
+    authMiddleware: Middlewares.JwtAuth,
+    isPublic: false
+  },
+
+
+  // PAYMENT:-
+  // {
+  //   path: "/payment",
+  //   method: "post",
+  //   controller:paymentByUser,
+  //   authMiddleware:Middlewares.JwtAuth,
+  //   isPublic:false
+  // },
+  {
+    path: "/create-checkout-session",
+    method: "post",
+    controller: createCheckoutSession,
+    authMiddleware: Middlewares.JwtAuth,
+    isPublic: false
+  },
 
   // {
   //   path: "/logout",
@@ -186,10 +199,10 @@ export default [
     // isEncrypt: false
   },
   {
-    path:'/users',
-    method:'get',
-    controller:getAllUsers,
-    isPublic:true,
+    path: '/users',
+    method: 'get',
+    controller: getAllUsers,
+    isPublic: true,
     // isEncrypt: false
   }
 ];

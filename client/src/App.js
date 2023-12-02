@@ -38,8 +38,6 @@ const SupportView = lazy(() => import("./views/pages/Support"))
 const BlogView = lazy(() => import("./views/blog/Blog"))
 const BlogDetailView = lazy(() => import("./views/blog/Detail"))
 
-
-
 function App() {
   return (
     <BrowserRouter>

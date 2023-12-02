@@ -27,6 +27,24 @@ const CardProductList = (props) => {
 
   }
 
+  const setFavouriteHandler = async (productData) => {
+    try {
+      debugger
+      const {data} = await axios.post('http://localhost:3003/user/add-favourite',{
+        productId:productData._id
+      },{
+        headers:{
+          env:'test',
+          'Authorization':localStorage.getItem('JwtToken')
+        }
+      })
+  
+      if(data) toast.success(data.message)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="card">
       <div className="row g-0" >
@@ -114,6 +132,7 @@ const CardProductList = (props) => {
                 type="button"
                 className="btn btn-sm btn-outline-secondary"
                 title="Add to wishlist"
+                onClick={()=>setFavouriteHandler(product)}
               >
                 <i className="bi bi-heart-fill" />
               </button>

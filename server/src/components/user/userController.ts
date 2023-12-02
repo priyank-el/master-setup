@@ -14,6 +14,7 @@ import path from "path"
 import Product from "../admin/models/productModel"
 import Cart from "./models/cartModel"
 import Payment from "./models/PaymentModel"
+import FavouriteProduct from "./models/FavouriteProductModel"
 
 const { ObjectId } = mongoose.Types
 
@@ -239,6 +240,19 @@ export const productById = async (req: Request, res: Response) => {
  } catch (error) {
   commonUtils.sendError(req,res,error,401)
  }
+}
+
+export const addToFavourite = async (req: Request, res: Response) => {
+  const productId = new ObjectId(req.body.productId)
+  const userId = new ObjectId(req.app.locals.user.user._id)
+
+  try {
+    await FavouriteProduct.create({productId,userId})
+  
+    commonUtils.sendSuccess(req,res,{message:'product added as favourite.'},200)
+  } catch (error) {
+    commonUtils.sendError(req,res,error,401)
+  }
 }
 
 // CART :-
