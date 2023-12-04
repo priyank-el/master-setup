@@ -58,8 +58,8 @@ const CartView = () => {
     try {
       setLoading(true)
       const { data } = await axios.post('http://localhost:3003/user/add-quantity', {
-        cartId: product._id,
-        productId: product.product._id,
+        cartId: product?._id,
+        productId: product.product?._id,
         currentQuantity: product.numberOfProducts
       }, {
         headers: {
@@ -81,7 +81,7 @@ const CartView = () => {
     try {
       setLoading(true)
       const { data } = await axios.post('http://localhost:3003/user/remove-quantity', {
-        cartId: product._id,
+        cartId: product?._id,
         // productId: product.product._id,
         currentQuantity: product.numberOfProducts
       }, {
@@ -105,7 +105,7 @@ const CartView = () => {
     try {
       debugger
       const { data } = await axios.post(`http://localhost:3003/user/delete-cart`, {
-        cartId: productData._id
+        cartId: productData?._id
       }, {
         headers: {
           env: 'test',
@@ -192,8 +192,8 @@ const CartView = () => {
                                 />
                               </div>
                               <div className="col">
-                                <Link to={`/product-detail?productId=${product.product._id}`} className="text-decoration-none">
-                                  {product.product.productName}
+                                <Link to={`/product-detail?productId=${product.product?._id}`} className="text-decoration-none">
+                                  {product?.product?.productName}
                                 </Link>
                                 <p className="small text-muted">
                                   {

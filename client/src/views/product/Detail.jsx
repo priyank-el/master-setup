@@ -2,7 +2,7 @@ import { lazy, useEffect, useState } from "react";
 import { data } from "../../data";
 import { useLocation } from 'react-router-dom'
 import axios from "axios";
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 const CardFeaturedProduct = lazy(() =>
   import("../../components/card/CardFeaturedProduct")
 );
@@ -26,6 +26,8 @@ const ProductDetailView = () => {
 
   const [productDetail, setProductDetail] = useState({})
   const [mainImage, setMainImage] = useState('')
+  const discount = productDetail.discount
+  const afterDiscountPrice = productDetail.price - discount
 
   useEffect(() => {
     fetchProductData()
@@ -223,35 +225,24 @@ const ProductDetailView = () => {
                   <button className="btn btn-sm btn-dark p-2 me-2"></button>
                 </dd>
               </dl>
-
-              <div className="mb-3">
-                <span className="fw-bold h5 me-2">$1900</span>
-                <del className="small text-muted me-2">$2000</del>
-                <span className="rounded p-1 bg-warning  me-2 small">
-                  -$100
-                </span>
-              </div>
+              {
+                discount
+                  ?
+                  <div className="mb-3">
+                    <span className="fw-bold h5 me-2">${afterDiscountPrice}</span>
+                    <del className="small text-muted me-2">${productDetail.price}</del>
+                    <span className="rounded p-1 bg-warning  me-2 small">
+                      -${discount}
+                    </span>
+                  </div>
+                  
+                  :
+                  <div className="mb-3">
+                    <span className="fw-bold h5 me-2">${afterDiscountPrice}</span>
+                  </div>
+                }
               <div className="mb-3">
                 <div className="d-inline float-start me-2">
-                  {/* <div className="input-group input-group-sm mw-140">
-                    <button
-                      className="btn btn-primary text-white"
-                      type="button"
-                    >
-                      <i className="bi bi-dash-lg"></i>
-                    </button>
-                    <input
-                      type="text"
-                      className="form-control"
-                      defaultValue="1"
-                    />
-                    <button
-                      className="btn btn-primary text-white"
-                      type="button"
-                    >
-                      <i className="bi bi-plus-lg"></i>
-                    </button>
-                  </div> */}
                 </div>
                 <button
                   type="button"

@@ -569,6 +569,7 @@ const fetchAllProducts = async (req: Request, res: Response) => {
           'brand':'$brand',
           'price':1,
           'ratings':1,
+          'discount':1,
           'numberOfProducts':1
         }
       }

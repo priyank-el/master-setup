@@ -6,7 +6,7 @@ const multer = require("multer");
 
 const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
     console.log("function called -> ");
-    console.log(req.file)
+    // console.log(req.file)
 
     const { type } = req.params
     let destination = "./uploads/images"

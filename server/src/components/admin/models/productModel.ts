@@ -57,6 +57,10 @@ const productSchema = new mongoose.Schema({
         default:1,
         required:true,
     },
+    discount:{
+        type:Number,
+        default:0,
+    },
     isInStock:{
         type:Boolean,
         enum:[0,1],
